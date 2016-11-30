@@ -65,6 +65,10 @@ namespace ASPForum.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nazwa")]
+        public string Login { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

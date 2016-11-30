@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,15 @@ namespace ASPForum.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Login { get; set; }
+        public int Rank { get; set; }
+        public string Avatar { get; set; }
+        public string Privileges { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -28,6 +38,116 @@ namespace ASPForum.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Message> Messeges { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Friends> Friends { get; set; }
+    }
+    public class IdentityManager
+    {
+        public RoleManager<IdentityRole> LocalRoleManager
+        {
+            get
+            {
+                return new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+            }
+        }
+
+
+        public UserManager<ApplicationUser> LocalUserManager
+        {
+            get
+            {
+                return new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            }
+        }
+
+
+        public ApplicationUser GetUserByID(string userID)
+        {
+            ApplicationUser user = null;
+            UserManager<ApplicationUser> um = this.LocalUserManager;
+
+            user = um.FindById(userID);
+
+            return user;
+        }
+
+
+        public ApplicationUser GetUserByName(string email)
+        {
+            ApplicationUser user = null;
+            UserManager<ApplicationUser> um = this.LocalUserManager;
+
+            user = um.FindByEmail(email);
+
+            return user;
+        }
+
+
+        public bool RoleExists(string name)
+        {
+            var rm = LocalRoleManager;
+
+            return rm.RoleExists(name);
+        }
+
+
+        public bool CreateRole(string name)
+        {
+            var rm = LocalRoleManager;
+            var idResult = rm.Create(new IdentityRole(name));
+
+            return idResult.Succeeded;
+        }
+
+
+        public bool CreateUser(ApplicationUser user, string password)
+        {
+            var um = LocalUserManager;
+            var idResult = um.Create(user, password);
+
+            return idResult.Succeeded;
+        }
+
+
+        public bool AddUserToRole(string userId, string roleName)
+        {
+            var um = LocalUserManager;
+            var idResult = um.AddToRole(userId, roleName);
+
+            return idResult.Succeeded;
+        }
+
+
+        public bool AddUserToRoleByUsername(string username, string roleName)
+        {
+            var um = LocalUserManager;
+
+            string userID = um.FindByName(username).Id;
+            var idResult = um.AddToRole(userID, roleName);
+
+            return idResult.Succeeded;
+        }
+
+
+        public void ClearUserRoles(string userId)
+        {
+            var um = LocalUserManager;
+            var user = um.FindById(userId);
+            var currentRoles = new List<IdentityUserRole>();
+
+            currentRoles.AddRange(user.Roles);
+
+            foreach (var role in currentRoles)
+            {
+                um.RemoveFromRole(userId, role.RoleId);
+            }
         }
     }
 }

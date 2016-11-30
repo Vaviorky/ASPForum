@@ -151,7 +151,7 @@ namespace ASPForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Login , Email = model.Email, Avatar = "/Content/Images/defaultavatar.jpg"};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
