@@ -14,6 +14,8 @@ namespace ASPForum.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual ICollection<ApplicationUser> Moderators { get; set; }
+
 
     }
 }

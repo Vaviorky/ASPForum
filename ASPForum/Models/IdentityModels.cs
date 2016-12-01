@@ -26,6 +26,7 @@ namespace ASPForum.Models
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Category> ModeratedCategories { get; set; }
 
     }
 
