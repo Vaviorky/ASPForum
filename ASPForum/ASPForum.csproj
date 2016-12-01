@@ -199,26 +199,14 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\ThreadsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201611301548302_InitialCreate.cs" />
-    <Compile Include="Migrations\201611301548302_InitialCreate.Designer.cs">
-      <DependentUpon>201611301548302_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611301928414_database.cs" />
-    <Compile Include="Migrations\201611301928414_database.Designer.cs">
-      <DependentUpon>201611301928414_database.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611302024395_database1.cs" />
-    <Compile Include="Migrations\201611302024395_database1.Designer.cs">
-      <DependentUpon>201611302024395_database1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612011601340_moderator.cs" />
-    <Compile Include="Migrations\201612011601340_moderator.Designer.cs">
-      <DependentUpon>201612011601340_moderator.cs</DependentUpon>
+    <Compile Include="Migrations\201612011658010_init.cs" />
+    <Compile Include="Migrations\201612011658010_init.Designer.cs">
+      <DependentUpon>201612011658010_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -309,25 +297,11 @@
     <Content Include="Views\Subjects\Edit.cshtml" />
     <Content Include="Views\Subjects\Index.cshtml" />
     <Content Include="Views\Categories\Subjects_partial.cshtml" />
-    <Content Include="Views\Posts\Create.cshtml" />
-    <Content Include="Views\Posts\Delete.cshtml" />
-    <Content Include="Views\Posts\Details.cshtml" />
-    <Content Include="Views\Posts\Edit.cshtml" />
-    <Content Include="Views\Posts\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611301548302_InitialCreate.resx">
-      <DependentUpon>201611301548302_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611301928414_database.resx">
-      <DependentUpon>201611301928414_database.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611302024395_database1.resx">
-      <DependentUpon>201611302024395_database1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612011601340_moderator.resx">
-      <DependentUpon>201612011601340_moderator.cs</DependentUpon>
-    </EmbeddedResource>
+    <Content Include="Views\Threads\Create.cshtml" />
+    <Content Include="Views\Threads\Delete.cshtml" />
+    <Content Include="Views\Threads\Details.cshtml" />
+    <Content Include="Views\Threads\Edit.cshtml" />
+    <Content Include="Views\Threads\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -336,6 +310,12 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201612011658010_init.resx">
+      <DependentUpon>201612011658010_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

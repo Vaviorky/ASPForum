@@ -21,6 +21,6 @@ namespace ASPForum.Models
         [Required]
         public virtual Subject Subject { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
-        public virtual ICollection<Post> Comments { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }

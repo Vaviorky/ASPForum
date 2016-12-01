@@ -14,6 +14,6 @@ namespace ASPForum.Models
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public virtual Thread Post { get; set; }
+        public virtual Thread Thread { get; set; }
     }
 }

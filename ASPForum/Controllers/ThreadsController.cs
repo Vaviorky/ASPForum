@@ -10,107 +10,107 @@ using ASPForum.Models;
 
 namespace ASPForum.Controllers
 {
-    public class PostsController : Controller
+    public class ThreadsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Posts
+        // GET: Threads
         public ActionResult Index()
         {
             return View(db.Posts.ToList());
         }
 
-        // GET: Posts/Details/5
+        // GET: Threads/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread post = db.Posts.Find(id);
-            if (post == null)
+            Thread thread = db.Posts.Find(id);
+            if (thread == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(thread);
         }
 
-        // GET: Posts/Create
+        // GET: Threads/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Posts/Create
+        // POST: Threads/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,Title,Date")] Thread post)
+        public ActionResult Create([Bind(Include = "Id,Content,Title,Date")] Thread thread)
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(post);
+                db.Posts.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(post);
+            return View(thread);
         }
 
-        // GET: Posts/Edit/5
+        // GET: Threads/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread post = db.Posts.Find(id);
-            if (post == null)
+            Thread thread = db.Posts.Find(id);
+            if (thread == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(thread);
         }
 
-        // POST: Posts/Edit/5
+        // POST: Threads/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content,Title,Date")] Thread post)
+        public ActionResult Edit([Bind(Include = "Id,Content,Title,Date")] Thread thread)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(post).State = EntityState.Modified;
+                db.Entry(thread).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(post);
+            return View(thread);
         }
 
-        // GET: Posts/Delete/5
+        // GET: Threads/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread post = db.Posts.Find(id);
-            if (post == null)
+            Thread thread = db.Posts.Find(id);
+            if (thread == null)
             {
                 return HttpNotFound();
             }
-            return View(post);
+            return View(thread);
         }
 
-        // POST: Posts/Delete/5
+        // POST: Threads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Thread post = db.Posts.Find(id);
-            db.Posts.Remove(post);
+            Thread thread = db.Posts.Find(id);
+            db.Posts.Remove(thread);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
