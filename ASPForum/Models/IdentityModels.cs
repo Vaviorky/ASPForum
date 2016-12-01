@@ -24,8 +24,8 @@ namespace ASPForum.Models
         public string Avatar { get; set; }
         public string Privileges { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Thread> Posts { get; set; }
+        public virtual ICollection<Post> Comments { get; set; }
         public virtual ICollection<Category> ModeratedCategories { get; set; }
 
     }
@@ -43,10 +43,10 @@ namespace ASPForum.Models
         }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Post> Comments { get; set; }
         public DbSet<Message> Messeges { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Thread> Posts { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<News> News { get; set; }

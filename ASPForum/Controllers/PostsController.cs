@@ -27,7 +27,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Thread post = db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,Title,Date")] Post post)
+        public ActionResult Create([Bind(Include = "Id,Content,Title,Date")] Thread post)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Thread post = db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -78,7 +78,7 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content,Title,Date")] Post post)
+        public ActionResult Edit([Bind(Include = "Id,Content,Title,Date")] Thread post)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Thread post = db.Posts.Find(id);
             if (post == null)
             {
                 return HttpNotFound();
@@ -109,7 +109,7 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
+            Thread post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
             return RedirectToAction("Index");

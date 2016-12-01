@@ -15,6 +15,6 @@ namespace ASPForum.Models
         public string Text { get; set; }
         [Required]
         public virtual Category Category { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Thread> Posts { get; set; }
     }
 }
