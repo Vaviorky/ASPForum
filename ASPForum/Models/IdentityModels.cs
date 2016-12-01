@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace ASPForum.Models
 {
@@ -47,7 +48,18 @@ namespace ASPForum.Models
         public DbSet<Post> Posts { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }
+        public DbSet<News> News { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Friends>()
+                .HasRequired(f=>f.Friend)
+                .WithOptional()
+                .WillCascadeOnDelete(false);
+        }
     }
+
     public class IdentityManager
     {
         public RoleManager<IdentityRole> LocalRoleManager

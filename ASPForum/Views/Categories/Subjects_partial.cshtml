@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ASPForum.Models.Subject>
+
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-3 subject-content">
+            <table>
+
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Title, "Index","Posts")
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Text)
+
+
+                    </td>
+                </tr>
+
+            </table>
+
+
+        </div>
+    }
+</div>
