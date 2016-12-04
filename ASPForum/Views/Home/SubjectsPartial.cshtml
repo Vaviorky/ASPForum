@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ASPForum.Models.Subject>
+
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12 subject-content">
+            <table width="100%">
+
+                <tr>
+                    <td class="col-xs-7">
+                        @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new { id = item.Id }, null) <br/>
+                        @Html.DisplayFor(modelItem => item.Text)
+                    </td>
+                    <td class="col-xs-1">
+                        123123
+                    </td>
+                    <td class="col-xs-1">
+                        555664
+                    </td>
+                    <td class="col-xs-3">
+                        sadasdas
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+        </div>
+    }
+</div>

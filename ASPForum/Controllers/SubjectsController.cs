@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -48,6 +49,9 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Text")] Subject subject)
         {
+            var errors = ModelState.Values.SelectMany(v => v.Errors);
+            ViewBag.ErrorX = errors;
+
             if (ModelState.IsValid)
             {
                 db.Subjects.Add(subject);

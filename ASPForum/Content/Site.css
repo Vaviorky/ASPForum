@@ -43,11 +43,11 @@ textarea {
 }
 .title-bar {
     background-color: #222222 !important;
-    min-height: 40px;
+    min-height: 20px;
 }
 .title-bar table{
     color: #c7c7c7;
-    font-size: 20px;
+    font-size: 15px;
     margin-top:inherit;
     margin-bottom:inherit;
     width:100%
@@ -70,7 +70,7 @@ textarea {
 .subject-content {
     background-color: rgb(232, 232, 232);
     border-radius: 5px;
-    margin:10px 10px 10px 10px;
+    margin:10px 10px 10px 0px;
 }
 
 
