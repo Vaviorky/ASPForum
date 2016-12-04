@@ -12,7 +12,7 @@ namespace ASPForum.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View();
         }
 
         public ActionResult About()
