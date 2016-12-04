@@ -14,10 +14,16 @@ namespace ASPForum.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        public ActionResult ThreadsSubject(int id)
+        {
+            return View(db.Threads.Where(t=> t.Subject.Id==id).ToList());
+        }
+
+
         // GET: Threads
         public ActionResult Index()
         {
-            return View(db.Posts.ToList());
+            return View(db.Threads.ToList());
         }
 
         // GET: Threads/Details/5
@@ -27,7 +33,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread thread = db.Posts.Find(id);
+            Thread thread = db.Threads.Find(id);
             if (thread == null)
             {
                 return HttpNotFound();
@@ -50,7 +56,7 @@ namespace ASPForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Posts.Add(thread);
+                db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +71,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread thread = db.Posts.Find(id);
+            Thread thread = db.Threads.Find(id);
             if (thread == null)
             {
                 return HttpNotFound();
@@ -96,7 +102,7 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread thread = db.Posts.Find(id);
+            Thread thread = db.Threads.Find(id);
             if (thread == null)
             {
                 return HttpNotFound();
@@ -109,8 +115,8 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Thread thread = db.Posts.Find(id);
-            db.Posts.Remove(thread);
+            Thread thread = db.Threads.Find(id);
+            db.Threads.Remove(thread);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
