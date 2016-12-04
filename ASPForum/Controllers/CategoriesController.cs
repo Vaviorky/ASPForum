@@ -126,7 +126,29 @@ namespace ASPForum.Controllers
 
         public ActionResult Subjects_partial(int id)
         {
+            ViewBag.ThreadsCount =db.Threads.Where(s => s.Subject.Category.Id == id).Count();
+            ViewBag.PostCount = db.Posts.Where(s => s.Thread.Subject.Category.Id == id).Count();
             return PartialView("Subjects_partial", db.Subjects.Where(s=>s.Category.Id==id).ToList());
+        }
+
+        public String PostCount(int id)
+        {
+            return db.Posts.Where(s => s.Thread.Subject.Id == id).Count().ToString();
+        }
+        public String ThreadsCount(int id)
+        {
+            return db.Threads.Where(s => s.Subject.Id == id).Count().ToString();
+        }
+        public String NewPost(int id)
+        {
+            //id = 1;
+            var q = db.Threads;
+            var qq = db.Threads.Where(t=>t.Subject.Id==id).OrderByDescending(t => t.Date).FirstOrDefault();
+
+            ///  DateTime? latestDate = db.Threads.Where(t => t.Subject.Id == id).Max(t => t.Date
+            if (qq != null)
+                return qq.Title.ToString() ;
+            else return "";
         }
     }
 }

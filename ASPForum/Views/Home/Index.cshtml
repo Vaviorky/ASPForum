@@ -5,46 +5,5 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="panel-group title-bar-position" id="accordion">
 
-    @foreach (var item in Model)
-    {
-        <div class="panel panel-default">
-            
-            <div class="panel-heading title-bar">
-
-
-                <table>
-                    <tr>
-                        <td class="col-xs-7">
-                            @Html.DisplayFor(model => item.Title)
-
-                        </td>
-                        <td class="col-xs-1">
-                            Wątki
-
-                        </td>
-                        <td class="col-xs-1">
-                            Posty
-
-                        </td>
-                        <td class="col-xs-3">
-                            Ostatni post
-
-                        </td>
-
-                    </tr>
-                </table>
-            </div>
-            
-            <div id="@item.Id" class="panel-body">
-                <div class="panel-body">
-
-                    @Html.Action("SubjectsPartial", "Home", new {id = item.Id})
-
-                </div>
-            </div>
-        </div>
-        <h3></h3>
-    }
-</div>
+<h4>HOME</h4>
