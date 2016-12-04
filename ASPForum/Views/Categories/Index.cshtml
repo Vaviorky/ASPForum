@@ -9,7 +9,6 @@
     @foreach (var item in Model)
     {
         <div class="panel panel-default">
-            <a data-toggle="collapse" data-parent="#accordion" href="#@item.Id">
                 <div class="panel-heading title-bar">
 
 
@@ -28,19 +27,16 @@
 
                             </td>
                             <td class="col-xs-3">
-                                Ostatni post
+                                Ostatni wątek
 
                             </td>
 
                         </tr>
                     </table>
                 </div>
-            </a>
-            <div id="@item.Id" class="panel-collapse collapse">
                 <div class="panel-body">
                     @Html.DisplayFor(model => item.Text)
-                </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding-top:0px;">
 
                     @Html.Action("Subjects_partial", "Categories", new {id = item.Id})
 
