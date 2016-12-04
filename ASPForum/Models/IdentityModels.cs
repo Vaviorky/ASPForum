@@ -43,10 +43,10 @@ namespace ASPForum.Models
         }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Post> Comments { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Message> Messeges { get; set; }
         public DbSet<Photo> Photos { get; set; }
-        public DbSet<Thread> Posts { get; set; }
+        public DbSet<Thread> Threads { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<News> News { get; set; }

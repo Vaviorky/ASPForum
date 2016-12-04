@@ -10,7 +10,8 @@
 
                 <tr>
                     <td>
-                        @Html.ActionLink(item.Title, "Index","Posts", new { id = item.Id })
+                        @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new { id = item.Id },null)
+
                     </td>
                 </tr>
                 <tr>

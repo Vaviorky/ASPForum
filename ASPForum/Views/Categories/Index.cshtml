@@ -6,27 +6,42 @@
 }
 <div class="panel-group title-bar-position" id="accordion">
 
-    @foreach (var item in Model)
-    {
+        @foreach (var item in Model)
+        {
+            
+                <div class="panel panel-default">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#@item.Id">
+                        <div class="panel-heading title-bar">
 
-        <div class="panel panel-default">
-            <div class="panel-heading title-bar">
-                <h4>
-                    <a data-toggle="collapse" data-parent="#accordion" href="#@item.Id">@Html.DisplayFor(model => item.Title)</a>
-                </h4>
-            </div>
-            <div id="@item.Id" class="panel-collapse collapse">
-                <div class="panel-body">
-                    @Html.DisplayFor(model => item.Text)
-                </div>
-                <div class="panel-body">
 
-                    @Html.Action("Subjects_partial", "Categories", new { id = @item.Id })
 
-                </div>
-            </div>
-        </div>
-    }
+
+                            <table>
+                                <tr>
+                                    <td style="">
+@Html.DisplayFor(model => item.Title)
+                                    </td>
+                                    <td class="title-bar-stats">
+                                        <p>threads count</p>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                        <div id="@item.Id" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                @Html.DisplayFor(model => item.Text)
+                            </div>
+                            <div class="panel-body">
+
+                                @Html.Action("Subjects_partial", "Categories", new { id = @item.Id })
+
+                            </div>
+                        </div>
+</div>
+                
+                }
 </div>
 
 
