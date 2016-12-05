@@ -1,0 +1,21 @@
+﻿@model IEnumerable<ASPForum.Models.Friends>
+
+
+@Html.ActionLink("Nowa wiadomosc", "Create","Messages",null, new { @class = "btn btn-default" })
+@Html.ActionLink("Dodaj znajomego", "Create", "Friends", null, new { @class = "btn btn-default" })
+
+<table class="table">
+    <tr>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Usun", "Delete", "Friends", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>  
