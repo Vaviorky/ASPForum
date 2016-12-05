@@ -73,7 +73,7 @@ namespace ASPForum.Controllers
             {
                 db.Threads.Add(thread);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ThreadsSubject", new {id = thread.SubjectId});
             }
             catch (DbEntityValidationException ex)
             {
@@ -123,7 +123,7 @@ namespace ASPForum.Controllers
             {
                 db.Entry(thread).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
             }
             return View(thread);
         }
@@ -151,7 +151,7 @@ namespace ASPForum.Controllers
             Thread thread = db.Threads.Find(id);
             db.Threads.Remove(thread);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
         }
 
         protected override void Dispose(bool disposing)
