@@ -5,17 +5,19 @@
 @Html.ActionLink("Dodaj znajomego", "Create", "Friends", null, new { @class = "btn btn-default" })
 
 <table class="table">
-    <tr>
-        <th></th>
-    </tr>
 
     @foreach (var item in Model)
     {
-        <tr>
+        <tr style="border-bottom:1px solid black;">
             <td>
-                @Html.ActionLink("Usun", "Delete", "Friends", new { id = item.Id })
+                @item.Friend.UserName
             </td>
-        </tr>
+            <td>
+                @Html.ActionLink("Usun", "Delete", "Friends",new { id = item.Id},null)
+            </td>
+           
+        </tr >
+        
     }
 
 </table>  
