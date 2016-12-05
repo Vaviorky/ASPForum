@@ -14,8 +14,9 @@ namespace ASPForum.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public string Source { get; set; }
+        public int ThreadId { get; set; }
         [Required]
-        public virtual Thread Post { get; set; }
+        public virtual Thread Thread { get; set; }
 
     }
 }

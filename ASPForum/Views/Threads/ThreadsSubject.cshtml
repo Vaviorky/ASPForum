@@ -8,64 +8,66 @@
 <h2>thread</h2>
 
 <p>
-    @Html.ActionLink("Stwórz nowy wątek", "Create")
+   @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { subjectId = Url.RequestContext.RouteData.Values["id"]}, null)
 </p>
-
+@Url.RequestContext.RouteData.Values["id"]<!---->
 <div class="panel-group title-bar-position" id="accordion">
 
     <div class="panel panel-default">
-        
-    </div>
-    <div class="panel-heading title-bar">
-        <table>
-            <tr>
-                <td class="col-xs-7">
-                    @Html.DisplayNameFor(model => model.Title)
 
-                </td>
-                <td class="col-xs-1">
-                    Odpowiedzi
 
-                </td>
-                <td class="col-xs-1">
-                    Wyświetlone
+        <div class="panel-heading title-bar">
+            <table width="100%">
+                <tr>
+                    <td class="col-xs-7">
+                        @Html.DisplayNameFor(model => model.Title)
 
-                </td>
-                <td class="col-xs-3">
-                    Ostatni post
-                </td>
+                    </td>
+                    <td class="col-xs-1">
+                        Odpowiedzi
 
-            </tr>
+                    </td>
+                    <td class="col-xs-1">
+                        Wyświetlone
 
-        </table>
-    </div>
-    <div class="panel-body" style="padding-top:0px;">
-        @foreach (var thread in Model)
-        {
+                    </td>
+                    <td class="col-xs-3">
+                        Ostatni post
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+        <div class="panel-body" style="padding-top:0px; padding-bottom: 0px;">
             <div class="col-md-12 subject-content">
                 <table width="100%">
+                    @foreach (var thread in Model)
+                    {
+                        <tr>
+                            <td class="col-xs-7">
+                                <b>@thread.Title</b><br/>
+                                Przez: @thread.User.UserName, @thread.Date 
+                            </td>
+                            <td class="col-xs-1">
+                                bb
+                            </td>
+                            <td class="col-xs-1">
+                                cc
+                            </td>
+                            <td class="col-xs-3">
+                                dd
+                            </td>
+                        </tr>
 
-                    <tr>
-                        <td class="col-xs-7">
-                           aa
-                        </td>
-                        <td class="col-xs-1">
-                            bb
-                        </td>
-                        <td class="col-xs-1">
-                            cc
-                        </td>
-                        <td class="col-xs-3">
-                           dd
-                        </td>
-                    </tr>
+                    }
                 </table>
-
             </div>
-        }
+        </div>
     </div>
-</div>
 
+</div>
+<br />
 <table class="table">
     <tr>
         <th>
