@@ -9,7 +9,6 @@ namespace ASPForum.Controllers
 {
     public class HomeController : Controller
     {
-        ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
             return View();
@@ -27,10 +26,6 @@ namespace ASPForum.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-        public ActionResult SubjectsPartial(int id)
-        {
-            return PartialView("SubjectsPartial", db.Subjects.Where(s => s.Category.Id == id).ToList());
         }
     }
 }
