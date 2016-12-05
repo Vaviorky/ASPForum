@@ -31,13 +31,13 @@
         </dd>
         @*
             Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-             
+
              See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-             
+
              Uncomment the following block after you have set up two-factor authentication
         *@
-        @*  
+        @*
             <dt>Phone Number:</dt>
             <dd>
                 @(Model.PhoneNumber ?? "None")
@@ -83,24 +83,35 @@
                         </text>
                     }
                 }*@'
-            
+
 
         </dd>
         <dd>
-            <img src="@Model.Avatar"/>
+            <img src="@Model.Avatar" width="300" height="300" />
+            <p> @Model.Avatar</p>
         </dd>
         <dd>
             @using (Html.BeginForm("FileUpload",
-                        "Manage",
-                        FormMethod.Post,
-                        new { enctype = "multipart/form-data" }))
+                "Manage",
+                FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
             {
                 <label for="file">Upload Image:</label>
                 <input type="file" name="file" id="file" /><br><br>
                 <input type="submit" value="Upload Image" />
                 <br><br>
-                @ViewBag.Message
+
             }
         </dd>
+
     </dl>
+
+    @if (ViewBag.User == null)
+    {
+        <p>null</p>
+    }
+    else
+    {
+        @ViewBag.User
+    }
 </div>
