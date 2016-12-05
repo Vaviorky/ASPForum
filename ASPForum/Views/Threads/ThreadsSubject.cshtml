@@ -8,7 +8,7 @@
 <h2>thread</h2>
 
 <p>
-   @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { subjectId = Url.RequestContext.RouteData.Values["id"]}, null)
+   @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"]}, null)
 </p>
 @Url.RequestContext.RouteData.Values["id"]<!---->
 <div class="panel-group title-bar-position" id="accordion">

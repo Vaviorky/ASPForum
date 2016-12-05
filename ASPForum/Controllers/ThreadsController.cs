@@ -48,9 +48,9 @@ namespace ASPForum.Controllers
         }
 
         // GET: Threads/Create
-        public ActionResult Create(int subjectId)
+        public ActionResult Create(int id)
         {
-            ViewBag.SubjectId = subjectId;
+            ViewBag.SubjectId = id;
             return View();
         }
 
@@ -61,14 +61,14 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Thread thread)
         {
+           // throw new Exception(thread.SubjectId.ToString());
             thread.Date = DateTime.Now;
             /* if (!ModelState.IsValid)
              {
                  return View(thread);
              }*/
-            //var subject = db.Subjects.FirstOrDefault(x => x.Id == thread.);
-            var userid = User.Identity.GetUserId();
-            var user = db.Users.FirstOrDefault(x => x.Id == userid);
+            thread.UserId = User.Identity.GetUserId();
+            
             try
             {
                 db.Threads.Add(thread);
