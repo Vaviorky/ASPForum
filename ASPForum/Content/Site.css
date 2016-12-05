@@ -28,37 +28,39 @@ textarea {
     <css - Categories>
 */
 .title-bar-position {
-  
-    padding-top:20px;
+    padding-top: 20px;
 }
-.title-bar-stats{
+
+.title-bar-stats {
     color: #c7c7c7;
     font-size: 15px;
-    width:20%;
-    float:right;
-    text-align:center;
-    border-color:white;
+    width: 20%;
+    float: right;
+    text-align: center;
+    border-color: white;
     border-left: solid;
-
 }
+
 .title-bar {
     background-color: #222222 !important;
     min-height: 20px;
 }
-.title-bar table{
-    color: #c7c7c7;
-    font-size: 15px;
-    margin-top:inherit;
-    margin-bottom:inherit;
-    width:100%
-}
 
-.title-bar a:hover {
-    text-decoration: none;
-}
-.title-bar a{
-    color:inherit;
-}
+    .title-bar table {
+        color: #c7c7c7;
+        font-size: 15px;
+        margin-top: inherit;
+        margin-bottom: inherit;
+        width: 100%;
+    }
+
+    .title-bar a:hover {
+        text-decoration: none;
+    }
+
+    .title-bar a {
+        color: inherit;
+    }
 
 /*
     </css - Categories>
@@ -68,9 +70,11 @@ textarea {
     <css-Subjects>
 */
 .subject-content {
-    background-color: rgb(232, 232, 232);
-    border-radius: 5px;
-    margin:10px 10px 10px 0px;
+    background-color: rgb(212,225,236);
+    padding: 10px;
+    align-content: center;
+    border-bottom: 1px solid#000000;
+
 }
 
 

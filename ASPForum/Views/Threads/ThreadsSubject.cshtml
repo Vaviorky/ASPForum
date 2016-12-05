@@ -1,5 +1,4 @@
-﻿
-@model IEnumerable<ASPForum.Models.Thread>
+﻿@model IEnumerable<ASPForum.Models.Thread>
 
 @{
     ViewBag.Title = "Index";
@@ -9,34 +8,89 @@
 <h2>thread</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Stwórz nowy wątek", "Create")
 </p>
+
+<div class="panel-group title-bar-position" id="accordion">
+
+    <div class="panel panel-default">
+        
+    </div>
+    <div class="panel-heading title-bar">
+        <table>
+            <tr>
+                <td class="col-xs-7">
+                    @Html.DisplayNameFor(model => model.Title)
+
+                </td>
+                <td class="col-xs-1">
+                    Odpowiedzi
+
+                </td>
+                <td class="col-xs-1">
+                    Wyświetlone
+
+                </td>
+                <td class="col-xs-3">
+                    Ostatni post
+                </td>
+
+            </tr>
+
+        </table>
+    </div>
+    <div class="panel-body" style="padding-top:0px;">
+        @foreach (var thread in Model)
+        {
+            <div class="col-md-12 subject-content">
+                <table width="100%">
+
+                    <tr>
+                        <td class="col-xs-7">
+                           aa
+                        </td>
+                        <td class="col-xs-1">
+                            bb
+                        </td>
+                        <td class="col-xs-1">
+                            cc
+                        </td>
+                        <td class="col-xs-3">
+                           dd
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        }
+    </div>
+</div>
+
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)<br />
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
+
         </th>
         <th></th>
     </tr>
 
     @foreach (var item in Model)
-    {
+            {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)<br />
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Content)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
+            <td></td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |

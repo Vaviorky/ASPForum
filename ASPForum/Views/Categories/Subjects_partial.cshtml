@@ -9,7 +9,6 @@
                 <tr>
                     <td class="col-xs-7">
                         @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new {id = item.Id}, null) <br/>
-                        @Html.DisplayFor(modelItem => item.Text)
                     </td>
                     <td class="col-xs-1">
                         @Html.Action("ThreadsCount", "Categories", new {id = item.Id})

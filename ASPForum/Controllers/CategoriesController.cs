@@ -141,13 +141,10 @@ namespace ASPForum.Controllers
         }
         public string NewPost(int id)
         {
-            //id = 1;
-            var q = db.Threads;
-            var qq = db.Threads.Where(t=>t.Subject.Id==id).OrderByDescending(t => t.Date).FirstOrDefault();
-
+            var post = db.Threads.Where(t=>t.Subject.Id==id).OrderByDescending(t => t.Date).FirstOrDefault();
             ///  DateTime? latestDate = db.Threads.Where(t => t.Subject.Id == id).Max(t => t.Date
-            if (qq != null)
-                return qq.Title.ToString() ;
+            if (post != null)
+                return post.Title.ToString();
             else return "";
         }
     }

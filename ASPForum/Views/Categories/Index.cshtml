@@ -9,39 +9,37 @@
     @foreach (var item in Model)
     {
         <div class="panel panel-default">
-                <div class="panel-heading title-bar">
+            <div class="panel-heading title-bar">
 
 
-                    <table>
-                        <tr>
-                            <td class="col-xs-7">
-                                @Html.DisplayFor(model => item.Title)
+                <table>
+                    <tr>
+                        <td class="col-xs-7">
+                            @Html.DisplayFor(model => item.Title)
 
-                            </td>
-                            <td class="col-xs-1">
-                                Wątki
+                        </td>
+                        <td class="col-xs-1">
+                            Wątki
 
-                            </td>
-                            <td class="col-xs-1">
-                                Posty
+                        </td>
+                        <td class="col-xs-1">
+                            Posty
 
-                            </td>
-                            <td class="col-xs-3">
-                                Ostatni wątek
+                        </td>
+                        <td class="col-xs-3">
+                            Ostatni post
+                        </td>
 
-                            </td>
-
-                        </tr>
-                    </table>
-                </div>
-                <div class="panel-body">
-                    @Html.DisplayFor(model => item.Text)
-                <div class="panel-body" style="padding-top:0px;">
-
-                    @Html.Action("Subjects_partial", "Categories", new {id = item.Id})
-
-                </div>
+                    </tr>
+                </table>
             </div>
+
+            <div class="panel-body" style="padding-top:0px; padding-bottom: 0px;">
+
+                @Html.Action("Subjects_partial", "Categories", new { id = item.Id })
+
+            </div>
+
         </div>
     }
 </div>
@@ -71,9 +69,9 @@
                 @Html.DisplayFor(modelItem => item.Text)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
         </tr>
     }

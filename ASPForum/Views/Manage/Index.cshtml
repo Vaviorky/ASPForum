@@ -9,11 +9,39 @@
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#openFile').on('change', function (evt) {
-                console.log(this.files[0].size);
+        $(document)
+            .ready(function () {
+                $('#openFile')
+                    .on('change',
+                        function () {
+                            
+                            var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
+                            console.log(filename);
+                            var extension = filename.replace(/^.*\./, '');
+
+                            if (extension === filename) {
+                                extension = '';
+                            } else {
+                                extension = extension.toLowerCase();
+                            }
+                            console.log(extension);
+                            switch (extension) {
+                                case 'jpg':
+                                    console.log("asdasdasda");
+                                    break;
+                                case 'jpeg':
+                                    break;
+                                case 'png':
+                                    break;
+                                default:
+                                    $('submit').prop('disabled', true);
+                            }
+                            var size = this.files[0].size;
+                            if (size > 5) {
+                                $('p[id=error]').val("ERROR");
+                            }
+                        });
             });
-        });
     </script>
 
 }
@@ -100,18 +128,19 @@
 
         </dd>
         <dd>
-            <img src="@Model.Avatar" width="300" height="300" />
-            <p> @Model.Avatar</p>
+            <img src="@Model.Avatar" />
         </dd>
         <dd>
             @using (Html.BeginForm("FileUpload",
                 "Manage",
                 FormMethod.Post,
-                new { enctype = "multipart/form-data" }))
+                new { enctype = "multipart/form-data", id = "imageform" }))
             {
-                <label for="file">Wgraj nowy awatar:</label>
-                <input type="file" name="file" id="openFile" /><br><br>
-                <input type="submit" value="Wyślij" />
+                <label for="openFile">Wgraj nowy awatar:</label>
+                <input type="file" name="file" id="openFile" accept="image/*" /><br><br>
+
+                <input type="submit" value="Wyślij" id="submit" />
+                <h3 id="error"></h3>
                 <br><br>
 
             }
