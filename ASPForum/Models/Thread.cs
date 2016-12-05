@@ -16,10 +16,10 @@ namespace ASPForum.Models
         public string Title { get; set; }
 
         public DateTime Date { get; set; }
-
+        public string UserId { get; set; }
         [Required]
         public virtual ApplicationUser User { get; set; }
-
+        public int SubjectId { get; set; }
         [Required]
         public virtual Subject Subject { get; set; }
 

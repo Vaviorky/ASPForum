@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers
 {
@@ -14,9 +19,10 @@ namespace ASPForum.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+
         public ActionResult ThreadsSubject(int id)
         {
-            return View(db.Threads.Where(t=> t.Subject.Id==id).ToList());
+            return View(db.Threads.Where(t => t.Subject.Id == id).ToList());
         }
 
 
@@ -42,8 +48,9 @@ namespace ASPForum.Controllers
         }
 
         // GET: Threads/Create
-        public ActionResult Create()
+        public ActionResult Create(int subjectId)
         {
+            ViewBag.SubjectId = subjectId;
             return View();
         }
 
@@ -52,15 +59,41 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Content,Title,Date")] Thread thread)
+        public ActionResult Create(Thread thread)
         {
-            if (ModelState.IsValid)
+            thread.Date = DateTime.Now;
+            /* if (!ModelState.IsValid)
+             {
+                 return View(thread);
+             }*/
+            //var subject = db.Subjects.FirstOrDefault(x => x.Id == thread.);
+            var userid = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(x => x.Id == userid);
+            try
             {
                 db.Threads.Add(thread);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            catch (DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
 
+                foreach (var failure in ex.EntityValidationErrors)
+                {
+                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
+                    foreach (var error in failure.ValidationErrors)
+                    {
+                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
+                        sb.AppendLine();
+                    }
+                }
+
+                throw new DbEntityValidationException(
+                    "Entity Validation Failed - errors follow:\n" +
+                    sb.ToString(), ex
+                ); // Add the original exception as the innerException
+            }
             return View(thread);
         }
 

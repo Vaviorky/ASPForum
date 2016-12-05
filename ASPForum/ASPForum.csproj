@@ -86,6 +86,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -209,6 +210,10 @@
     <Compile Include="Migrations\201612011658010_init.Designer.cs">
       <DependentUpon>201612011658010_init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612052210430_IdAdded.cs" />
+    <Compile Include="Migrations\201612052210430_IdAdded.Designer.cs">
+      <DependentUpon>201612052210430_IdAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -322,6 +327,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612011658010_init.resx">
       <DependentUpon>201612011658010_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612052210430_IdAdded.resx">
+      <DependentUpon>201612052210430_IdAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
