@@ -15,7 +15,8 @@ namespace ASPForum.Models
         public string Text { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        public virtual ApplicationUser User_id { get; set; }
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
     }
 }
