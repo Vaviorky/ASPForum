@@ -15,13 +15,9 @@ namespace ASPForum.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public DateTime Date { get; set; }
-        [Required]
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
-       // [Required]
         public int ThreadId { get; set; }
-        [ForeignKey("ThreadId")]
         public virtual Thread Thread { get; set; }
     }
 }

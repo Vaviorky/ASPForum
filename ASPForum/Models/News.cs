@@ -16,9 +16,7 @@ namespace ASPForum.Models
         public string Text { get; set; }
         [Required]
         public DateTime Date { get; set; }
-        [Required]
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
     }

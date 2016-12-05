@@ -14,9 +14,7 @@ namespace ASPForum.Models
         [StringLength(70)]
         public string Title { get; set; }
         public string Text { get; set; }
-        [Required]
         public int CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
         public virtual ICollection<Thread> Threads { get; set; }
     }

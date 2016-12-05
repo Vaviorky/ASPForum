@@ -17,13 +17,9 @@ namespace ASPForum.Models
         public string Title { get; set; }
 
         public DateTime Date { get; set; }
-        [Required]
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
-        [Required]
         public int SubjectId { get; set; }
-        [ForeignKey("SubjectId")]
         public virtual Subject Subject { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
