@@ -128,8 +128,8 @@ namespace ASPForum.Controllers
         public ActionResult Options()
         {
             var id = User.Identity.Name;
-              var qq=  db.Users.Where(u => u.Id == id).Select(u=>u.Id);
-            //var q = db.Friends.Where(f=>f.User.Id==qq).ToList();
+              var qq=  db.Users.Where(u => u.Id == id).Select(u=>u.Id).ToString();
+            var q = db.Friends.Where(f=>f.User.Id==qq).ToList();
             return PartialView("Options",q);
         }
     }
