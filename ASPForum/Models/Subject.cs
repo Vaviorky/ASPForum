@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,6 @@ namespace ASPForum.Models
         public string Title { get; set; }
         public string Text { get; set; }
         public int CategoryId { get; set; }
-        [Required]
         public virtual Category Category { get; set; }
         public virtual ICollection<Thread> Threads { get; set; }
     }

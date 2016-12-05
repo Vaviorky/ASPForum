@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ASPForum.Models
 {
@@ -17,12 +18,9 @@ namespace ASPForum.Models
 
         public DateTime Date { get; set; }
         public string UserId { get; set; }
-        [Required]
         public virtual ApplicationUser User { get; set; }
         public int SubjectId { get; set; }
-        [Required]
         public virtual Subject Subject { get; set; }
-
         public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
