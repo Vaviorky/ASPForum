@@ -342,7 +342,7 @@ namespace ASPForum.Controllers
                     var filename = user.UserName + "-avatar.jpg";
                     var path = Path.Combine(Server.MapPath("~/Content/Images"), filename);
 
-                    var resizedIMG = ResizeImage(img, 64, 64);
+                    var resizedIMG = ResizeImage(img, 100, 100);
                     resizedIMG.Save(path);
                    // file.SaveAs(path);
 

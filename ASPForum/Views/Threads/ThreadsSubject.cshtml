@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<ASPForum.Models.Thread>
 
 @{
-    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>thread</h2>
+<h2>@ViewBag.ThreadTitle</h2>
 
 <p>
-   @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"]}, null)
+    @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, null)
 </p>
 <div class="panel-group title-bar-position" id="accordion">
 
@@ -43,10 +42,11 @@
                 <table width="100%">
                     @foreach (var thread in Model)
                     {
+                        ViewBag.Title = "Zobacz temat - " + thread.Subject.Title;
                         <tr>
                             <td class="col-xs-7">
-                                <b style="font-size: 19px">@thread.Title</b><br/>
-                                Przez: @thread.User.UserName, @thread.Date 
+                                <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new { id = thread.Id }, null)</b><br />
+                                Przez: @thread.User.UserName, @thread.Date
                             </td>
                             <td class="col-xs-1">
                                 bb
@@ -101,3 +101,4 @@
     }
 
 </table>
+

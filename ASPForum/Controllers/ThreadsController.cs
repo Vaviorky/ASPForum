@@ -22,7 +22,10 @@ namespace ASPForum.Controllers
 
         public ActionResult ThreadsSubject(int id)
         {
-            return View(db.Threads.Where(t => t.Subject.Id == id).ToList());
+            var threads = db.Threads.Where(t => t.Subject.Id == id).ToList();
+            var thread = threads.FirstOrDefault();
+            ViewBag.ThreadTitle = thread.Subject.Title;
+            return View(threads);
         }
 
 
@@ -61,12 +64,9 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Thread thread)
         {
-           // throw new Exception(thread.SubjectId.ToString());
+          
             thread.Date = DateTime.Now;
-            /* if (!ModelState.IsValid)
-             {
-                 return View(thread);
-             }*/
+      
             thread.UserId = User.Identity.GetUserId();
             
             try
