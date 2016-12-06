@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
+using
+using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers
 {
@@ -127,10 +129,7 @@ namespace ASPForum.Controllers
 
         public ActionResult Options()
         {
-            var name = User.Identity.Name;
-              var qq=  db.Users.Where(n=>n.UserName==name).First();
-            var q = db.Friends.Where(f=>f.User.Id==qq.Id).ToList();
-           string aaa= "co jest grane "  + qq;
+            var q = db.Friends.Where(f=>f.User.Id== User.Identity.GetUserId()).ToList();
             return PartialView("Options",q);
         }
     }
