@@ -64,16 +64,14 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Thread thread)
         {
-          
             thread.Date = DateTime.Now;
-      
             thread.UserId = User.Identity.GetUserId();
-            
+
             try
             {
                 db.Threads.Add(thread);
                 db.SaveChanges();
-                return RedirectToAction("ThreadsSubject", new {id = thread.SubjectId});
+                return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
             }
             catch (DbEntityValidationException ex)
             {
