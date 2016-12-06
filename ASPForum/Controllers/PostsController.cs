@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers
 {
@@ -18,8 +19,8 @@ namespace ASPForum.Controllers
 
         public ActionResult PostThread(int id)
         {
-            var post = db.Posts.FirstOrDefault(t => t.Thread.Id == id);
-            ViewBag.ThreadTitle = post.Thread.Title;
+            var thread = db.Threads.FirstOrDefault(t => t.Id == id);
+            ViewBag.ThreadTitle = thread.Title;
             return View(db.Posts.Where(t => t.Thread.Id == id).ToList());
         }
 
@@ -45,10 +46,9 @@ namespace ASPForum.Controllers
         }
         [Authorize]
         // GET: Posts/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.ThreadId = new SelectList(db.Threads, "Id", "Content");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Login");
+            ViewBag.ThreadId = id;
             return View();
         }
 
@@ -58,17 +58,17 @@ namespace ASPForum.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text,Date,UserId,ThreadId")] Post post)
+        public ActionResult Create([Bind(Include = "Title,Text,ThreadId")] Post post)
         {
+            post.UserId = User.Identity.GetUserId();
+            post.Date = DateTime.Now;
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("PostThread", new { id = post.ThreadId });
             }
 
-            ViewBag.ThreadId = new SelectList(db.Threads, "Id", "Content", post.ThreadId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Login", post.UserId);
             return View(post);
         }
         [Authorize]

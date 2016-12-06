@@ -7,7 +7,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
-using
 using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<ASPForum.Models.Post>
 <h3>@ViewBag.ThreadTitle</h3>
 <p>
-    @Html.ActionLink("Utwórz nowy post", "Create")
+    @Html.ActionLink("Utwórz nowy post", "Create","Posts", new {id = Url.RequestContext.RouteData.Values["id"] }, null)
 </p>
 <table class="subject-content col-lg-12">
 
@@ -11,7 +11,7 @@
     <tr>
         <td class="col-md-10" style="border-right: solid 1px black">
             <h6>Przez: @item.User.UserName, @item.Date, @item.Thread.Title</h6> <br/>
-            @Html.DisplayFor(modelItem => item.Text)
+            <pre>@Html.DisplayFor(modelItem => item.Text)</pre>
         </td>
         <td class="col-md-2">
             <img src="@item.User.Avatar"/><br/>
