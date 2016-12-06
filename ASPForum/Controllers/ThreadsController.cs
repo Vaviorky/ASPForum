@@ -18,10 +18,9 @@ namespace ASPForum.Controllers
     public class ThreadsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
-
         public ActionResult ThreadsSubject(int id)
         {
+            
             var threads = db.Threads.Where(t => t.Subject.Id == id).ToList();
             var thread = threads.FirstOrDefault();
             ViewBag.ThreadTitle = thread.Subject.Title;
@@ -160,5 +159,17 @@ namespace ASPForum.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public string PostCount(int id)
+        {
+            return db.Posts.Count(s => s.Thread.Id == id).ToString();
+        }
+
+        public string ViewCount(int id)
+        {
+            var thread = db.Threads.FirstOrDefault(x => x.Id == id);
+            return thread.ViewCount.ToString();
+        }
+
     }
 }

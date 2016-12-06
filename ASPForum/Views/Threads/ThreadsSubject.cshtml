@@ -50,10 +50,10 @@
                                     Przez: @thread.User.UserName, @thread.Date
                                 </td>
                                 <td class="col-xs-1">
-                                    bb
+                                    @Html.Action("PostCount", "Threads", new { id = thread.Id })
                                 </td>
                                 <td class="col-xs-1">
-                                    cc
+                                    @Html.Action("ViewCount", "Threads", new { id = thread.Id })
                                 </td>
                                 <td class="col-xs-3">
                                     dd

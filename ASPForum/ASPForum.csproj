@@ -217,6 +217,10 @@
     <Compile Include="Migrations\201612052339152_changes.Designer.cs">
       <DependentUpon>201612052339152_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612061633596_postcount.cs" />
+    <Compile Include="Migrations\201612061633596_postcount.Designer.cs">
+      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -351,6 +355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612052339152_changes.resx">
       <DependentUpon>201612052339152_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612061633596_postcount.resx">
+      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
