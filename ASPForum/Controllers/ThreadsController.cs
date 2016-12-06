@@ -20,7 +20,7 @@ namespace ASPForum.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult ThreadsSubject(int id)
         {
-            
+            ViewData["LastPost"] = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
             var threads = db.Threads.Where(t => t.Subject.Id == id).ToList();
             var thread = threads.FirstOrDefault();
             ViewBag.ThreadTitle = thread.Subject.Title;
@@ -169,6 +169,11 @@ namespace ASPForum.Controllers
         {
             var thread = db.Threads.FirstOrDefault(x => x.Id == id);
             return thread.ViewCount.ToString();
+        }
+
+        public void LastPost(int id)
+        {
+          
         }
 
     }
