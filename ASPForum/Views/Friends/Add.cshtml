@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Script {
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<h2>Create</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Friends</h4>
+        <hr />
+        <div class="form-group">
+                znajomy
+            <div class="col-md-10">
+                @Html.Editor("FriendName", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+               
+                
+                <script type="text/javascript">
+                    $("#divList").load('@Html.ActionLink("Dodaj znajomego", "Add", "Friends", null, new { @class = "btn btn-default" })');
+                </script>
+                
+            </div>
+        </div>
+    </div>
+}
+<div id="divList">
+
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

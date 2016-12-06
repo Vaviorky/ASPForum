@@ -2,13 +2,14 @@
 
 
 @Html.ActionLink("Nowa wiadomosc", "Create","Messages",null, new { @class = "btn btn-default" })
-@Html.ActionLink("Dodaj znajomego", "Create", "Friends", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Wszystkie wiadomosci", "", "", null, new { @class = "btn btn-default" })
+@Html.ActionLink("Dodaj znajomego", "Add", "Friends", null, new { @class = "btn btn-default" })
 
 <table class="table">
 
     @foreach (var item in Model)
     {
-        <tr style="border-bottom:1px solid black;">
+        <tr style="border-bottom:1px solid black;" onclick="location.href='yourpage.html'">
             <td>
                 @item.Friend.UserName
             </td>

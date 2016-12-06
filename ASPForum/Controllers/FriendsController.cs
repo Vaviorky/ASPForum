@@ -37,9 +37,9 @@ namespace ASPForum.Controllers
         }
 
         // GET: Friends/Create
-        public ActionResult Create()
+        public ActionResult Add()
         {
-            return View();
+            return View(db.Users.ToList());
         }
 
         // POST: Friends/Create
@@ -47,16 +47,10 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id")] Friends friends)
+        public ActionResult Add(string name)
         {
-            if (ModelState.IsValid)
-            {
-                db.Friends.Add(friends);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(friends);
+            var UserList = db.Users.Where(u=>u.UserName==name).ToList();
+            return View(UserList);
         }
 
         // GET: Friends/Edit/5
