@@ -23,6 +23,7 @@ namespace ASPForum.Models
         public int Rank { get; set; }
         public string Avatar { get; set; }
         public string Privileges { get; set; }
+        public virtual ICollection<Moderator> Moderators { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
         public virtual ICollection<Thread> Posts { get; set; }
         public virtual ICollection<Post> Comments { get; set; }
