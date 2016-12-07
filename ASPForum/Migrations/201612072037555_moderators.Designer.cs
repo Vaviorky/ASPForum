@@ -7,13 +7,13 @@ namespace ASPForum.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class moderator : IMigrationMetadata
+    public sealed partial class moderators : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(moderator));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(moderators));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612071605169_moderator"; }
+            get { return "201612072037555_moderators"; }
         }
         
         string IMigrationMetadata.Source
