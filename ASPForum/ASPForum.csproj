@@ -221,9 +221,9 @@
     <Compile Include="Migrations\201612061633596_postcount.Designer.cs">
       <DependentUpon>201612061633596_postcount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612072130526_moderators.cs" />
-    <Compile Include="Migrations\201612072130526_moderators.Designer.cs">
-      <DependentUpon>201612072130526_moderators.cs</DependentUpon>
+    <Compile Include="Migrations\201612072135570_moderators.cs" />
+    <Compile Include="Migrations\201612072135570_moderators.Designer.cs">
+      <DependentUpon>201612072135570_moderators.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -364,8 +364,8 @@
     <EmbeddedResource Include="Migrations\201612061633596_postcount.resx">
       <DependentUpon>201612061633596_postcount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612072130526_moderators.resx">
-      <DependentUpon>201612072130526_moderators.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612072135570_moderators.resx">
+      <DependentUpon>201612072135570_moderators.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

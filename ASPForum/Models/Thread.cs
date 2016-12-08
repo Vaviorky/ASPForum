@@ -19,7 +19,6 @@ namespace ASPForum.Models
         public virtual ApplicationUser User { get; set; }
         public int SubjectId { get; set; }
         public virtual Subject Subject { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
 }
