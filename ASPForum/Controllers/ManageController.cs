@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -398,14 +399,17 @@ namespace ASPForum.Controllers
             return destImage;
         }
 
-        public ActionResult AccountDetailsView()
+        public ActionResult OptionsView(string id)
         {
+            Debug.WriteLine(id);
+            if (id == "profile")
+            {
             return PartialView("AccDetails");
+
+            }
+            return HttpNotFound();
         }
-        public ActionResult AvatarView()
-        {
-            return PartialView("Avatar");
-        }
+
 
         #region Helpers
 

@@ -1,4 +1,5 @@
-﻿@model ASPForum.Models.IndexViewModel
+﻿@using Microsoft.AspNet.Identity
+@model ASPForum.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -40,40 +41,31 @@
                             }
                         });
             });
-        var details = '@Url.Action("AccountDetailsView", "Manage")';
-        $("#details")
-            .click(function() {
-                $.get(details, { id: $(this).data('id') }, function (data) {
-                    $('#content').html(data);
-                });
-            });
-        var avatar = '@Url.Action("AvatarView", "Manage")';
-        $("#avatar")
-            .click(function () {
-                $.get(avatar, { id: $(this).data('id') }, function (data) {
-                    $('#content').html(data);
-                });
-            });
     </script>
 
 }
 
-<table>
-    <tr>
-        <td valign="top">
-        </td>
-        <td>
-        </td>
-    </tr>
-</table>
-<div id="page">
-    <div id="buttons">
-        <button id="details" class= "btn btn-lg btn-success">Szczegóły konta</button>
-        <button id="avatar" class= "btn btn-block btn-warning">Awatar</button>
+<h2>Panel użytkownika</h2>
+<div id="page" class="col-md-12">
+    <div id="functions" class="col-md-3">
+        <a href="?option=profile" class="list-group-item list-group-item-info">Profil</a>
+        <a href="?option=info" class="list-group-item list-group-item-info">Zmień dane</a>
+        <a href="?option=avatar" class="list-group-item list-group-item-info">Zmień awatar</a>
+        <br/>
+        @if (User.IsInRole("Admin") && Request.IsAuthenticated)
+        {
+            <a href="#" class="list-group-item list-group-item-text">Zarządzaj użytkownikami</a>
+            <a href="#" class="list-group-item list-group-item-text">Zarządzaj forami</a>
+            <a href="#" class="list-group-item list-group-item-text">Zarządzaj newsami</a>
+        }
+
         
+
     </div>
-    <div id="content">
-        aaaa
+    <div id="content" class="col-md-9">
+        @Html.Action("OptionsView", "Manage", new { id = Request["option"] })
+
+
     </div>
 </div>
 <p class="text-success">@ViewBag.StatusMessage</p>
