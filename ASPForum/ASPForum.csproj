@@ -221,9 +221,9 @@
     <Compile Include="Migrations\201612061633596_postcount.Designer.cs">
       <DependentUpon>201612061633596_postcount.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612072135570_moderators.cs" />
-    <Compile Include="Migrations\201612072135570_moderators.Designer.cs">
-      <DependentUpon>201612072135570_moderators.cs</DependentUpon>
+    <Compile Include="Migrations\201612081707049_moderators.cs" />
+    <Compile Include="Migrations\201612081707049_moderators.Designer.cs">
+      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -344,6 +344,9 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Posts\PostThread.cshtml" />
     <Content Include="Views\Friends\UserList.cshtml" />
+    <Content Include="Views\Manage\Test.cshtml" />
+    <Content Include="Views\Manage\AccDetails.cshtml" />
+    <Content Include="Views\Manage\Avatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -364,8 +367,8 @@
     <EmbeddedResource Include="Migrations\201612061633596_postcount.resx">
       <DependentUpon>201612061633596_postcount.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612072135570_moderators.resx">
-      <DependentUpon>201612072135570_moderators.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612081707049_moderators.resx">
+      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

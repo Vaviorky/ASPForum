@@ -21,9 +21,9 @@ namespace ASPForum.Controllers
         public ActionResult ThreadsSubject(int id)
         {
             ViewData["LastPost"] = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
-            var threads = db.Threads.Where(t => t.Subject.Id == id).ToList();
-            var thread = threads.FirstOrDefault();
-            ViewBag.ThreadTitle = thread.Subject.Title;
+            var threads = db.Threads.Where(t => t.SubjectId == id).ToList();
+            var title = db.Subjects.FirstOrDefault(s => s.Id == id);
+            ViewBag.ThreadTitle = title.Title;
             return View(threads);
         }
 
@@ -50,6 +50,7 @@ namespace ASPForum.Controllers
         }
 
         // GET: Threads/Create
+        [Authorize]
         public ActionResult Create(int id)
         {
             ViewBag.SubjectId = id;

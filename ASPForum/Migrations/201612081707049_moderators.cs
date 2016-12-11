@@ -7,10 +7,8 @@ namespace ASPForum.Migrations
     {
         public override void Up()
         {
-            DropForeignKey("dbo.Photos", "ThreadId", "dbo.Threads");
             DropForeignKey("dbo.ApplicationUserCategories", "ApplicationUser_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.ApplicationUserCategories", "Category_Id", "dbo.Categories");
-            DropIndex("dbo.Photos", new[] { "ThreadId" });
             DropIndex("dbo.ApplicationUserCategories", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ApplicationUserCategories", new[] { "Category_Id" });
             CreateTable(
@@ -27,10 +25,9 @@ namespace ASPForum.Migrations
                 .Index(t => t.UserId)
                 .Index(t => t.SubjectId);
             
-            AddColumn("dbo.Photos", "PostId", c => c.Int(nullable: false));
-            CreateIndex("dbo.Photos", "PostId");
-            AddForeignKey("dbo.Photos", "PostId", "dbo.Posts", "Id", cascadeDelete: true);
-            DropColumn("dbo.Photos", "ThreadId");
+            AddColumn("dbo.Photos", "Post_Id", c => c.Int());
+            CreateIndex("dbo.Photos", "Post_Id");
+            AddForeignKey("dbo.Photos", "Post_Id", "dbo.Posts", "Id");
             DropTable("dbo.ApplicationUserCategories");
         }
         
@@ -45,21 +42,18 @@ namespace ASPForum.Migrations
                     })
                 .PrimaryKey(t => new { t.ApplicationUser_Id, t.Category_Id });
             
-            AddColumn("dbo.Photos", "ThreadId", c => c.Int(nullable: false));
             DropForeignKey("dbo.Moderators", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Photos", "PostId", "dbo.Posts");
+            DropForeignKey("dbo.Photos", "Post_Id", "dbo.Posts");
             DropForeignKey("dbo.Moderators", "SubjectId", "dbo.Subjects");
-            DropIndex("dbo.Photos", new[] { "PostId" });
+            DropIndex("dbo.Photos", new[] { "Post_Id" });
             DropIndex("dbo.Moderators", new[] { "SubjectId" });
             DropIndex("dbo.Moderators", new[] { "UserId" });
-            DropColumn("dbo.Photos", "PostId");
+            DropColumn("dbo.Photos", "Post_Id");
             DropTable("dbo.Moderators");
             CreateIndex("dbo.ApplicationUserCategories", "Category_Id");
             CreateIndex("dbo.ApplicationUserCategories", "ApplicationUser_Id");
-            CreateIndex("dbo.Photos", "ThreadId");
             AddForeignKey("dbo.ApplicationUserCategories", "Category_Id", "dbo.Categories", "Id", cascadeDelete: true);
             AddForeignKey("dbo.ApplicationUserCategories", "ApplicationUser_Id", "dbo.AspNetUsers", "Id", cascadeDelete: true);
-            AddForeignKey("dbo.Photos", "ThreadId", "dbo.Threads", "Id", cascadeDelete: true);
         }
     }
 }

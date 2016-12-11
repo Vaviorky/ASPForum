@@ -398,6 +398,15 @@ namespace ASPForum.Controllers
             return destImage;
         }
 
+        public ActionResult AccountDetailsView()
+        {
+            return PartialView("AccDetails");
+        }
+        public ActionResult AvatarView()
+        {
+            return PartialView("Avatar");
+        }
+
         #region Helpers
 
         // Used for XSRF protection when adding external logins

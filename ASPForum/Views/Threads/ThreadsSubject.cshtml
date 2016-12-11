@@ -8,7 +8,7 @@
 <h2>@ViewBag.ThreadTitle</h2>
 
 <p>
-    @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, null)
+    @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, null)
 </p>
 <div class="panel-group title-bar-position" id="accordion">
 
@@ -19,7 +19,7 @@
             <table width="100%">
                 <tr>
                     <td class="col-xs-7">
-                       Wątki
+                        Wątki
                     </td>
                     <td class="col-xs-1">
                         Odpowiedzi
@@ -37,7 +37,7 @@
 
             </table>
         </div>
-        <div class="panel-body" style="padding-top:0px; padding-bottom: 0px;">
+        <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
             <div class="row">
                 <div class="col-md-12 subject-content">
                     <table width="100%">
@@ -45,25 +45,36 @@
                         {
                             ViewBag.Title = "Zobacz temat - " + thread.Subject.Title;
                             <tr>
-                                <td class="col-xs-7" style="border-right:1px">
-                                    <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new { id = thread.Id }, null)</b><br />
-                                    Przez: @thread.User.UserName, @thread.Date
+                                <td class="col-xs-7" style="border-right: 1px">
+                                    <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
+                                    @if (thread.UserId != null)
+                                    {
+                                        <p>Przez: @thread.User.UserName, @thread.Date</p>
+                                    }
+
                                 </td>
                                 <td class="col-xs-1">
-                                    @Html.Action("PostCount", "Threads", new { id = thread.Id })
+                                    @Html.Action("PostCount", "Threads", new {id = thread.Id})
                                 </td>
                                 <td class="col-xs-1">
-                                    @Html.Action("ViewCount", "Threads", new { id = thread.Id })
+                                    @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                 </td>
                                 <td class="col-xs-3">
                                     @{
-                                        var LastPost = (Post) ViewData["LastPost"];
+                                        var lastPost = (Post) ViewData["LastPost"];
                                     }
-                                    Przez: @LastPost.User.UserName <br/>
-                                    @LastPost.Date
+                                    @if (lastPost != null)
+                                    {
+                                        @lastPost.User.UserName
+                                        <br/>
+                                        @lastPost.Date
+                                    }
+                                    else
+                                    {
+                                        <p>-</p>
+                                    }
                                 </td>
                             </tr>
-
                         }
                     </table>
                 </div>
@@ -72,11 +83,11 @@
     </div>
 
 </div>
-<br />
+<br/>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)<br />
+            @Html.DisplayNameFor(model => model.Title)<br/>
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Content)
@@ -88,10 +99,10 @@
     </tr>
 
     @foreach (var item in Model)
-            {
+    {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)<br />
+                @Html.DisplayFor(modelItem => item.Title)<br/>
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
@@ -99,12 +110,11 @@
             </td>
             <td></td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
             </td>
         </tr>
     }
 
 </table>
-

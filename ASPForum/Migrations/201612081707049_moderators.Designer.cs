@@ -13,7 +13,7 @@ namespace ASPForum.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201612072135570_moderators"; }
+            get { return "201612081707049_moderators"; }
         }
         
         string IMigrationMetadata.Source

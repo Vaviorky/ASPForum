@@ -1,10 +1,8 @@
-﻿@using ASPForum.Models
-@model ASPForum.Models.IndexViewModel
+﻿@model ASPForum.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
 
-<h2>@ViewBag.Title.</h2>
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/bundles/jqueryval")
@@ -14,7 +12,7 @@
                 $('#openFile')
                     .on('change',
                         function () {
-                            
+
                             var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
                             console.log(filename);
                             var extension = filename.replace(/^.*\./, '');
@@ -42,11 +40,42 @@
                             }
                         });
             });
+        var details = '@Url.Action("AccountDetailsView", "Manage")';
+        $("#details")
+            .click(function() {
+                $.get(details, { id: $(this).data('id') }, function (data) {
+                    $('#content').html(data);
+                });
+            });
+        var avatar = '@Url.Action("AvatarView", "Manage")';
+        $("#avatar")
+            .click(function () {
+                $.get(avatar, { id: $(this).data('id') }, function (data) {
+                    $('#content').html(data);
+                });
+            });
     </script>
 
 }
 
-
+<table>
+    <tr>
+        <td valign="top">
+        </td>
+        <td>
+        </td>
+    </tr>
+</table>
+<div id="page">
+    <div id="buttons">
+        <button id="details" class= "btn btn-lg btn-success">Szczegóły konta</button>
+        <button id="avatar" class= "btn btn-block btn-warning">Awatar</button>
+        
+    </div>
+    <div id="content">
+        aaaa
+    </div>
+</div>
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
