@@ -347,6 +347,12 @@
     <Content Include="Views\Manage\Test.cshtml" />
     <Content Include="Views\Manage\AccDetails.cshtml" />
     <Content Include="Views\Manage\Avatar.cshtml" />
+    <Content Include="Views\Manage\UserManagement.cshtml" />
+    <Content Include="Views\Manage\Inbox.cshtml" />
+    <Content Include="Views\Manage\EditDetails.cshtml" />
+    <Content Include="Views\Manage\EditAvatar.cshtml" />
+    <Content Include="Views\Manage\ForumManagement.cshtml" />
+    <Content Include="Views\Manage\NewsManagement.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

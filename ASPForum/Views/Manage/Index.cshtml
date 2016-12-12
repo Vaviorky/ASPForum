@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-@model ASPForum.Models.IndexViewModel
+﻿@model ASPForum.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -9,10 +8,10 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script type="text/javascript">
         $(document)
-            .ready(function () {
+            .ready(function() {
                 $('#openFile')
                     .on('change',
-                        function () {
+                        function() {
 
                             var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
                             console.log(filename);
@@ -25,15 +24,15 @@
                             }
                             console.log(extension);
                             switch (extension) {
-                                case 'jpg':
-                                    console.log("asdasdasda");
-                                    break;
-                                case 'jpeg':
-                                    break;
-                                case 'png':
-                                    break;
-                                default:
-                                    $('submit').prop('disabled', true);
+                            case 'jpg':
+                                console.log("asdasdasda");
+                                break;
+                            case 'jpeg':
+                                break;
+                            case 'png':
+                                break;
+                            default:
+                                $('submit').prop('disabled', true);
                             }
                             var size = this.files[0].size;
                             if (size > 5) {
@@ -49,21 +48,58 @@
 <div id="page" class="col-md-12">
     <div id="functions" class="col-md-3">
         <a href="?option=profile" class="list-group-item list-group-item-info">Profil</a>
+        <a href="?option=messagebox" class="list-group-item list-group-item-info">Wiadomości</a>
         <a href="?option=info" class="list-group-item list-group-item-info">Zmień dane</a>
         <a href="?option=avatar" class="list-group-item list-group-item-info">Zmień awatar</a>
         <br/>
         @if (User.IsInRole("Admin") && Request.IsAuthenticated)
         {
-            <a href="#" class="list-group-item list-group-item-text">Zarządzaj użytkownikami</a>
-            <a href="#" class="list-group-item list-group-item-text">Zarządzaj forami</a>
-            <a href="#" class="list-group-item list-group-item-text">Zarządzaj newsami</a>
+            <h5>Opcje administracyjne:</h5>
+            <a href="?option=users" class="list-group-item list-group-item-text">Użytkownicy</a>
+            <a href="?option=forums" class="list-group-item list-group-item-text">Forum</a>
+            <a href="?option=news" class="list-group-item list-group-item-text">Newsy</a>
         }
 
-        
 
     </div>
     <div id="content" class="col-md-9">
-        @Html.Action("OptionsView", "Manage", new { id = Request["option"] })
+        @switch (Request["option"])
+        {
+            case "profile":
+                @Html.Action("AccountDetails", "Manage")
+                break;
+            case "messagebox":
+                @Html.Action("Inbox", "Manage")
+                break;
+            case "info":
+                @Html.Action("ChangeDetails", "Manage")
+
+                break;
+            case "avatar":
+                @Html.Action("ChangeAvatar", "Manage")
+
+                break;
+
+            case "users":
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.Action("ManageUsers", "Manage")
+                }
+                else
+                {
+                    <p>Brak takiej strony</p>
+                }
+                break;
+            case "forums":
+                @Html.Action("ManageForum", "Manage")
+                break;
+            case "news":
+                @Html.Action("ManageNews", "Manage")
+                break;
+            default:
+                <p>Brak takiej strony</p>
+                break;
+        }
 
 
     </div>
@@ -71,7 +107,7 @@
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>
@@ -149,21 +185,23 @@
 
         </dd>
         <dd>
-            <img src="@Model.Avatar" />
+            <img src="@Model.Avatar"/>
         </dd>
         <dd>
             @using (Html.BeginForm("FileUpload",
                 "Manage",
                 FormMethod.Post,
-                new { enctype = "multipart/form-data", id = "imageform" }))
+                new {enctype = "multipart/form-data", id = "imageform"}))
             {
                 <label for="openFile">Wgraj nowy awatar:</label>
-                <input type="file" name="file" id="openFile" accept="image/*" /><br><br>
+                <input type="file" name="file" id="openFile" accept="image/*"/>
+                <br>
+                <br>
 
-                <input type="submit" value="Wyślij" id="submit" />
+                <input type="submit" value="Wyślij" id="submit"/>
                 <h3 id="error"></h3>
-                <br><br>
-
+                <br>
+                <br>
             }
         </dd>
     </dl>

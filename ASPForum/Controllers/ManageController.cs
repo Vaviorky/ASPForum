@@ -338,14 +338,14 @@ namespace ASPForum.Controllers
                 try
                 {
                     var img = Image.FromStream(file.InputStream, true, true);
-                   
+
                     var user = UserManager.FindById(User.Identity.GetUserId());
                     var filename = user.UserName + "-avatar.jpg";
                     var path = Path.Combine(Server.MapPath("~/Content/Images"), filename);
 
                     var resizedIMG = ResizeImage(img, 100, 100);
                     resizedIMG.Save(path);
-                   // file.SaveAs(path);
+                    // file.SaveAs(path);
 
                     var db = new ApplicationDbContext();
                     user.Avatar = "/Content/Images/" + filename;
@@ -399,15 +399,58 @@ namespace ASPForum.Controllers
             return destImage;
         }
 
-        public ActionResult OptionsView(string id)
+        public ActionResult AccountDetails()
         {
-            Debug.WriteLine(id);
-            if (id == "profile")
-            {
-            return PartialView("AccDetails");
+           return PartialView("AccDetails");
+        }
 
+        public ActionResult Inbox()
+        {
+            return PartialView("Inbox");
+        }
+        public ActionResult ChangeDetails()
+        {
+            return PartialView("EditDetails");
+        }
+        public ActionResult ChangeAvatar()
+        {
+            return PartialView("EditAvatar");
+        }
+
+        public ActionResult ManageUsers()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return PartialView("UserManagement");
             }
-            return HttpNotFound();
+            else
+            {
+                return HttpNotFound("Nie masz dostępu do tego zasobu");
+            }
+        }
+
+        public ActionResult ManageForum()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return PartialView("ForumManagement");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult ManageNews()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return PartialView("NewsManagement");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
 

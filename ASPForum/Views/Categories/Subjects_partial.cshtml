@@ -7,21 +7,24 @@
             <table width="100%">
 
                 <tr>
-                    <td class="col-xs-7">
+                    
+                    <td class="col-md-7">
+                        <span class="glyphicon glyphicon-list-alt" style="padding-right: 10px"></span>
+                        
                         @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new {id = item.Id}, null) <br/>
                     </td>
-                    <td class="col-xs-1">
+                    <td class="col-md-1">
                         @Html.Action("ThreadsCount", "Categories", new {id = item.Id})
                     </td>
-                    <td class="col-xs-1">
+                    <td class="col-md-1">
                         @Html.Action("PostCount", "Categories", new {id = item.Id})
                     </td>
-                    <td class="col-xs-3">
+                    <td class="col-md-3">
                         @Html.Action("NewPost", "Categories", new {id = item.Id})
                     </td>
                 </tr>
             </table>
 
         </div>
-    }
+    }  
 </div>
