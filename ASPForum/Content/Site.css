@@ -93,10 +93,14 @@ textarea {
     font-size: 15px;
 }
 
-.navbar-inverse .navbar-nav > li > a {
+input[type="file"] {
+    display: none;
 }
 
-.navbar-inverse .navbar-brand {
+#openFile {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
 
 /*

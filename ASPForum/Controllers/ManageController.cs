@@ -450,6 +450,9 @@ namespace ASPForum.Controllers
         }
         public ActionResult ChangeAvatar()
         {
+            var id = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            ViewBag.Avatar = user.Avatar;
             return PartialView("EditAvatar");
         }
 
