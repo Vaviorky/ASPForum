@@ -28,6 +28,8 @@ namespace ASPForum.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+/*            var im = new IdentityManager();
+            im.AddUserToRoleByUsername("Vaviorky", "Admin");*/
         }
     }
 }

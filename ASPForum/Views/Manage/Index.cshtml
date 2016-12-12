@@ -6,6 +6,7 @@
 @section Scripts {
     @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
     <script type="text/javascript">
         $(document)
             .ready(function () {
@@ -66,64 +67,26 @@
 <h2>Panel użytkownika</h2>
 <div id="page" class="col-md-12">
     <div id="functions" class="col-md-3">
-        <a href="?option=profile" class="list-group-item list-group-item-info">Profil</a>
-        <a href="?option=messagebox" class="list-group-item list-group-item-info">Wiadomości</a>
-        <a href="?option=info" class="list-group-item list-group-item-info">Zmień dane</a>
-        <a href="?option=avatar" class="list-group-item list-group-item-info">Zmień awatar</a>
-        <br />
+        @Ajax.ActionLink("Profil", "AccountDetails", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink("Wiadomości", "Inbox", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink("Zmień dane", "ChangeDetails", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink("Zmień awatar", "ChangeAvatar", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
+
+        <br/>
         @if (User.IsInRole("Admin") && Request.IsAuthenticated)
         {
             <h5>Opcje administracyjne:</h5>
-            <a href="?option=users" class="list-group-item list-group-item-text">Użytkownicy</a>
-            <a href="?option=forums" class="list-group-item list-group-item-text">Forum</a>
-            <a href="?option=news" class="list-group-item list-group-item-text">Newsy</a>
+            @Ajax.ActionLink("Użytkownicy", "ManageUsers", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink("Forum", "ManageForum", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink("Newsy", "ManageNews", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+
+
         }
 
 
     </div>
-    <div id="content" class="col-md-9">
-        @switch (Request["option"])
-        {
-            case "profile":
-                @Html.Action("AccountDetails", "Manage")
-                break;
-            case "messagebox":
-                @Html.Action("Inbox", "Manage")
-                break;
-            case "info":
-                @Html.Action("ChangeDetails", "Manage")
-
-                break;
-            case "avatar":
-                @Html.Action("ChangeAvatar", "Manage")
-
-                break;
-
-            case "users":
-                if (User.IsInRole("Admin"))
-                {
-                    @Html.Action("ManageUsers", "Manage")
-                }
-                else
-                {
-                    <p>Brak takiej strony</p>
-                }
-                break;
-            case "forums":
-                @Html.Action("ManageForum", "Manage")
-                break;
-            case "news":
-                @Html.Action("ManageNews", "Manage")
-                break;
-            default:
-                <p>Brak takiej strony</p>
-                break;
-        }
-
-
-    </div>
+    <div id="moj_div" class="col-md-9"></div>
 </div>
-<p class="text-success">@ViewBag.StatusMessage</p>
 <div>
     <h4>Change your account settings</h4>
     <hr />

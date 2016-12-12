@@ -7,6 +7,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -460,6 +461,7 @@ namespace ASPForum.Controllers
         {
             if (User.IsInRole("Admin"))
             {
+                ViewBag.UserList = db.Users.ToList();
                 return PartialView("UserManagement");
             }
             else
@@ -485,6 +487,24 @@ namespace ASPForum.Controllers
             if (User.IsInRole("Admin"))
             {
                 return PartialView("NewsManagement");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult EditUser(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = db.Users.FirstOrDefault(x => x.Id == id);
+
+                return PartialView("EditUser", user);
             }
             else
             {
