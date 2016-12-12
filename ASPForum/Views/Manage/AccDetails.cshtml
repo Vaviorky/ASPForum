@@ -1,13 +1,28 @@
-﻿<h4>Szczegóły dotyczące konta</h4>
-<hr />
-@section scripts
-{
-    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-        $(document).ready(function() {
-            console.log("ADASASDASD");
-        })
-        console.log("NIEGOTOOWY");
-    </script>
-}
+﻿<h3>Szczegóły dotyczące konta</h3>
+<hr/>
+<dl class="dl-horizontal">
+    <dt>
+        Nazwa użytkownika:
+    </dt>
+    <dd>
+        @ViewBag.Username
+    </dd>
+    <dt>
+        Data rejestracji:
+    </dt>
+    <dd>
+        @ViewBag.Registered
+    </dd>
+    <dt>
+        Liczba wątków: 
+    </dt>
+    <dd>
+        @ViewBag.ThreadCount
+    </dd>
+    <dt>
+        Liczba postów: 
+    </dt>
+    <dd>
+        @ViewBag.PostCount
+    </dd>
+</dl>

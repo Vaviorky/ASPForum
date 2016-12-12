@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -22,6 +23,7 @@ namespace ASPForum.Models
         public string Login { get; set; }
         public int Rank { get; set; }
         public string Avatar { get; set; }
+        public DateTime RegistrationDate { get; set; }
         public string Privileges { get; set; }
         public virtual ICollection<Moderator> Moderators { get; set; }
         public virtual ICollection<Message> Messages { get; set; }

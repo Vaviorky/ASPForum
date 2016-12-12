@@ -73,6 +73,15 @@ namespace ASPForum.Controllers
                 return View(model);
             }
 
+            var user = UserManager.Users.SingleOrDefault(x => x.UserName == model.Login);
+            if (user != null)
+            {
+                if (user.LockoutEnabled)
+                {
+                    return View("Lockout");
+                }
+            }
+           
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, shouldLockout: false);
@@ -151,7 +160,7 @@ namespace ASPForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login , Email = model.Email, Avatar = "/Content/Images/defaultavatar.jpg"};
+                var user = new ApplicationUser { UserName = model.Login , Email = model.Email, Avatar = "/Content/Images/defaultavatar.jpg", RegistrationDate = DateTime.Now};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

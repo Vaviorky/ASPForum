@@ -18,6 +18,11 @@ namespace ASPForum.Controllers
         // GET: Categories
         public ActionResult Index()
         {
+            ViewBag.PostCount = db.Posts.Count();
+            ViewBag.ThreadCount = db.Threads.Count();
+            ViewBag.UserCount = db.Users.Count();
+            var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
+            ViewBag.NewestUser = user.UserName;
             return View(db.Categories.ToList());
         }
 

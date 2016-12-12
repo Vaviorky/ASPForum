@@ -1,3 +1,5 @@
+using ASPForum.Models;
+
 namespace ASPForum.Migrations
 {
     using System;

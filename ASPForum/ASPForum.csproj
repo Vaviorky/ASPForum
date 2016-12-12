@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201612081707049_moderators.Designer.cs">
       <DependentUpon>201612081707049_moderators.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612121227209_Registrationtime.cs" />
+    <Compile Include="Migrations\201612121227209_Registrationtime.Designer.cs">
+      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -375,6 +379,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081707049_moderators.resx">
       <DependentUpon>201612081707049_moderators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612121227209_Registrationtime.resx">
+      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

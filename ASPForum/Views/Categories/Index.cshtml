@@ -14,8 +14,9 @@
 
                 <table>
                     <tr>
-                        <td class="col-xs-7">
-                            @item.Title</td>
+                        <td class="col-xs-8">
+                            <b>@item.Title</b>
+                        </td>
                         <td class="col-xs-1">
                             Wątki
 
@@ -24,7 +25,7 @@
                             Posty
 
                         </td>
-                        <td class="col-xs-3">
+                        <td class="col-xs-2">
                             Ostatni post
                         </td>
 
@@ -41,8 +42,10 @@
         </div>
     }
 </div>
-
-
+<h4>Statystyki</h4>
+<hr />
+Liczba postów: <b>@ViewBag.PostCount</b> • Liczba wątków: <b>@ViewBag.ThreadCount</b> • Liczba użytkowników: <b>@ViewBag.UserCount</b> • Najnowszy użytkownik: <b></b>@ViewBag.NewestUser
+<br/><br/>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
