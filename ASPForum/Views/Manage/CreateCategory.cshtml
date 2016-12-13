@@ -1,10 +1,6 @@
 ﻿@model ASPForum.Models.Category
-
-@using (Ajax.BeginForm("CreateCategorySubmit", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace}))
+@using (Ajax.BeginForm("CreateCategorySubmit", "Manage", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace}))
 {
-    @Html.AntiForgeryToken()
-
-
     <div class="form-horizontal">
         <h4>Thread</h4>
         <hr />

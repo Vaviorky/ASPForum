@@ -589,7 +589,6 @@ namespace ASPForum.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 return PartialView("CreateCategory");
 
             }
@@ -598,10 +597,13 @@ namespace ASPForum.Controllers
         [HttpPost]
         public ActionResult CreateCategorySubmit(Category category)
         {
+            if (category==null)
+            {
+                return HttpNotFound("Nie ma tu nic");
+            }
             db.Categories.Add(category);
             db.SaveChanges();
-            throw new Exception("AAAAA");
-            return PartialView("ForumManagement");
+            return PartialView("ForumManagement", db.Categories.ToList());
         }
 
 
