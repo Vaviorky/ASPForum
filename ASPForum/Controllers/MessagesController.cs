@@ -48,13 +48,14 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text,Date,Source")] Message message)
+        public ActionResult Create([Bind(Include = "Id,Title,Text,Source")] Message message)
         {
             if (ModelState.IsValid)
             {
+                message.Date = DateTime.Now;
                 db.Messeges.Add(message);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Manage"); 
             }
 
             return View(message);
@@ -131,6 +132,21 @@ namespace ASPForum.Controllers
             var id = User.Identity.GetUserId();
             var q = db.Friends.Where(f=>f.User.Id== id).ToList();
             return PartialView("Options",q);
+        }
+
+        public string dateMessage(int id)
+        {
+            var date = db.Messeges.FirstOrDefault(m => m.Id == id).Date;
+            DateTime localDate = DateTime.Now;
+            if (date.ToString("MM dd yyyy") == localDate.ToString("MM dd yyyy"))
+            {
+                return date.ToString("HH:mm");
+            }
+            else
+            {
+                return date.ToString("dd MMM");
+            }
+            
         }
     }
 }

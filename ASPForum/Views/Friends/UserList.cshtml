@@ -1,2 +1,6 @@
-﻿
-zxdasdasdasdasfsdasg dsf <p> adasdassdasdasd</p>
+﻿@model IEnumerable<ASPForum.Models.ApplicationUser>
+
+@foreach (var item in Model)
+{
+    @item.UserName
+}

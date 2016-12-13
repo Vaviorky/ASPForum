@@ -46,11 +46,24 @@ namespace ASPForum.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult UserList()
         {
-           // var UserList = db.Users.Where(u=>u.UserName==name).ToList();
-            return PartialView("UserList");
+            var name = Request["FriendName"];
+            var UserList = db.Users.ToList();
+            var searchResult = new List<ApplicationUser>();
+
+            if (name != null)
+            {
+                foreach (var iter in UserList)
+                {
+                    if (iter.UserName.ToLower().Contains(name.ToLower()))
+                    {
+                        searchResult.Add(iter);
+                    }
+                }
+            }
+            var ss = UserList.ToString();
+            return PartialView("UserList", searchResult);
         }
        
 

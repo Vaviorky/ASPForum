@@ -1,51 +1,31 @@
 ﻿@model IEnumerable<ASPForum.Models.Message>
 
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<div class="panel-group title-bar-position" id="accordion">
+<div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading title-bar">
             <table>
                 <tr>
-                    <td class="col-xs-3">
-                        Opcje
-                    </td>
-                    <td class="col-xs-9">
+                    <td>
                         Wiadomości
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="panel-body" style="padding-top:0px; padding-bottom: 0px;">
+        <div class="panel-body" style="padding:0px;">
 
-                    <div class="col-xs-3">
-                        @Html.Action("Options", "Messages")
-                    </div>
-                    <div class="col-xs-9">
+                    <div>
 
-                        <table>
+                        <table width="100%">
                             @foreach (var item in Model)
             {
-                                <tr>
-                                    <td>
+                                <tr id="detailsMessage" name="@item.Id"class="subject-content">
+                                    <td class="col-xs-10">
                                         @Html.DisplayFor(modelItem => item.Title)
                                     </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Date)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    <td class="col-xs-2"> 
+                                        @Html.Action("dateMessage","Messages",new {id=item.Id})
                                     </td>
                                 </tr>
                             }

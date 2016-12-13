@@ -1,0 +1,23 @@
+﻿
+@model IEnumerable<ASPForum.Models.Friends>
+
+
+<table class="table">
+
+    @foreach (var item in Model)
+    {
+        <tr style="border-bottom:1px solid black;" onclick="location.href='yourpage.html'">
+            <td>
+                @item.Friend.UserName
+            </td>
+            <td>
+                @Html.ActionLink("Usun", "Delete", "Friends", new { id = item.Id }, null)
+            </td>
+
+        </tr>
+
+    }
+
+</table>
+
+

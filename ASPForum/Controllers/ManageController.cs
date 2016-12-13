@@ -600,10 +600,23 @@ namespace ASPForum.Controllers
         {
             db.Categories.Add(category);
             db.SaveChanges();
-            throw new Exception("AAAAA");
             return PartialView("ForumManagement");
         }
 
+        public ActionResult PMessage()
+        {
+            return PartialView("~/Views/Messages/Index.cshtml", db.Messeges.ToList());
+        }
+
+        public ActionResult PFriends()
+        {
+            var id = User.Identity.GetUserId();
+            return PartialView("~/Views/Messages/FriendsPartial.cshtml", db.Friends.Where(f=>f.User.Id==id).ToList());
+        }
+        public ActionResult FriendsAdd()
+        {
+            return PartialView("~/Views/Friends/Add.cshtml");
+        }
 
         #region Helpers
 

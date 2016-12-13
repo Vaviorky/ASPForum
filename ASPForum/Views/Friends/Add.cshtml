@@ -1,49 +1,31 @@
 ﻿
-@{
-    ViewBag.Title = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@section scripts {
-    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
-    @Scripts.Render("~/bundles/jqueryval")
-}
-<h2>Create</h2>
+<h2>Wyszukaj znajomego</h2>
 
-@using (Html.BeginForm()) 
+@using (Ajax.BeginForm("UserList", "Friends",
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            InsertionMode = InsertionMode.Replace,
+                            UpdateTargetId = "searchResults"
+                        }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Friends</h4>
-        <hr />
         <div class="form-group">
-                znajomy
-            <div class="col-md-10">
+            <div class="col-md-8">
                 @Html.Editor("FriendName", new { htmlAttributes = new { @class = "form-control",@id= "Keyword" } })
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-2">
 
+                <input type="submit" value="Szukaj" class = "list-group-item list-group-item-info"/>
+                @Ajax.ActionLink("Szukaj", "UserList", "Friends", null,new AjaxOptions { UpdateTargetId = "searchResults", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
 
-                <button id="search">Szukaj</button>
-
-
-
-                <input id="" type="button" value="Szukaj" onclick="location.href='@Url.Action("UserList", "Friends")'" />
-
-
-
-
-                @Html.ActionLink("Szukaj", "UserList", "Friends", null, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 }
+
 <div id="searchResults">
 
-</div>
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>

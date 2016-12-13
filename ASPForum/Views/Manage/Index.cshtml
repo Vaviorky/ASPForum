@@ -66,8 +66,9 @@
 
 
 <div id="page" class="col-md-12">
+    <h3>Panel użytkownika</h3>
     <div id="functions" class="col-md-3">
-        <h3>Panel użytkownika</h3>
+      
         @Ajax.ActionLink("Profil", "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
         @Ajax.ActionLink("Wiadomości", "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
         @Ajax.ActionLink("Zmień dane", "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
