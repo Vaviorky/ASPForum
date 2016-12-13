@@ -23,7 +23,7 @@ namespace ASPForum.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -109,7 +109,7 @@ namespace ASPForum.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new { Message = message });
+            return RedirectToAction("ManageLogins", new {Message = message});
         }
 
         //
@@ -138,7 +138,7 @@ namespace ASPForum.Controllers
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+            return RedirectToAction("VerifyPhoneNumber", new {PhoneNumber = model.Number});
         }
 
         //
@@ -175,7 +175,7 @@ namespace ASPForum.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null
                 ? View("Error")
-                : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+                : View(new VerifyPhoneNumberViewModel {PhoneNumber = phoneNumber});
         }
 
         //
@@ -193,7 +193,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
@@ -208,11 +208,11 @@ namespace ASPForum.Controllers
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
                 await SignInManager.SignInAsync(user, false, false);
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+            return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
         }
 
         //
@@ -237,7 +237,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
             }
             AddErrors(result);
             return View(model);
@@ -264,7 +264,7 @@ namespace ASPForum.Controllers
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                         await SignInManager.SignInAsync(user, false, false);
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
                 }
                 AddErrors(result);
             }
@@ -316,11 +316,11 @@ namespace ASPForum.Controllers
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
-                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("ManageLogins")
-                : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                : RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
         }
 
         protected override void Dispose(bool disposing)
@@ -368,11 +368,9 @@ namespace ASPForum.Controllers
         private bool IsImage(HttpPostedFileBase file)
         {
             if (file.ContentType.Contains("image"))
-            {
                 return true;
-            }
 
-            string[] formats = new string[] { ".jpg", ".png", ".jpeg" }; // add more if u like...
+            string[] formats = {".jpg", ".png", ".jpeg"}; // add more if u like...
 
             return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
@@ -404,7 +402,7 @@ namespace ASPForum.Controllers
 
         public ActionResult AccountDetails()
         {
-            string userid = User.Identity.GetUserId();
+            var userid = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(x => x.Id == userid);
 
             ViewBag.UserName = user.UserName;
@@ -424,9 +422,7 @@ namespace ASPForum.Controllers
             var userid = User.Identity.GetUserId();
             var user = db.Users.FirstOrDefault(x => x.Id == userid);
             if (user == null)
-            {
                 return HttpNotFound();
-            }
             return PartialView("EditDetails", user);
         }
 
@@ -465,48 +461,28 @@ namespace ASPForum.Controllers
                 ViewBag.UserList = db.Users.ToList();
                 return PartialView("UserManagement");
             }
-            else
-            {
-                return HttpNotFound("Nie masz dostępu do tego zasobu");
-            }
+            return HttpNotFound("Nie masz dostępu do tego zasobu");
         }
 
         public ActionResult ManageForum()
         {
             if (User.IsInRole("Admin"))
-            {
-
                 return PartialView("ForumManagement", db.Categories.ToList());
-            }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
         public ActionResult ManageSubjectsInForum(int id)
         {
             if (User.IsInRole("Admin"))
-            {
-
                 return PartialView("SubjectsForumManagement", db.Subjects.Where(s => s.Category.Id == id).ToList());
-            }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
         public ActionResult ManageNews()
         {
             if (User.IsInRole("Admin"))
-            {
                 return PartialView("NewsManagement");
-            }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
         public ActionResult EditUser(string id)
@@ -514,17 +490,12 @@ namespace ASPForum.Controllers
             if (User.IsInRole("Admin"))
             {
                 if (id == null)
-                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 var user = db.Users.FirstOrDefault(x => x.Id == id);
 
                 return PartialView("EditUser", user);
             }
-            else
-            {
-                return HttpNotFound();
-            }
+            return HttpNotFound();
         }
 
         [HttpPost]
@@ -533,9 +504,7 @@ namespace ASPForum.Controllers
             if (User.IsInRole("Admin"))
             {
                 if (id == null)
-                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 var user = db.Users.FirstOrDefault(x => x.Id == id);
                 try
                 {
@@ -549,7 +518,6 @@ namespace ASPForum.Controllers
                 {
                     return HttpNotFound();
                 }
-
             }
             return HttpNotFound();
         }
@@ -559,9 +527,7 @@ namespace ASPForum.Controllers
             if (User.IsInRole("Admin"))
             {
                 if (id == null)
-                {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 var user = db.Users.Find(id);
 
                 return PartialView("DeleteUser", user);
@@ -573,10 +539,7 @@ namespace ASPForum.Controllers
         public ActionResult DeleteConfirmed(string id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            }
             var user = db.Users.Find(id);
             db.Users.Remove(user);
             db.SaveChanges();
@@ -588,25 +551,132 @@ namespace ASPForum.Controllers
         public ActionResult CreateCategory()
         {
             if (User.IsInRole("Admin"))
-            {
                 return PartialView("CreateCategory");
-
-            }
             return HttpNotFound();
         }
+
         [HttpPost]
         public ActionResult CreateCategorySubmit(Category category)
         {
-            if (category==null)
-            {
+            if (category == null)
                 return HttpNotFound("Nie ma tu nic");
-            }
             db.Categories.Add(category);
             db.SaveChanges();
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (User.IsInRole("Admin"))
+            {
+                var category = db.Categories.Find(id);
+                return PartialView("EditCategory", category);
+            }
+            return HttpNotFound();
+        }
 
+        [HttpPost]
+        public ActionResult EditCategorySubmit(Category category)
+        {
+            if (category == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            {
+                db.Entry(category).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+                
+            
+            return PartialView("ForumManagement", db.Categories.ToList());
+        }
+
+        public ActionResult DeleteCategory(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (User.IsInRole("Admin"))
+            {
+                var category = db.Categories.Find(id);
+                return PartialView("DeleteCategory", category);
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult DeleteCategoryConfirmed(int id)
+        {
+            var category = db.Categories.Find(id);
+            db.Categories.Remove(category);
+            db.SaveChanges();
+            return PartialView("ForumManagement", db.Categories.ToList());
+        }
+
+        public ActionResult CreateSubject(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            }
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            ViewBag.CategoryId = id;
+            return PartialView("CreateSubject");
+        }
+
+        public ActionResult CreateSubjectSubmit(Subject subject)
+        {
+            if (subject == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            db.Subjects.Add(subject);
+            db.SaveChanges();
+            return PartialView("ForumManagement", db.Categories.ToList());
+        }
+
+        public ActionResult EditSubject(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            var subject = db.Subjects.Find(id);
+            ViewBag.CategoryId = subject.CategoryId;
+            return PartialView("EditSubject", subject);
+        }
+        [HttpPost]
+        public ActionResult EditSubjectSubmit(Subject subject)
+        {
+            if (subject == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            db.Entry(subject).State = EntityState.Modified;
+            db.SaveChanges();
+            return PartialView("ForumManagement", db.Categories.ToList());
+        }
+
+        public ActionResult DeleteSubject(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            var subject = db.Subjects.Find(id);
+            return PartialView("DeleteSubject", subject);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteSubjectConfirmed(int id)
+        {
+            var subject = db.Subjects.Find(id);
+            db.Subjects.Remove(subject);
+            db.SaveChanges();
+            return PartialView("ForumManagement", db.Categories.ToList());
+        }
         #region Helpers
 
         // Used for XSRF protection when adding external logins

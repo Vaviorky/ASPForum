@@ -25,7 +25,7 @@ namespace ASPForum.Migrations
             var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
 
             // Create Admin Role
-            string roleName = "Admins";
+            string roleName = "Admin";
             IdentityResult roleResult;
 
             // Check to see if Role Exists, if not create it
@@ -34,6 +34,7 @@ namespace ASPForum.Migrations
                 roleResult = RoleManager.Create(new IdentityRole(roleName));
                
             }
+            
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

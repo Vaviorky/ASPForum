@@ -362,6 +362,11 @@
     <Content Include="Views\Manage\DeleteUser.cshtml" />
     <Content Include="Views\Manage\SubjectsForumManagement.cshtml" />
     <Content Include="Views\Manage\CreateCategory.cshtml" />
+    <Content Include="Views\Manage\EditCategory.cshtml" />
+    <Content Include="Views\Manage\DeleteCategory.cshtml" />
+    <Content Include="Views\Manage\CreateSubject.cshtml" />
+    <Content Include="Views\Manage\EditSubject.cshtml" />
+    <Content Include="Views\Manage\DeleteSubject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
