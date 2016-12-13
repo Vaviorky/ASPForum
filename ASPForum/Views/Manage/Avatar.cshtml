@@ -1,0 +1,23 @@
+﻿@model ASPForum.Models.IndexViewModel
+
+<h4>Zmień awatar</h4>
+<hr />
+   
+    
+        <img src="@Model.Avatar" />
+    
+    
+        @using (Html.BeginForm("FileUpload",
+                    "Manage",
+                    FormMethod.Post,
+                    new { enctype = "multipart/form-data", id = "imageform" }))
+        {
+            <label for="openFile">Wgraj nowy awatar:</label>
+                <input type="file" name="file" id="openFile" accept="image/*" /><br><br>
+
+                <input type="submit" value="Wyślij" id="submit" />
+                <h3 id="error"></h3>
+                
+
+        }
+    

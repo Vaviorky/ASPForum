@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
     padding-bottom: 20px;
+    margin: auto;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -70,7 +70,6 @@ textarea {
     <css-Subjects>
 */
 .subject-content {
-    background-color: rgb(212,225,236);
     padding: 10px;
     align-content: center;
     border-bottom: 1px solid#000000;
@@ -94,12 +93,14 @@ textarea {
     font-size: 15px;
 }
 
-.navbar-inverse .navbar-nav > li > a {
-    color: #c7c7c7;
+input[type="file"] {
+    display: none;
 }
 
-.navbar-inverse .navbar-brand {
-    color: #c7c7c7;
+#openFile {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
 }
 
 /*

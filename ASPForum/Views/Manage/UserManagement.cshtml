@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <table class="table table-bordered">
+        <th>Użytkownik</th>
+        <th>Ranga</th>
+        <th>Opcje</th>
+        @foreach (var user in ViewBag.UserList)
+        {
+            <tr>
+                <td>
+                    @user.UserName
+                </td>
+                <td>
+                    @user.Privileges
+                </td>
+                <td>
+                    @Ajax.ActionLink("Edytuj", "EditUser", new {id = User.Identity.GetUserId()},
+                        new AjaxOptions
+                        {
+                            UpdateTargetId = "moj_div",
+                            InsertionMode = InsertionMode.Replace,
+                            HttpMethod = "GET"
+                        }) - 
+                   @{
+                        var x = "Zablokuj";
+                    }
+                    @if (user.LockoutEnabled == true)
+                    {
+                        x = "Odblokuj";
+                    }
+                    @Ajax.ActionLink(x, "ChangeStateForUser", null, new { id = user.Id},
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "moj_div",
+                            InsertionMode = InsertionMode.Replace
+                            
+                        })
+                </td>
+
+            </tr>
+        }
+    </table>
+}

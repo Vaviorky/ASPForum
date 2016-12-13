@@ -14,15 +14,24 @@ namespace ASPForum.Controllers
     public class PostsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
         // GET: Posts
-
-        public ActionResult PostThread(int id)
+        public ActionResult PostThread(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
             var thread = db.Threads.FirstOrDefault(t => t.Id == id);
+
+            thread.ViewCount++;
+            db.Entry(thread).State = EntityState.Modified;
+            db.SaveChanges();
+
+
+            var posts = db.Posts.Where(t => t.Thread.Id == id).ToList();
             ViewBag.ThreadTitle = thread.Title;
-            return View(db.Posts.Where(t => t.Thread.Id == id).ToList());
+            return View(posts);
         }
 
         public ActionResult Index()
@@ -49,6 +58,10 @@ namespace ASPForum.Controllers
         // GET: Posts/Create
         public ActionResult Create(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
             ViewBag.ThreadId = id;
             return View();
         }
@@ -85,8 +98,6 @@ namespace ASPForum.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ThreadId = new SelectList(db.Threads, "Id", "Content", post.ThreadId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Login", post.UserId);
             return View(post);
         }
 

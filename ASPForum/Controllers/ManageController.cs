@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -20,6 +23,7 @@ namespace ASPForum.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -105,7 +109,7 @@ namespace ASPForum.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new { Message = message });
+            return RedirectToAction("ManageLogins", new {Message = message});
         }
 
         //
@@ -134,7 +138,7 @@ namespace ASPForum.Controllers
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+            return RedirectToAction("VerifyPhoneNumber", new {PhoneNumber = model.Number});
         }
 
         //
@@ -171,7 +175,7 @@ namespace ASPForum.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null
                 ? View("Error")
-                : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+                : View(new VerifyPhoneNumberViewModel {PhoneNumber = phoneNumber});
         }
 
         //
@@ -189,7 +193,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
@@ -204,11 +208,11 @@ namespace ASPForum.Controllers
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
-                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
+                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
                 await SignInManager.SignInAsync(user, false, false);
-            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
+            return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
         }
 
         //
@@ -233,7 +237,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
             }
             AddErrors(result);
             return View(model);
@@ -260,7 +264,7 @@ namespace ASPForum.Controllers
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                         await SignInManager.SignInAsync(user, false, false);
-                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
+                    return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
                 }
                 AddErrors(result);
             }
@@ -312,11 +316,11 @@ namespace ASPForum.Controllers
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
-                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("ManageLogins")
-                : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
+                : RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
         }
 
         protected override void Dispose(bool disposing)
@@ -337,14 +341,14 @@ namespace ASPForum.Controllers
                 try
                 {
                     var img = Image.FromStream(file.InputStream, true, true);
-                   
+
                     var user = UserManager.FindById(User.Identity.GetUserId());
                     var filename = user.UserName + "-avatar.jpg";
                     var path = Path.Combine(Server.MapPath("~/Content/Images"), filename);
 
                     var resizedIMG = ResizeImage(img, 100, 100);
                     resizedIMG.Save(path);
-                   // file.SaveAs(path);
+                    // file.SaveAs(path);
 
                     var db = new ApplicationDbContext();
                     user.Avatar = "/Content/Images/" + filename;
@@ -368,7 +372,7 @@ namespace ASPForum.Controllers
                 return true;
             }
 
-            string[] formats = new string[] { ".jpg", ".png", ".jpeg" }; // add more if u like...
+            string[] formats = new string[] {".jpg", ".png", ".jpeg"}; // add more if u like...
 
             return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
@@ -397,6 +401,145 @@ namespace ASPForum.Controllers
 
             return destImage;
         }
+
+        public ActionResult AccountDetails()
+        {
+            string userid = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(x => x.Id == userid);
+
+            ViewBag.UserName = user.UserName;
+            ViewBag.Registered = user.RegistrationDate;
+            ViewBag.PostCount = db.Posts.Count(x => x.UserId == user.Id);
+            ViewBag.ThreadCount = db.Threads.Count(x => x.UserId == user.Id);
+            return PartialView("AccDetails");
+        }
+
+        public ActionResult Inbox()
+        {
+            return PartialView("Inbox");
+        }
+
+        public ActionResult ChangeDetails()
+        {
+            var userid = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(x => x.Id == userid);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("EditDetails", user);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeDetails(ApplicationUser user)
+        {
+            var thatuser = db.Users.FirstOrDefault(x => x.Id == user.Id);
+            thatuser.UserName = user.UserName;
+            thatuser.Email = user.Email;
+            try
+            {
+                db.Entry(thatuser).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            catch (Exception)
+            {
+                ViewBag.Error = "Nie udało się zapisać danych w bazie";
+                return PartialView("EditDetails", user);
+            }
+
+            return RedirectToAction("AccountDetails");
+        }
+
+        public ActionResult ChangeAvatar()
+        {
+            var id = User.Identity.GetUserId();
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            ViewBag.Avatar = user.Avatar;
+            return PartialView("EditAvatar");
+        }
+
+        public ActionResult ManageUsers()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.UserList = db.Users.ToList();
+                return PartialView("UserManagement");
+            }
+            else
+            {
+                return HttpNotFound("Nie masz dostępu do tego zasobu");
+            }
+        }
+
+        public ActionResult ManageForum()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return PartialView("ForumManagement");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult ManageNews()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                return PartialView("NewsManagement");
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult EditUser(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = db.Users.FirstOrDefault(x => x.Id == id);
+                
+                return PartialView("EditUser", user);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeStateForUser(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = db.Users.FirstOrDefault(x => x.Id == id);
+                try
+                {
+                    user.LockoutEnabled = !user.LockoutEnabled;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.UserList = db.Users.ToList();
+                    return PartialView("UserManagement");
+                }
+                catch (Exception)
+                {
+                    return HttpNotFound("ASDASDSAD");
+                }
+                
+            }
+            return HttpNotFound();
+        }
+
 
         #region Helpers
 

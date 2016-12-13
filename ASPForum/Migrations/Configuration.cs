@@ -1,3 +1,5 @@
+using ASPForum.Models;
+
 namespace ASPForum.Migrations
 {
     using Microsoft.AspNet.Identity;
@@ -44,6 +46,8 @@ namespace ASPForum.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+/*            var im = new IdentityManager();
+            im.AddUserToRoleByUsername("Vaviorky", "Admin");*/
         }
     }
 }

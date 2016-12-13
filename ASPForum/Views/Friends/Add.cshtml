@@ -3,7 +3,10 @@
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section scripts {
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/bundles/jqueryval")
+}
 <h2>Create</h2>
 
 @using (Html.BeginForm()) 

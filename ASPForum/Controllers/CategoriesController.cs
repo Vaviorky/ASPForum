@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,6 +18,11 @@ namespace ASPForum.Controllers
         // GET: Categories
         public ActionResult Index()
         {
+            ViewBag.PostCount = db.Posts.Count();
+            ViewBag.ThreadCount = db.Threads.Count();
+            ViewBag.UserCount = db.Users.Count();
+            var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
+            ViewBag.NewestUser = user.UserName;
             return View(db.Categories.ToList());
         }
 
@@ -57,6 +63,8 @@ namespace ASPForum.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Subjects = db.Subjects.Where(x => x.CategoryId == id).ToList();
             return View(category);
         }
 
@@ -114,9 +122,9 @@ namespace ASPForum.Controllers
 
         public ActionResult Subjects_partial(int id)
         {
-            ViewBag.ThreadsCount =db.Threads.Count(s => s.Subject.Category.Id == id);
+            ViewBag.ThreadsCount = db.Threads.Count(s => s.Subject.Category.Id == id);
             ViewBag.PostCount = db.Posts.Count(s => s.Thread.Subject.Category.Id == id);
-            return PartialView("Subjects_partial", db.Subjects.Where(s=>s.Category.Id==id).ToList());
+            return PartialView("Subjects_partial", db.Subjects.Where(s => s.Category.Id == id).ToList());
         }
 
         public string PostCount(int id)
@@ -129,10 +137,10 @@ namespace ASPForum.Controllers
         }
         public string NewPost(int id)
         {
-            var post = db.Threads.Where(t=>t.Subject.Id==id).OrderByDescending(t => t.Date).FirstOrDefault();
+            var post = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
             ///  DateTime? latestDate = db.Threads.Where(t => t.Subject.Id == id).Max(t => t.Date
             if (post != null)
-                return post.Title.ToString();
+                return post.Thread.Title.ToString();
             else return "";
         }
     }

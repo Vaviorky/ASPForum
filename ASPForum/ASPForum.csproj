@@ -217,9 +217,22 @@
     <Compile Include="Migrations\201612052339152_changes.Designer.cs">
       <DependentUpon>201612052339152_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612061633596_postcount.cs" />
+    <Compile Include="Migrations\201612061633596_postcount.Designer.cs">
+      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081707049_moderators.cs" />
+    <Compile Include="Migrations\201612081707049_moderators.Designer.cs">
+      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612121227209_Registrationtime.cs" />
+    <Compile Include="Migrations\201612121227209_Registrationtime.Designer.cs">
+      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Moderator.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Friends.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -253,6 +266,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -334,6 +349,16 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Posts\PostThread.cshtml" />
     <Content Include="Views\Friends\UserList.cshtml" />
+    <Content Include="Views\Manage\Test.cshtml" />
+    <Content Include="Views\Manage\AccDetails.cshtml" />
+    <Content Include="Views\Manage\Avatar.cshtml" />
+    <Content Include="Views\Manage\UserManagement.cshtml" />
+    <Content Include="Views\Manage\Inbox.cshtml" />
+    <Content Include="Views\Manage\EditDetails.cshtml" />
+    <Content Include="Views\Manage\EditAvatar.cshtml" />
+    <Content Include="Views\Manage\ForumManagement.cshtml" />
+    <Content Include="Views\Manage\NewsManagement.cshtml" />
+    <Content Include="Views\Manage\EditUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -350,6 +375,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612052339152_changes.resx">
       <DependentUpon>201612052339152_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612061633596_postcount.resx">
+      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081707049_moderators.resx">
+      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612121227209_Registrationtime.resx">
+      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
