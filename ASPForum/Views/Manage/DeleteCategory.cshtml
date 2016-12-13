@@ -26,7 +26,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Ajax.ActionLink("Usuń kategorię", "DeleteConfirmed", null, new { id = Model.Id },
+            @Ajax.ActionLink("Usuń kategorię", "DeleteCategoryConfirmed", null, new { id = Model.Id },
                                 new AjaxOptions
                                 {
                                     HttpMethod = "POST",
