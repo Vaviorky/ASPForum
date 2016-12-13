@@ -4,6 +4,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (User.IsInRole("Admins"))
+{
+    @Html.ActionLink("Dodaj kategorie", "Create")
+}
+
 <div class="panel-group title-bar-position" id="accordion">
 
     @foreach (var item in Model)
@@ -27,6 +32,11 @@
                         </td>
                         <td class="col-xs-2">
                             Ostatni post
+@if (User.IsInRole("Admins"))
+{
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new {@class= "btn btn-default" })
+                            @Html.ActionLink("Usun", "Delete", new { id = item.Id }, new { @class = "btn btn-default" })
+}
                         </td>
 
                     </tr>

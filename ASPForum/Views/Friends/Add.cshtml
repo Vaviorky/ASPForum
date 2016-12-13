@@ -19,22 +19,28 @@
         <div class="form-group">
                 znajomy
             <div class="col-md-10">
-                @Html.Editor("FriendName", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Editor("FriendName", new { htmlAttributes = new { @class = "form-control",@id= "Keyword" } })
             </div>
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-               
-                
-                <script type="text/javascript">
-                    $("#divList").load('@Html.ActionLink("Dodaj znajomego", "Add", "Friends", null, new { @class = "btn btn-default" })');
-                </script>
-                
+
+
+                <button id="search">Szukaj</button>
+
+
+
+                <input id="" type="button" value="Szukaj" onclick="location.href='@Url.Action("UserList", "Friends")'" />
+
+
+
+
+                @Html.ActionLink("Szukaj", "UserList", "Friends", null, new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
 }
-<div id="divList">
+<div id="searchResults">
 
 </div>
 
