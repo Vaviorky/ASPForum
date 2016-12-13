@@ -23,6 +23,8 @@ namespace ASPForum.Controllers
             ViewBag.UserCount = db.Users.Count();
             var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
             ViewBag.NewestUser = user.UserName;
+            ViewBag.News =  db.News.OrderByDescending(t => t.Date).Take(3).ToList();
+
             return View(db.Categories.ToList());
         }
 

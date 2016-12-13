@@ -480,9 +480,74 @@ namespace ASPForum.Controllers
 
         public ActionResult ManageNews()
         {
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            var news = db.News.ToList();
+            return PartialView("NewsManagement",news);
+        }
+
+        public ActionResult CreateNews()
+        {
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            return PartialView("CreateNews");
+        }
+        [HttpPost]
+        public ActionResult CreateNewsSubmit(News news)
+        {
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            news.UserId = User.Identity.GetUserId();
+            news.Date = DateTime.Now;
+            db.News.Add(news);
+            db.SaveChanges();
+            return PartialView("NewsManagement", db.News.ToList());
+        }
+
+        public ActionResult EditNews(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (User.IsInRole("Admin"))
-                return PartialView("NewsManagement");
+            {
+                var news = db.News.Find(id);
+                return PartialView("EditNews", news);
+            }
             return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult EditNewsSubmit(News news)
+        {
+            if (news == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            {
+                news.Date = DateTime.Now;
+                db.Entry(news).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+
+            return PartialView("NewsManagement", db.News.ToList());
+        }
+
+        public ActionResult DeleteNews(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            if (User.IsInRole("Admin"))
+            {
+                var news = db.News.Find(id);
+                return PartialView("DeleteNews", news);
+            }
+            return HttpNotFound();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteNewsConfirmed(int id)
+        {
+            var news = db.News.Find(id);
+            db.News.Remove(news);
+            db.SaveChanges();
+            return PartialView("NewsManagement", db.News.ToList());
         }
 
         public ActionResult EditUser(string id)
@@ -691,6 +756,8 @@ namespace ASPForum.Controllers
             db.SaveChanges();
             return PartialView("ForumManagement", db.Categories.ToList());
         }
+
+
         #region Helpers
 
         // Used for XSRF protection when adding external logins
