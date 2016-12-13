@@ -49,17 +49,10 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Text")] Subject subject)
         {
-            var errors = ModelState.Values.SelectMany(v => v.Errors);
-            ViewBag.ErrorX = errors;
-
-            if (ModelState.IsValid)
-            {
-                db.Subjects.Add(subject);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(subject);
+            if (!ModelState.IsValid) return View(subject);
+            db.Subjects.Add(subject);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Subjects/Edit/5
