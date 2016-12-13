@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ASPForum.Models.Subject>
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12 subject-content">
+            <table width="100%">
+
+                <tr>
+
+                    <td class="col-md-7">
+                        @item.Title
+                    </td>
+                    <td class="col-md-5">
+                        @Ajax.ActionLink("Edytuj temat", "AccountDetails", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-small" })
+                        @Ajax.ActionLink("Usuń temat", "AccountDetails", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-small" })
+
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+    }
+</div>

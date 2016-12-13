@@ -2,9 +2,9 @@
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
     <table class="table table-bordered">
-        <th>Użytkownik</th>
-        <th>Ranga</th>
-        <th>Opcje</th>
+        <th class="col-md-4">Użytkownik</th>
+        <th class="col-md-5">Ranga</th>
+        <th class="col-md-3">Opcje</th>
         @foreach (var user in ViewBag.UserList)
         {
             <tr>

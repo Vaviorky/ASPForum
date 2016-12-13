@@ -64,21 +64,22 @@
 
 }
 
-<h2>Panel użytkownika</h2>
+
 <div id="page" class="col-md-12">
     <div id="functions" class="col-md-3">
-        @Ajax.ActionLink("Profil", "AccountDetails", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
-        @Ajax.ActionLink("Wiadomości", "Inbox", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
-        @Ajax.ActionLink("Zmień dane", "ChangeDetails", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
-        @Ajax.ActionLink("Zmień awatar", "ChangeAvatar", null,new AjaxOptions{UpdateTargetId = "moj_div",InsertionMode = InsertionMode.Replace,HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info" })
+        <h3>Panel użytkownika</h3>
+        @Ajax.ActionLink("Profil", "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink("Wiadomości", "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink("Zmień dane", "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink("Zmień awatar", "ChangeAvatar", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
 
         <br/>
         @if (User.IsInRole("Admin") && Request.IsAuthenticated)
         {
             <h5>Opcje administracyjne:</h5>
-            @Ajax.ActionLink("Użytkownicy", "ManageUsers", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
-            @Ajax.ActionLink("Forum", "ManageForum", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
-            @Ajax.ActionLink("Newsy", "ManageNews", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink("Użytkownicy", "ManageUsers", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            @Ajax.ActionLink("Forum", "ManageForum", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            @Ajax.ActionLink("Newsy", "ManageNews", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
 
 
         }

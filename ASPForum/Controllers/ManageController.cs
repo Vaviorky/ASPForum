@@ -475,7 +475,21 @@ namespace ASPForum.Controllers
         {
             if (User.IsInRole("Admin"))
             {
-                return PartialView("ForumManagement");
+
+                return PartialView("ForumManagement", db.Categories.ToList());
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+        }
+
+        public ActionResult ManageSubjectsInForum(int id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+
+                return PartialView("SubjectsForumManagement", db.Subjects.Where(s => s.Category.Id == id).ToList());
             }
             else
             {
@@ -569,6 +583,25 @@ namespace ASPForum.Controllers
             ViewBag.UserList = db.Users.ToList();
 
             return PartialView("UserManagement");
+        }
+
+        public ActionResult CreateCategory()
+        {
+            if (User.IsInRole("Admin"))
+            {
+                Debug.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                return PartialView("CreateCategory");
+
+            }
+            return HttpNotFound();
+        }
+        [HttpPost]
+        public ActionResult CreateCategorySubmit(Category category)
+        {
+            db.Categories.Add(category);
+            db.SaveChanges();
+            throw new Exception("AAAAA");
+            return PartialView("ForumManagement");
         }
 
 

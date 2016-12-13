@@ -360,6 +360,8 @@
     <Content Include="Views\Manage\NewsManagement.cshtml" />
     <Content Include="Views\Manage\EditUser.cshtml" />
     <Content Include="Views\Manage\DeleteUser.cshtml" />
+    <Content Include="Views\Manage\SubjectsForumManagement.cshtml" />
+    <Content Include="Views\Manage\CreateCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
