@@ -15,7 +15,7 @@
                     @user.Privileges
                 </td>
                 <td>
-                    @Ajax.ActionLink("Edytuj", "EditUser", new { id = User.Identity.GetUserId() },
+                    @Ajax.ActionLink("Edytuj", "EditUser", new { id = user.Id },
                         new AjaxOptions
                         {
                             UpdateTargetId = "moj_div",
@@ -50,8 +50,14 @@
                                 new { @style = "color:red;" })
 
                     }
-                    • 
+                    • @Ajax.ActionLink("Usuń", "DeteleUserConfirm", null, new { id = user.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "GET",
+                                    UpdateTargetId = "moj_div",
+                                    InsertionMode = InsertionMode.Replace
 
+                                })
 
                 </td>
 
