@@ -47,11 +47,12 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(string name)
+        public ActionResult UserList()
         {
-            var UserList = db.Users.Where(u=>u.UserName==name).ToList();
-            return View(UserList);
+           // var UserList = db.Users.Where(u=>u.UserName==name).ToList();
+            return PartialView("UserList");
         }
+       
 
         // GET: Friends/Edit/5
         public ActionResult Edit(int? id)

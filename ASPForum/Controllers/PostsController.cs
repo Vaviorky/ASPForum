@@ -19,6 +19,7 @@ namespace ASPForum.Controllers
 
         public ActionResult PostThread(int id)
         {
+
             var thread = db.Threads.FirstOrDefault(t => t.Id == id);
             ViewBag.ThreadTitle = thread.Title;
             return View(db.Posts.Where(t => t.Thread.Id == id).ToList());

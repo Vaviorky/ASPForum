@@ -4,6 +4,11 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (User.IsInRole("Admins"))
+{
+    @Html.ActionLink("Dodaj kategorie", "Create")
+}
+
 <div class="panel-group title-bar-position" id="accordion">
 
     @foreach (var item in Model)
@@ -28,6 +33,11 @@
                         </td>
                         <td class="col-xs-3">
                             Ostatni post
+@if (User.IsInRole("Admins"))
+{
+                            @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }, new {@class= "btn btn-default" })
+                            @Html.ActionLink("Usun", "Delete", new { id = item.Id }, new { @class = "btn btn-default" })
+}
                         </td>
 
                     </tr>
@@ -43,37 +53,3 @@
         </div>
     }
 </div>
-
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
