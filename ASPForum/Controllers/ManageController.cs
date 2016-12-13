@@ -540,6 +540,31 @@ namespace ASPForum.Controllers
             return HttpNotFound();
         }
 
+        public ActionResult DeteleUserConfirm(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = db.Users.FirstOrDefault(x => x.Id == id);
+
+                return PartialView("DeleteUser", user);
+            }
+            return HttpNotFound();
+        }
+
+        [HttpPost, ActionName("DeteleUserConfirm")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            var user = db.Users.Find(id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         #region Helpers
 

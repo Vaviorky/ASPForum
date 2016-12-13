@@ -160,7 +160,7 @@ namespace ASPForum.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login , Email = model.Email, Avatar = "/Content/Images/defaultavatar.jpg", RegistrationDate = DateTime.Now, Privileges = "Nowy użytkownik"};
+                var user = new ApplicationUser { UserName = model.Login , Email = model.Email, Avatar = "/Content/Images/defaultavatar.jpg", RegistrationDate = DateTime.Now, Privileges = "Nowy użytkownik", LockoutEnabled = false};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

@@ -15,29 +15,47 @@
                     @user.Privileges
                 </td>
                 <td>
-                    @Ajax.ActionLink("Edytuj", "EditUser", new {id = User.Identity.GetUserId()},
+                    @Ajax.ActionLink("Edytuj", "EditUser", new { id = User.Identity.GetUserId() },
                         new AjaxOptions
                         {
                             UpdateTargetId = "moj_div",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET"
-                        }) - 
-                   @{
-                        var x = "Zablokuj";
-                    }
+                        }) • 
                     @if (user.LockoutEnabled == true)
                     {
-                        x = "Odblokuj";
+
+                        @Ajax.ActionLink("Odblokuj", "ChangeStateForUser", null, new { id = user.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "moj_div",
+                                    InsertionMode = InsertionMode.Replace
+
+                                },
+                                new { @style = "color:SpringGreen;" })
+
                     }
-                    @Ajax.ActionLink(x, "ChangeStateForUser", null, new { id = user.Id},
-                        new AjaxOptions
-                        {
-                            HttpMethod = "POST",
-                            UpdateTargetId = "moj_div",
-                            InsertionMode = InsertionMode.Replace
-                            
-                        })
+                    else if (user.LockoutEnabled == false)
+                    {
+
+                        @Ajax.ActionLink("Zablokuj", "ChangeStateForUser", null, new { id = user.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "moj_div",
+                                    InsertionMode = InsertionMode.Replace
+
+                                },
+                                new { @style = "color:red;" })
+
+                    }
+                    • 
+
+
                 </td>
+
+
 
             </tr>
         }
