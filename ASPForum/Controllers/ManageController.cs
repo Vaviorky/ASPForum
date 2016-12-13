@@ -446,9 +446,10 @@ namespace ASPForum.Controllers
                 ViewBag.Error = "Nie udało się zapisać danych w bazie";
                 return PartialView("EditDetails", user);
             }
-            
+
             return RedirectToAction("AccountDetails");
         }
+
         public ActionResult ChangeAvatar()
         {
             var id = User.Identity.GetUserId();
@@ -503,13 +504,40 @@ namespace ASPForum.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 var user = db.Users.FirstOrDefault(x => x.Id == id);
-
+                
                 return PartialView("EditUser", user);
             }
             else
             {
                 return HttpNotFound();
             }
+        }
+
+        [HttpPost]
+        public ActionResult ChangeStateForUser(string id)
+        {
+            if (User.IsInRole("Admin"))
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                var user = db.Users.FirstOrDefault(x => x.Id == id);
+                try
+                {
+                    user.LockoutEnabled = !user.LockoutEnabled;
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.UserList = db.Users.ToList();
+                    return PartialView("UserManagement");
+                }
+                catch (Exception)
+                {
+                    return HttpNotFound("ASDASDSAD");
+                }
+                
+            }
+            return HttpNotFound();
         }
 
 

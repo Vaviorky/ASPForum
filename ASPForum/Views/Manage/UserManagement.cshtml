@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
-    <table class="table ">
+    <table class="table table-bordered">
         <th>Użytkownik</th>
         <th>Ranga</th>
         <th>Opcje</th>
@@ -21,6 +21,21 @@
                             UpdateTargetId = "moj_div",
                             InsertionMode = InsertionMode.Replace,
                             HttpMethod = "GET"
+                        }) - 
+                   @{
+                        var x = "Zablokuj";
+                    }
+                    @if (user.LockoutEnabled == true)
+                    {
+                        x = "Odblokuj";
+                    }
+                    @Ajax.ActionLink(x, "ChangeStateForUser", null, new { id = user.Id},
+                        new AjaxOptions
+                        {
+                            HttpMethod = "POST",
+                            UpdateTargetId = "moj_div",
+                            InsertionMode = InsertionMode.Replace
+                            
                         })
                 </td>
 
