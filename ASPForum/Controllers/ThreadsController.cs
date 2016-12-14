@@ -32,7 +32,11 @@ namespace ASPForum.Controllers
 
             var firstOrDefault = db.Subjects.FirstOrDefault(s => s.Id == id);
             if (firstOrDefault != null)
+            {
                 ViewBag.Title = firstOrDefault.Title;
+                ViewBag.CategoryTitle = firstOrDefault.Category.Title;
+            }
+
 
 
             return View(model);

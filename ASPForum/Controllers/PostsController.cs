@@ -32,6 +32,8 @@ namespace ASPForum.Controllers
 
             var posts = db.Posts.Where(t => t.Thread.Id == id).ToList();
             ViewBag.ThreadTitle = thread.Title;
+            ViewBag.CategoryTitle = thread.Subject.Category.Title;
+            ViewBag.SubjectTitle = thread.Subject.Title;
             return View(posts);
         }
 
@@ -63,6 +65,9 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            var firstOrDefault = db.Threads.FirstOrDefault(t => t.Id == id);
+            if (firstOrDefault != null)
+                ViewBag.ThreadTitle = firstOrDefault.Title;
             ViewBag.ThreadId = id;
             return View();
         }

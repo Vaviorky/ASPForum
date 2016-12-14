@@ -4,10 +4,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Title</h3>
 
 
-    @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class="btn btn-primary btn-sm"})
+@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-sm" })
+
+
+<div class="panel-group title-bar-position" id="accordion">
+
+    <div class="panel panel-default">
+
+
+        <div class="panel-heading title-bar">
+            <a href="/"><span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>Strona główna forum</a> > @ViewBag.CategoryTitle > @ViewBag.Title
+
+        </div>
+    </div>
+</div>
+
+
+
 @if (Model.PinnedThreads.Any())
 {
     <div class="panel-group title-bar-position" id="accordion">
@@ -127,7 +143,7 @@
                                     @Html.Action("ViewCount", "Threads", new { id = thread.Id })
                                 </td>
                                 <td class="col-xs-3">
-                                    @Html.Action("LastPost", "Threads", new {id = thread.Id})
+                                    @Html.Action("LastPost", "Threads", new { id = thread.Id })
                                 </td>
                             </tr>
                         </table>
@@ -139,5 +155,5 @@
     </div>
 
 </div>
-<br/>
+<br />
 @Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-sm" })
