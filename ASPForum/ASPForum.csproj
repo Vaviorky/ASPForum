@@ -229,6 +229,10 @@
     <Compile Include="Migrations\201612121227209_Registrationtime.Designer.cs">
       <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612141043245_pinningThreads.cs" />
+    <Compile Include="Migrations\201612141043245_pinningThreads.Designer.cs">
+      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -240,6 +244,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\ThreadsWithPinnedViewModel.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -372,6 +377,7 @@
     <Content Include="Views\Manage\EditNews.cshtml" />
     <Content Include="Views\Manage\DeleteNews.cshtml" />
     <Content Include="Views\Categories\LastPost.cshtml" />
+    <Content Include="Views\Threads\LastPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -397,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612121227209_Registrationtime.resx">
       <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141043245_pinningThreads.resx">
+      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
