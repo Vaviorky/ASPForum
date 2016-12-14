@@ -171,5 +171,12 @@ namespace ASPForum.Models
                 um.RemoveFromRole(userId, role.RoleId);
             }
         }
+
+        public bool ClearUserFromRole(string userId, string role)
+        {
+            var um = LocalUserManager;
+            var result = um.RemoveFromRoleAsync(userId, role);
+            return result.Result.Succeeded;
+        }
     }
 }

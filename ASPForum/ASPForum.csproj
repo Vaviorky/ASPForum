@@ -366,7 +366,6 @@
     <Content Include="Views\Manage\EditAvatar.cshtml" />
     <Content Include="Views\Manage\ForumManagement.cshtml" />
     <Content Include="Views\Manage\EditUser.cshtml" />
-    <Content Include="Views\Manage\DeleteUser.cshtml" />
     <Content Include="Views\Manage\SubjectsForumManagement.cshtml" />
     <Content Include="Views\Manage\CreateCategory.cshtml" />
     <Content Include="Views\Manage\EditCategory.cshtml" />

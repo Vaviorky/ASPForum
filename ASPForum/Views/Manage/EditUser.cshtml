@@ -22,7 +22,7 @@
 }
 
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("EditUserSubmit", "Manage", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace }))
 {
     @Html.AntiForgeryToken()
     
@@ -32,6 +32,12 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.Avatar)
+        @Html.HiddenFor(model => model.RegistrationDate)
+        @Html.HiddenFor(model => model.LockoutEnabled)
+        @Html.HiddenFor(model => model.PasswordHash)
+        @Html.HiddenFor(model => model.SecurityStamp)
+        @Html.HiddenFor(model => model.Privileges)
 
         <div class="form-group">
             @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
