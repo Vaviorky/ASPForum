@@ -7,7 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace ASPForum.Controllers
 {
@@ -23,6 +27,19 @@ namespace ASPForum.Controllers
             ViewBag.UserCount = db.Users.Count();
             var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
             ViewBag.NewestUser = user.UserName;
+            ViewBag.News =  db.News.OrderByDescending(t => t.Date).Take(3).ToList();
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var currentUser = db.Users.Find(userId);
+                if (currentUser.LockoutEnabled)
+                {
+                    HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return View("Lockout");
+                }
+            }
+
             return View(db.Categories.ToList());
         }
 
@@ -135,13 +152,16 @@ namespace ASPForum.Controllers
         {
             return db.Threads.Count(s => s.Subject.Id == id).ToString();
         }
-        public string NewPost(int id)
+        public ActionResult NewPost(int id)
         {
             var post = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
-            ///  DateTime? latestDate = db.Threads.Where(t => t.Subject.Id == id).Max(t => t.Date
             if (post != null)
-                return post.Thread.Title.ToString();
-            else return "";
+            {
+                return PartialView("LastPost", post);
+            }
+            else
+                return HttpNotFound("Brak postów");
+            
         }
     }
 }

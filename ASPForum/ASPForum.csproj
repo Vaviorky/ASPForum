@@ -229,6 +229,14 @@
     <Compile Include="Migrations\201612121227209_Registrationtime.Designer.cs">
       <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612141043245_pinningThreads.cs" />
+    <Compile Include="Migrations\201612141043245_pinningThreads.Designer.cs">
+      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612141552542_readingmessages.cs" />
+    <Compile Include="Migrations\201612141552542_readingmessages.Designer.cs">
+      <DependentUpon>201612141552542_readingmessages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -240,6 +248,7 @@
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\News.cs" />
     <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\ThreadsWithPinnedViewModel.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -350,15 +359,12 @@
     <Content Include="Views\Friends\UserList.cshtml" />
     <Content Include="Views\Manage\Test.cshtml" />
     <Content Include="Views\Manage\AccDetails.cshtml" />
-    <Content Include="Views\Manage\Avatar.cshtml" />
     <Content Include="Views\Manage\UserManagement.cshtml" />
     <Content Include="Views\Manage\Inbox.cshtml" />
     <Content Include="Views\Manage\EditDetails.cshtml" />
     <Content Include="Views\Manage\EditAvatar.cshtml" />
     <Content Include="Views\Manage\ForumManagement.cshtml" />
-    <Content Include="Views\Manage\NewsManagement.cshtml" />
     <Content Include="Views\Manage\EditUser.cshtml" />
-    <Content Include="Views\Manage\DeleteUser.cshtml" />
     <Content Include="Views\Manage\SubjectsForumManagement.cshtml" />
     <Content Include="Views\Manage\CreateCategory.cshtml" />
     <Content Include="Views\Manage\EditCategory.cshtml" />
@@ -367,6 +373,12 @@
     <Content Include="Views\Manage\EditSubject.cshtml" />
     <Content Include="Views\Manage\DeleteSubject.cshtml" />
     <Content Include="Views\Messages\FriendsPartial.cshtml" />
+    <Content Include="Views\Manage\NewsManagement.cshtml" />
+    <Content Include="Views\Manage\CreateNews.cshtml" />
+    <Content Include="Views\Manage\EditNews.cshtml" />
+    <Content Include="Views\Manage\DeleteNews.cshtml" />
+    <Content Include="Views\Categories\LastPost.cshtml" />
+    <Content Include="Views\Threads\LastPost.cshtml" />
     <Content Include="Views\Messages\NewMessageFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -393,6 +405,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612121227209_Registrationtime.resx">
       <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141043245_pinningThreads.resx">
+      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141552542_readingmessages.resx">
+      <DependentUpon>201612141552542_readingmessages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

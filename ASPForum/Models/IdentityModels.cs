@@ -87,11 +87,12 @@ namespace ASPForum.Models
         {
             ApplicationUser user = null;
             UserManager<ApplicationUser> um = this.LocalUserManager;
-
+           
             user = um.FindById(userID);
 
             return user;
         }
+
 
 
         public ApplicationUser GetUserByName(string email)
@@ -99,7 +100,7 @@ namespace ASPForum.Models
             ApplicationUser user = null;
             UserManager<ApplicationUser> um = this.LocalUserManager;
 
-            user = um.FindByEmail(email);
+            user = um.FindByName(email);
 
             return user;
         }
@@ -110,6 +111,12 @@ namespace ASPForum.Models
             var rm = LocalRoleManager;
 
             return rm.RoleExists(name);
+        }
+
+        public bool isUserInRole(string userId, string role)
+        {
+            var um = this.LocalUserManager;
+            return um.IsInRoleAsync(userId, role).Result;
         }
 
 
@@ -163,6 +170,13 @@ namespace ASPForum.Models
             {
                 um.RemoveFromRole(userId, role.RoleId);
             }
+        }
+
+        public bool ClearUserFromRole(string userId, string role)
+        {
+            var um = LocalUserManager;
+            var result = um.RemoveFromRoleAsync(userId, role);
+            return result.Result.Succeeded;
         }
     }
 }

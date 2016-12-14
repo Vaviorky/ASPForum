@@ -20,11 +20,26 @@ namespace ASPForum.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult ThreadsSubject(int id)
         {
-            ViewData["LastPost"] = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
-            var threads = db.Threads.Where(t => t.SubjectId == id).ToList();
-            var title = db.Subjects.FirstOrDefault(s => s.Id == id);
-            ViewBag.ThreadTitle = title.Title;
-            return View(threads);
+            var threads = db.Threads.Where(t => t.SubjectId == id).OrderByDescending(t=>t.Date).ToList();
+            var threadsNotPinned = threads.Where(t => t.IsPinned == false);
+            var threadsPinned = threads.Where(t => t.IsPinned == true);
+
+            var model = new ThreadsWithPinnedViewModel
+            {
+                UnpinnedThreads = threadsNotPinned,
+                PinnedThreads = threadsPinned
+            };
+
+            var firstOrDefault = db.Subjects.FirstOrDefault(s => s.Id == id);
+            if (firstOrDefault != null)
+            {
+                ViewBag.Title = firstOrDefault.Title;
+                ViewBag.CategoryTitle = firstOrDefault.Category.Title;
+            }
+
+
+
+            return View(model);
         }
 
 
@@ -66,7 +81,7 @@ namespace ASPForum.Controllers
         {
             thread.Date = DateTime.Now;
             thread.UserId = User.Identity.GetUserId();
-
+            
             try
             {
                 db.Threads.Add(thread);
@@ -75,24 +90,8 @@ namespace ASPForum.Controllers
             }
             catch (DbEntityValidationException ex)
             {
-                StringBuilder sb = new StringBuilder();
-
-                foreach (var failure in ex.EntityValidationErrors)
-                {
-                    sb.AppendFormat("{0} failed validation\n", failure.Entry.Entity.GetType());
-                    foreach (var error in failure.ValidationErrors)
-                    {
-                        sb.AppendFormat("- {0} : {1}", error.PropertyName, error.ErrorMessage);
-                        sb.AppendLine();
-                    }
-                }
-
-                throw new DbEntityValidationException(
-                    "Entity Validation Failed - errors follow:\n" +
-                    sb.ToString(), ex
-                ); // Add the original exception as the innerException
+                return View(thread);
             }
-            return View(thread);
         }
 
         // GET: Threads/Edit/5
@@ -172,9 +171,17 @@ namespace ASPForum.Controllers
             return thread.ViewCount.ToString();
         }
 
-        public void LastPost(int id)
+        public ActionResult LastPost(int id)
         {
-          
+            var post = db.Posts.Where(t => t.ThreadId == id).OrderByDescending(t => t.Date).FirstOrDefault();
+            if (post != null)
+                return PartialView("LastPost", post);
+            else
+            {
+                ViewBag.NoPost = "Brak postów";
+                return HttpNotFound("");
+
+            }
         }
 
     }
