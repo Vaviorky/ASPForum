@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
-using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -21,9 +20,9 @@ namespace ASPForum.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         public ManageController()
         {
@@ -454,47 +453,42 @@ namespace ASPForum.Controllers
             return PartialView("EditAvatar");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ManageUsers()
         {
-            if (User.IsInRole("Admin"))
-            {
-                ViewBag.UserList = db.Users.ToList();
-                return PartialView("UserManagement");
-            }
-            return HttpNotFound("Nie masz dostępu do tego zasobu");
+            ViewBag.UserList = db.Users.ToList();
+            return PartialView("UserManagement");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ManageForum()
         {
-            if (User.IsInRole("Admin"))
-                return PartialView("ForumManagement", db.Categories.ToList());
-            return HttpNotFound();
+            return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ManageSubjectsInForum(int id)
         {
-            if (User.IsInRole("Admin"))
-                return PartialView("SubjectsForumManagement", db.Subjects.Where(s => s.Category.Id == id).ToList());
-            return HttpNotFound();
+            return PartialView("SubjectsForumManagement", db.Subjects.Where(s => s.Category.Id == id).ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult ManageNews()
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             var news = db.News.ToList();
             return PartialView("NewsManagement", news);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateNews()
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             return PartialView("CreateNews");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateNewsSubmit(News news)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             news.UserId = User.Identity.GetUserId();
             news.Date = DateTime.Now;
             db.News.Add(news);
@@ -502,46 +496,38 @@ namespace ASPForum.Controllers
             return PartialView("NewsManagement", db.News.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditNews(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (User.IsInRole("Admin"))
-            {
-                var news = db.News.Find(id);
-                return PartialView("EditNews", news);
-            }
-            return HttpNotFound();
+            var news = db.News.Find(id);
+            return PartialView("EditNews", news);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditNewsSubmit(News news)
         {
             if (news == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
-            {
-                news.Date = DateTime.Now;
-                db.Entry(news).State = EntityState.Modified;
-                db.SaveChanges();
-            }
-
+            news.Date = DateTime.Now;
+            db.Entry(news).State = EntityState.Modified;
+            db.SaveChanges();
 
             return PartialView("NewsManagement", db.News.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteNews(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (User.IsInRole("Admin"))
-            {
-                var news = db.News.Find(id);
-                return PartialView("DeleteNews", news);
-            }
-            return HttpNotFound();
+            var news = db.News.Find(id);
+            return PartialView("DeleteNews", news);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult DeleteNewsConfirmed(int id)
         {
@@ -551,9 +537,9 @@ namespace ASPForum.Controllers
             return PartialView("NewsManagement", db.News.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var user = db.Users.FirstOrDefault(x => x.Id == id);
@@ -561,10 +547,10 @@ namespace ASPForum.Controllers
             return PartialView("EditUser", user);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditUserSubmit(ApplicationUser user)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (user == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             try
@@ -577,14 +563,13 @@ namespace ASPForum.Controllers
                 return PartialView("Error");
             }
 
-
             return PartialView("UserManagement", db.Users.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult ChangeStateForUser(string id)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var user = db.Users.FirstOrDefault(x => x.Id == id);
@@ -602,13 +587,13 @@ namespace ASPForum.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateCategory()
         {
-            if (User.IsInRole("Admin"))
-                return PartialView("CreateCategory");
-            return HttpNotFound();
+            return PartialView("CreateCategory");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateCategorySubmit(Category category)
         {
@@ -619,45 +604,39 @@ namespace ASPForum.Controllers
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditCategory(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (User.IsInRole("Admin"))
-            {
-                var category = db.Categories.Find(id);
-                return PartialView("EditCategory", category);
-            }
-            return HttpNotFound();
+
+            var category = db.Categories.Find(id);
+            return PartialView("EditCategory", category);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditCategorySubmit(Category category)
         {
             if (category == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
 
             db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();
-
-
-
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteCategory(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (User.IsInRole("Admin"))
-            {
-                var category = db.Categories.Find(id);
-                return PartialView("DeleteCategory", category);
-            }
-            return HttpNotFound();
+
+            var category = db.Categories.Find(id);
+            return PartialView("DeleteCategory", category);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult DeleteCategoryConfirmed(int id)
         {
@@ -667,55 +646,51 @@ namespace ASPForum.Controllers
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateSubject(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            }
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             ViewBag.CategoryId = id;
             return PartialView("CreateSubject");
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateSubjectSubmit(Subject subject)
         {
             if (subject == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             if (!User.IsInRole("Admin")) return HttpNotFound();
             db.Subjects.Add(subject);
             db.SaveChanges();
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult EditSubject(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             if (!User.IsInRole("Admin")) return HttpNotFound();
             var subject = db.Subjects.Find(id);
             ViewBag.CategoryId = subject.CategoryId;
             return PartialView("EditSubject", subject);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult EditSubjectSubmit(Subject subject)
         {
             if (subject == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             if (!User.IsInRole("Admin")) return HttpNotFound();
             db.Entry(subject).State = EntityState.Modified;
             db.SaveChanges();
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteSubject(int? id)
         {
             if (id == null)
@@ -741,6 +716,7 @@ namespace ASPForum.Controllers
             return PartialView("~/Views/Friends/Add.cshtml");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult DeleteSubjectConfirmed(int id)
         {
@@ -750,10 +726,10 @@ namespace ASPForum.Controllers
             return PartialView("ForumManagement", db.Categories.ToList());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult ChangeAdminRole(string id)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             try
@@ -763,9 +739,7 @@ namespace ASPForum.Controllers
                 {
                     var result = im.ClearUserFromRole(id, "Admin");
                     if (result == false)
-                    {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
                 }
                 else
                 {
@@ -780,6 +754,14 @@ namespace ASPForum.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult ModeratorManage(string id)
+        {
+            if (!User.IsInRole("Admin")) return HttpNotFound();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            throw new Exception();
+        }
 
         #region Helpers
 
@@ -825,7 +807,5 @@ namespace ASPForum.Controllers
         }
 
         #endregion
-
-        
     }
 }

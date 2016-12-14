@@ -19,7 +19,7 @@
 
                     @if (im.isUserInRole(user.Id, "Admin"))
                     {
-                        @Ajax.ActionLink("Odbierz upr. admina", "ChangeAdminRole", new { id = user.Id },
+                        @Ajax.ActionLink("Odbierz admina", "ChangeAdminRole", new { id = user.Id },
                             new AjaxOptions
                             {
                                 UpdateTargetId = "moj_div",
@@ -39,7 +39,13 @@
                             },
                             new { @style = "color:SpringGreen;" })
                     }
-                    - Przydziel moderatora
+                    - @Ajax.ActionLink("Zarządzaj rolą moderatora", "ModeratorManage", new { id = user.Id },
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "moj_div",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET"
+                            })
                 </td>
 
 
