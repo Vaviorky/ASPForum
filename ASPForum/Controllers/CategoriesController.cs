@@ -137,13 +137,16 @@ namespace ASPForum.Controllers
         {
             return db.Threads.Count(s => s.Subject.Id == id).ToString();
         }
-        public string NewPost(int id)
+        public ActionResult NewPost(int id)
         {
             var post = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
-            ///  DateTime? latestDate = db.Threads.Where(t => t.Subject.Id == id).Max(t => t.Date
             if (post != null)
-                return post.Thread.Title.ToString();
-            else return "";
+            {
+                return PartialView("LastPost", post);
+            }
+            else
+                return HttpNotFound("Brak postów");
+            
         }
     }
 }

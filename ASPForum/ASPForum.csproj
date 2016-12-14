@@ -371,6 +371,7 @@
     <Content Include="Views\Manage\CreateNews.cshtml" />
     <Content Include="Views\Manage\EditNews.cshtml" />
     <Content Include="Views\Manage\DeleteNews.cshtml" />
+    <Content Include="Views\Categories\LastPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

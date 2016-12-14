@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
 
@@ -154,6 +155,34 @@ namespace ASPForum.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public string Privillege(int id, string userid)
+        {
+            var user = db.Users.Find(userid);
+            var im = new IdentityManager();
+            if (im.isUserInRole(user.Id, "Admin"))
+            {
+                return "<div style=\"color: red; text-align: center;\">Administrator</div>";
+            } else if (im.isUserInRole(user.Id, "Moderator"))
+            {
+                return "<div style=\"color: green; text-align: center;\">Moderator</div>";
+
+            }
+
+            if (id >= 0 && id <= 20)
+            {
+                return "<span style: \"color=white;\">Nowy użytkownik</span>";
+                
+            }
+            else if (id > 20 && id <= 50)
+            {
+                return "Bywalec";
+            } else if (id > 50 && id <= 100)
+            {
+                return "Forumowicz";
+            }
+            return "";
         }
     }
 }
