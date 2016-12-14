@@ -7,7 +7,11 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 
 namespace ASPForum.Controllers
 {
@@ -24,6 +28,17 @@ namespace ASPForum.Controllers
             var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
             ViewBag.NewestUser = user.UserName;
             ViewBag.News =  db.News.OrderByDescending(t => t.Date).Take(3).ToList();
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+                var currentUser = db.Users.Find(userId);
+                if (currentUser.LockoutEnabled)
+                {
+                    HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return View("Lockout");
+                }
+            }
 
             return View(db.Categories.ToList());
         }

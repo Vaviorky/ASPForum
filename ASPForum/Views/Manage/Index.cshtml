@@ -7,69 +7,65 @@
     @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
     @Scripts.Render("~/Scripts/jquery.validate.min.js")
     @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.js")
-    
+
     <script type="text/javascript">
         $(document)
-            .ready(function () {
-                $('#openFile')
+            .ready(function() {
+                $(document)
                     .on('change',
-                        function () {
+                        "#openFile",
+                        function() {
                             $('#error').empty();
-
                             var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
                             var extension = filename.replace(/^.*\./, '');
-
+                            console.log(filename + " " + extension);
                             if (extension === filename) {
                                 extension = '';
                             } else {
                                 extension = extension.toLowerCase();
                             }
                             switch (extension) {
-                                case 'jpg':
-                                case 'jpeg':
-                                case 'png':
-                                    $('#submit').attr("disabled", false);
-                                    break;
-                                default:
-                                    $('#submit').attr("disabled", true);
-                                    $('#error').append('<p>Nieprawidłowe rozszerzenie pliku</p>');
+                            case 'jpg':
+                            case 'jpeg':
+                            case 'png':
+
+                                $('#submit').attr("disabled", false);
+                                break;
+                            default:
+                                $("#moj_div").find("#submit").attr("disabled", true);
+                                $("#moj_div").find("#error").append('<p>Nieprawidłowe rozszerzenie pliku</p>');
                             }
                             var size = this.files[0].size;
                             if (size > 500000) {
-                                $('#submit').attr("disabled", true);
-                                $('#error').append('<p>Zbyt duży rozmiar</p>');
+                                $("#moj_div").find("#submit").attr("disabled", true);
+                                $("#moj_div").find("#error").append('<p>Zbyt duży rozmiar</p>');
                             }
 
+                            var url = window.URL || window.webkitURL;
 
+                            var image, file;
+                            if ((file = this.files[0])) {
+                                image = new Image();
+                                image.onload = function () {
+                                    if (this.width > 150 ||
+                                        this.height > 150 ||
+                                        ((this.width / this.height) !== 1)) {
+                                        $("#moj_div").find("#submit").attr("disabled", true);
+                                        $("#moj_div").find("#error").append('<p>Nieprawidłowa rozdzielczość obrazka</p>');
+                                    }
+                                };
+                                image.src = url.createObjectURL(file);
+                            }
                         });
-                var url = window.URL || window.webkitURL;
-
-                $("#openFile")
-                    .change(function (e) {
-                        var image, file;
-                        if ((file = this.files[0])) {
-                            image = new Image();
-                            image.onload = function () {
-                                if (this.width > 150 || this.height > 150 || ((this.width / this.height) !== 1)) {
-                                    $('#submit').attr("disabled", true);
-                                    $('#error').append('<p>Nieprawidłowa rozdzielczość obrazka</p>');
-                                }
-                            };
-                            image.src = url.createObjectURL(file);
-                        }
-                    });
-
             });
-
     </script>
-
 }
 
 
 <div id="page" class="col-md-12">
     <h3>Panel użytkownika</h3>
     <div id="functions" class="col-md-3">
-      
+
         @Ajax.ActionLink("Profil", "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
         @Ajax.ActionLink("Wiadomości", "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
         @Ajax.ActionLink("Zmień dane", "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
@@ -82,15 +78,16 @@
             @Ajax.ActionLink("Użytkownicy", "ManageUsers", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
             @Ajax.ActionLink("Forum", "ManageForum", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
             @Ajax.ActionLink("Newsy", "ManageNews", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            }
-
+        }
 
     </div>
-    <div id="moj_div" class="col-md-9"></div>
+    <div id="moj_div" class="col-md-9">
+
+    </div>
 </div>
 <div>
     <h4>Change your account settings</h4>
-    <hr />
+    <hr/>
     <dl class="dl-horizontal">
         <dt>Password:</dt>
         <dd>

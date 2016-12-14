@@ -93,16 +93,6 @@ textarea {
     font-size: 15px;
 }
 
-input[type="file"] {
-    display: none;
-}
-
-#openFile {
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-}
-
 /*
     </bootstrap override>
 */

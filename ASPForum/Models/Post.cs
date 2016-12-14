@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Web.Mvc;
 
 namespace ASPForum.Models
 {
@@ -13,6 +14,7 @@ namespace ASPForum.Models
         [Required]
         [StringLength(70)]
         public string Title { get; set; }
+        [AllowHtml]
         public string Text { get; set; }
         public DateTime Date { get; set; }
         public string UserId { get; set; }

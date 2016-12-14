@@ -23,7 +23,7 @@
 {
     <div class="panel-group title-bar-position" id="accordion" style="padding-bottom: 0px;">
 
-        <div id="@item.Id" class="panel" style="padding-bottom: 0px;">
+        <div id="@item.Id" class="panel panel-default" style="padding-bottom: 0px;">
             <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
                 <table width="100%">
                     @{ ViewBag.Title = "Zobacz wątek: " + item.Thread.Title; }
@@ -35,15 +35,33 @@
 
                         </td>
                         <td class="col-md-11" style="vertical-align: top;">
-                            <div style="font-size: 14px;">Przez: @item.User.UserName, @item.Date, @item.Thread.Title</div>
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <div style="font-size: 14px;">Przez: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
+                                    </td>
+                                    <td>
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                        {
+                                            <div align="right">@Html.ActionLink("Usuń post", "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
+                                        }
+                                        else
+                                        {
+                                            <div align="right">
+                                                <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>Zgłoś post
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
                             <pre>@Html.DisplayFor(modelItem => item.Text)</pre>
                         </td>
                     </tr>
                 </table>
             </div>
-
         </div>
     </div>
 }
 <br/>
-@Html.ActionLink("Utwórz nowy post", "Create", "Posts", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("Utwórz nowy post", "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
+}
