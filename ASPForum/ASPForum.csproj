@@ -350,7 +350,6 @@
     <Content Include="Views\Friends\Details.cshtml" />
     <Content Include="Views\Friends\Edit.cshtml" />
     <Content Include="Views\Friends\Index.cshtml" />
-    <Content Include="Views\Messages\Options.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
     <Content Include="Views\Posts\Delete.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
@@ -380,6 +379,7 @@
     <Content Include="Views\Manage\DeleteNews.cshtml" />
     <Content Include="Views\Categories\LastPost.cshtml" />
     <Content Include="Views\Threads\LastPost.cshtml" />
+    <Content Include="Views\Messages\NewMessageFriends.cshtml" />
     <Content Include="Views\Manage\ManageModerator.cshtml" />
     <Content Include="Views\Manage\AddModerator.cshtml" />
   </ItemGroup>
