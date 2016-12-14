@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers
 {
@@ -22,18 +23,18 @@ namespace ASPForum.Controllers
         }
 
         // GET: Friends/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Friends friends = db.Friends.Find(id);
-            if (friends == null)
+            ApplicationUser users = db.Users.Find(id);
+            if (users == null)
             {
                 return HttpNotFound();
             }
-            return View(friends);
+            return PartialView("Details", users);
         }
 
         // GET: Friends/Create
@@ -54,6 +55,7 @@ namespace ASPForum.Controllers
 
             if (name != null)
             {
+                UserList.Remove(db.Users.Find(User.Identity.GetUserId()));
                 foreach (var iter in UserList)
                 {
                     if (iter.UserName.ToLower().Contains(name.ToLower()))
@@ -65,7 +67,7 @@ namespace ASPForum.Controllers
             var ss = UserList.ToString();
             return PartialView("UserList", searchResult);
         }
-       
+
 
         // GET: Friends/Edit/5
         public ActionResult Edit(int? id)
@@ -110,7 +112,7 @@ namespace ASPForum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(friends);
+            return PartialView("Delete",friends);
         }
 
         // POST: Friends/Delete/5
@@ -121,9 +123,22 @@ namespace ASPForum.Controllers
             Friends friends = db.Friends.Find(id);
             db.Friends.Remove(friends);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Manage");
         }
-
+        public ActionResult AddFriend(string id)
+        {
+            var idd = User.Identity.GetUserId();
+            Friends friend = new Friends();
+            friend.User = db.Users.Find(idd);
+            friend.Friend = db.Users.Find(id);
+            if(db.Friends.FirstOrDefault(f=>f.Friend.UserName==friend.Friend.UserName && f.User.UserName == friend.User.UserName) != null)
+            {
+                return RedirectToAction("Index", "Manage");
+            }
+            db.Friends.Add(friend);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Manage");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

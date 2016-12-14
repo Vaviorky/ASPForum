@@ -40,7 +40,7 @@ namespace ASPForum.Controllers
         // GET: Messages/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("Create");
         }
 
         // POST: Messages/Create
@@ -58,7 +58,7 @@ namespace ASPForum.Controllers
                 return RedirectToAction("Index", "Manage"); 
             }
 
-            return View(message);
+            return PartialView("Create",message);
         }
 
         // GET: Messages/Edit/5
@@ -127,12 +127,13 @@ namespace ASPForum.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Options()
+        public ActionResult NewMessageFriends()
         {
             var id = User.Identity.GetUserId();
             var q = db.Friends.Where(f=>f.User.Id== id).ToList();
-            return PartialView("Options",q);
+            return PartialView("NewMessageFriends",q);
         }
+
 
         public string dateMessage(int id)
         {
@@ -148,5 +149,7 @@ namespace ASPForum.Controllers
             }
             
         }
+
     }
+
 }

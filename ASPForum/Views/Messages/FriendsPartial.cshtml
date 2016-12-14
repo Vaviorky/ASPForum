@@ -6,12 +6,12 @@
 
     @foreach (var item in Model)
     {
-        <tr style="border-bottom:1px solid black;" onclick="location.href='yourpage.html'">
-            <td>
+        <tr style="border-bottom:1px solid black;">
+            <td  onclick="location.href='yourpage.html'">
                 @item.Friend.UserName
             </td>
             <td>
-                @Html.ActionLink("Usun", "Delete", "Friends", new { id = item.Id }, null)
+                @Ajax.ActionLink("Usun", "Delete", "Friends", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-default", @style ="padding-top:0px; padding-bottom:0px;" })
             </td>
 
         </tr>

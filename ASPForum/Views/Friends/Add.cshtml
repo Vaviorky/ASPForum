@@ -9,7 +9,6 @@
                             UpdateTargetId = "searchResults"
                         }))
 {
-    @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
         <div class="form-group">
@@ -19,8 +18,7 @@
             <div class="col-md-2">
 
                 <input type="submit" value="Szukaj" class = "list-group-item list-group-item-info"/>
-                @Ajax.ActionLink("Szukaj", "UserList", "Friends", null,new AjaxOptions { UpdateTargetId = "searchResults", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
-
+              
             </div>
         </div>
     </div>

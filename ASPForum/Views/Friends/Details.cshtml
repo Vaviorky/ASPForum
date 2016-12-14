@@ -1,19 +1,11 @@
-﻿@model ASPForum.Models.Friends
+﻿@model ASPForum.Models.ApplicationUser
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-<h2>Details</h2>
-
+<h4>@Model.UserName</h4>
 <div>
-    <h4>Friends</h4>
-    <hr />
-    <dl class="dl-horizontal">
-    </dl>
+   
+     @Model.Rank
+    @Model.RegistrationDate
+    @Model.Roles
+
+    @Html.ActionLink("Dodaj znajomego","AddFriend","Friends",new {id=Model.Id },new {@clas = "btn btm-default"  })
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

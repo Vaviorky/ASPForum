@@ -2,5 +2,20 @@
 
 @foreach (var item in Model)
 {
-    @item.UserName
+    <table width="100%" class="subject-content">
+        <tr>
+            <td>
+                @Ajax.ActionLink(@item.UserName, "Details", new {id=item.Id },
+               new AjaxOptions
+               {
+                   UpdateTargetId = "moj_div",
+                   InsertionMode = InsertionMode.Replace,
+                   HttpMethod = "GET"
+               },
+               new { @class = "list-group-item list-group-item-text" })
+                
+            </td>
+        </tr>
+    </table>
+
 }
