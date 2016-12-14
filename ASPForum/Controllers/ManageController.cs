@@ -108,7 +108,7 @@ namespace ASPForum.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new {Message = message});
+            return RedirectToAction("ManageLogins", new { Message = message });
         }
 
         //
@@ -137,7 +137,7 @@ namespace ASPForum.Controllers
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new {PhoneNumber = model.Number});
+            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
         //
@@ -174,7 +174,7 @@ namespace ASPForum.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null
                 ? View("Error")
-                : View(new VerifyPhoneNumberViewModel {PhoneNumber = phoneNumber});
+                : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
         //
@@ -192,7 +192,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
+                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
@@ -207,11 +207,11 @@ namespace ASPForum.Controllers
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
-                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
                 await SignInManager.SignInAsync(user, false, false);
-            return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
+            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
         //
@@ -236,7 +236,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
@@ -263,7 +263,7 @@ namespace ASPForum.Controllers
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                         await SignInManager.SignInAsync(user, false, false);
-                    return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
+                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
                 AddErrors(result);
             }
@@ -315,11 +315,11 @@ namespace ASPForum.Controllers
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
-                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
+                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("ManageLogins")
-                : RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
+                : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
         protected override void Dispose(bool disposing)
@@ -369,7 +369,7 @@ namespace ASPForum.Controllers
             if (file.ContentType.Contains("image"))
                 return true;
 
-            string[] formats = {".jpg", ".png", ".jpeg"}; // add more if u like...
+            string[] formats = { ".jpg", ".png", ".jpeg" }; // add more if u like...
 
             return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
@@ -762,12 +762,39 @@ namespace ASPForum.Controllers
             var subjectModerator = db.Moderators.Where(m => m.UserId == id).ToList();
             ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == id).UserName;
             ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == id).Id;
+            var subjects = db.Subjects.ToList();
+            ViewBag.SelectList = new SelectList(subjects, "Id", "Title");
             return PartialView("ManageModerator", subjectModerator);
         }
-
-        public ActionResult ModeratorAdd(string id)
+        [HttpPost]
+        public ActionResult ModeratorAdd(string selectedId, string userId)
         {
-            return PartialView("AddModerator");
+            var subId = int.Parse(selectedId);
+            var modcheck = db.Moderators.Any(x => x.SubjectId == subId && x.UserId == userId);
+            if (modcheck)
+            {
+                return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+            }
+            
+            var moderator = new Moderator
+            {
+                UserId = userId,
+                SubjectId = subId
+            };
+            db.Moderators.Add(moderator);
+            db.SaveChanges();
+            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ModeratorRemove(string subjectId, string userId)
+        {
+           
+            var subId = int.Parse(subjectId);
+            var moderator = db.Moderators.First(x => x.SubjectId == subId && x.UserId == userId);
+            db.Moderators.Remove(moderator);
+            db.SaveChanges();
+            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
         }
 
         #region Helpers
@@ -815,6 +842,6 @@ namespace ASPForum.Controllers
 
         #endregion
 
-        
+
     }
 }

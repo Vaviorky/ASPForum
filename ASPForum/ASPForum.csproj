@@ -381,7 +381,6 @@
     <Content Include="Views\Threads\LastPost.cshtml" />
     <Content Include="Views\Messages\NewMessageFriends.cshtml" />
     <Content Include="Views\Manage\ManageModerator.cshtml" />
-    <Content Include="Views\Manage\AddModerator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
