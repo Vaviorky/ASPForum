@@ -757,10 +757,17 @@ namespace ASPForum.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ModeratorManage(string id)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            throw new Exception();
+            var subjectModerator = db.Moderators.Where(m => m.UserId == id).ToList();
+            ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == id).UserName;
+            ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == id).Id;
+            return PartialView("ManageModerator", subjectModerator);
+        }
+
+        public ActionResult ModeratorAdd(string id)
+        {
+            return PartialView("AddModerator");
         }
 
         #region Helpers
@@ -807,5 +814,7 @@ namespace ASPForum.Controllers
         }
 
         #endregion
+
+        
     }
 }

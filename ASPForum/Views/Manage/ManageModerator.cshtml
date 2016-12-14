@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ASPForum.Models.Moderator>
+<h3>Lista zarządzanych tematów przez użytkownika @ViewBag.UserName</h3>
+
+@Ajax.ActionLink("Dodaj temat dla moderatora", "ModeratorAdd", new { id = ViewBag.UserId },
+                            new AjaxOptions
+                            {
+                                UpdateTargetId = "moj_div",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "GET"
+                            }, new {@class="btn btn-success"})
+
+<table class="table table-bordered">
+    <th>Temat</th>
+    <th>Akcja</th>
+
+    @foreach (var moderator in Model)
+    {
+        var x = moderator.UserId;
+        <tr>
+            <td>
+                @moderator.Subject.Title
+            </td>
+            <td>
+                Usuń
+            </td>
+        </tr>
+    }
+</table>

@@ -52,6 +52,7 @@ namespace ASPForum.Models
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<Moderator> Moderators { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -380,6 +380,8 @@
     <Content Include="Views\Manage\DeleteNews.cshtml" />
     <Content Include="Views\Categories\LastPost.cshtml" />
     <Content Include="Views\Threads\LastPost.cshtml" />
+    <Content Include="Views\Manage\ManageModerator.cshtml" />
+    <Content Include="Views\Manage\AddModerator.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
