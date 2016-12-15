@@ -102,6 +102,9 @@ namespace ASPForum.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Thread thread = db.Threads.Find(id);
+            ViewBag.SubjectId = thread.SubjectId;
+            ViewBag.UserId = thread.UserId;
+            ViewBag.Date = thread.Date;
             if (thread == null)
             {
                 return HttpNotFound();
@@ -114,15 +117,11 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Content,Title,Date")] Thread thread)
+        public ActionResult Edit(Thread thread)
         {
-            if (ModelState.IsValid)
-            {
                 db.Entry(thread).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
-            }
-            return View(thread);
         }
 
         // GET: Threads/Delete/5
