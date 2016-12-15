@@ -43,7 +43,7 @@
                                     <td>
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
-                                            <div align="right">@Html.ActionLink("Usuń post", "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
+                                            <div align="right">@Html.ActionLink("Edytuj post", "Edit", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }) @Html.ActionLink("Usuń post", "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }
                                         else if (User.Identity.IsAuthenticated)
                                         {
@@ -65,4 +65,3 @@
 }
 <br/>
 @Html.ActionLink("Utwórz nowy post", "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
-}
