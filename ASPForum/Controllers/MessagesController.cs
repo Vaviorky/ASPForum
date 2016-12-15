@@ -216,7 +216,7 @@ namespace ASPForum.Controllers
             LinkedList<Message> list = new LinkedList<Message>();
             foreach (var item in Message_id)
             {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead==false));
             }
           
 
