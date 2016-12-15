@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<ASPForum.Models.Category>
 @if (User.IsInRole("Admin"))
 {
-
     <div class="panel-group title-bar-position" id="accordion">
         @Ajax.ActionLink("Stwórz nową kategorię", "CreateCategory",null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-mid" })
 

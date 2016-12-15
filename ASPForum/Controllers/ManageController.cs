@@ -798,10 +798,44 @@ namespace ASPForum.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult ModeratorManage(string id)
         {
-            if (!User.IsInRole("Admin")) return HttpNotFound();
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            throw new Exception();
+            var subjectModerator = db.Moderators.Where(m => m.UserId == id).ToList();
+            ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == id).UserName;
+            ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == id).Id;
+            var subjects = db.Subjects.ToList();
+            ViewBag.SelectList = new SelectList(subjects, "Id", "Title");
+            return PartialView("ManageModerator", subjectModerator);
+        }
+        [HttpPost]
+        public ActionResult ModeratorAdd(string selectedId, string userId)
+        {
+            var subId = int.Parse(selectedId);
+            var modcheck = db.Moderators.Any(x => x.SubjectId == subId && x.UserId == userId);
+            if (modcheck)
+            {
+                return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+            }
+            
+            var moderator = new Moderator
+            {
+                UserId = userId,
+                SubjectId = subId
+            };
+            db.Moderators.Add(moderator);
+            db.SaveChanges();
+            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+        }
+
+        [HttpPost]
+        public ActionResult ModeratorRemove(string subjectId, string userId)
+        {
+           
+            var subId = int.Parse(subjectId);
+            var moderator = db.Moderators.First(x => x.SubjectId == subId && x.UserId == userId);
+            db.Moderators.Remove(moderator);
+            db.SaveChanges();
+            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
         }
 
         #region Helpers
@@ -848,5 +882,7 @@ namespace ASPForum.Controllers
         }
 
         #endregion
+
+
     }
 }
