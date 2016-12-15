@@ -21,10 +21,24 @@
                             @foreach (var item in Model)
             {
                                 <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Id)">
-                                    <td class="col-xs-10")>
+                                    @if (item.IsRead==false)
+                                    {
+                                        <td class="col-xs-9")>
                                         @Ajax.ActionLink(@item.Title, "Details", "Messages", new {id=@item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
                                     </td>
-                                    <td class="col-xs-2"> 
+                                    <td class="col-xs-1" )>
+                                        Czytaj
+                                    </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td class="col-xs-10" )>
+                                            @Ajax.ActionLink(@item.Title, "Details", "Messages", new { id = @item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
+                                        </td>
+                                        <td class="col-xs-10" )></td>
+                                    }
+                                    <td class="col-xs-2">
                                         @Html.Action("dateMessage","Messages",new {id=item.Id})
                                     </td>
                                 </tr>
