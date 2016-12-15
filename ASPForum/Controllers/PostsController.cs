@@ -170,7 +170,7 @@ namespace ASPForum.Controllers
             {
                 return "<div style=\"color: red; text-align: center;\">Administrator</div>";
             }
-            else if (user.Privileges=="Moderator")
+            else if (user.Privileges == "Moderator")
             {
                 return "<div style=\"color: green; text-align: center;\">Moderator</div>";
 
@@ -190,6 +190,64 @@ namespace ASPForum.Controllers
                 return "Forumowicz";
             }
             return "";
+        }
+
+
+        public ActionResult reportPost(int id)
+        {
+            LinkedList<ApplicationUser> list = new LinkedList<ApplicationUser>();
+
+            try
+            {
+                var Admins = db.Users.Where(u => u.Roles== db.Roles.First(r => r.Name == "Admin"));
+
+
+                //var   Moderators = db.Users.Where(u => u.Roles == db.Roles.Where(r => r.Name == "Moderator")).DefaultIfEmpty(null);
+
+
+                //if(Moderators !=null)
+                //{
+                //    var allmoderators = db.Moderators.Where(m => m.SubjectId == id);
+                //    foreach (var mod in Moderators)
+                //    {
+                //        foreach (var allM in allmoderators)
+                //        {
+                //            if (mod.Moderators == allM)
+                //            {
+                //                list.AddFirst(mod);
+                //            }
+                //        }
+                //    }
+                //}
+
+                foreach (var item in Admins)
+                    {
+                    var ale = item.ToString(); ;
+                        list.AddFirst(item);
+                    }
+                
+            }
+            catch (Exception)
+            {
+            }
+
+            Message message = new Message();
+            message.Date = DateTime.Now;
+            message.Title = "Zgłoszenie postu";
+            message.Text = " Zgłoszono post : http://localhost:51438/Posts/PostThread/" + id ;
+            db.Messeges.Add(message);
+            db.SaveChanges();
+            foreach (var item in list)
+            {
+                MessageUser MU = new MessageUser();
+                MU.MessageId = message.Id;
+                MU.SenderId = User.Identity.GetUserId();
+                MU.ReceiverId = item.Id;
+                db.MessageUser.Add(MU);
+                db.SaveChanges();
+            }
+            return View("PostThread",db.Posts.FirstOrDefault(p=>p.Id==id));
+
         }
     }
 }
