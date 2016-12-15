@@ -45,10 +45,11 @@
                                         {
                                             <div align="right">@Html.ActionLink("Usuń post", "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }
-                                        else
+                                        else if (User.Identity.IsAuthenticated)
                                         {
                                             <div align="right">
-                                                <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>Zgłoś post
+                                                <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>
+                                                @Html.ActionLink("Zgłoś post", "reportPost", "Posts",new {id=@item.Id }, new { @class = "btn btn-primary btn-sm" })
                                             </div>
                                         }
                                     </td>

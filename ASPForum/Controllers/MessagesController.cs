@@ -217,10 +217,15 @@ namespace ASPForum.Controllers
 
             foreach (var item in messageId)
             {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead==false));
+                var ii = db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false);
+                if (ii!=null)
+                {
+                    list.AddFirst(ii);
+                }
+                
+                
             }
-
-          
+            int alejaa = list.Count();
             return list.Count();
         }
 
@@ -231,7 +236,12 @@ namespace ASPForum.Controllers
             var list = new LinkedList<Message>();
             foreach (var item in messageId)
             {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false));
+
+                var ii = db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false);
+                if (ii != null)
+                {
+                    list.AddFirst(ii);
+                }
             }
 
             return list.Count();
