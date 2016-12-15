@@ -7,7 +7,7 @@
 <h3>@ViewBag.Title</h3>
 
 
-@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-sm" })
+@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
 
 
 <div class="panel-group title-bar-position" id="accordion">
@@ -23,14 +23,12 @@
 </div>
 
 
-
 @if (Model.PinnedThreads.Any())
 {
     <div class="panel-group title-bar-position" id="accordion">
 
         <div class="panel panel-default">
-
-
+            
             <div class="panel-heading title-bar">
                 <table width="100%">
                     <tr>
@@ -56,12 +54,12 @@
                 <div class="row">
 
                     @foreach (var thread in Model.PinnedThreads)
-                {
+                    {
                         <div class="col-md-12 subject-content">
                             <table width="100%">
                                 <tr>
                                     <td class="col-xs-7" style="border-right: 1px">
-                                        <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new { id = thread.Id }, null)</b><br />
+                                        <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                         @if (thread.UserId != null)
                                         {
                                             <div style="font-size: 13px">Przez: @thread.User.UserName</div>
@@ -70,14 +68,20 @@
 
                                     </td>
                                     <td class="col-xs-1">
-                                        @Html.Action("PostCount", "Threads", new { id = thread.Id })
+                                        @Html.Action("PostCount", "Threads", new {id = thread.Id})
                                     </td>
                                     <td class="col-xs-1">
-                                        @Html.Action("ViewCount", "Threads", new { id = thread.Id })
+                                        @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                     </td>
                                     <td class="col-xs-3">
-                                        @Html.Action("LastPost", "Threads", new { id = thread.Id })
+                                        @Html.Action("LastPost", "Threads", new {id = thread.Id})
+                                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                        {
+                                            @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning"})
+                                            @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger"})
+                                        }
                                     </td>
+
                                 </tr>
                             </table>
                         </div>
@@ -89,7 +93,6 @@
 
     </div>
 }
-
 
 
 <div class="panel-group title-bar-position" id="accordion">
@@ -128,7 +131,7 @@
                         <table width="100%">
                             <tr>
                                 <td class="col-xs-7" style="border-right: 1px">
-                                    <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new { id = thread.Id }, null)</b><br />
+                                    <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                     @if (thread.UserId != null)
                                     {
                                         <div style="font-size: 13px">Przez: @thread.User.UserName</div>
@@ -137,13 +140,18 @@
 
                                 </td>
                                 <td class="col-xs-1">
-                                    @Html.Action("PostCount", "Threads", new { id = thread.Id })
+                                    @Html.Action("PostCount", "Threads", new {id = thread.Id})
                                 </td>
                                 <td class="col-xs-1">
-                                    @Html.Action("ViewCount", "Threads", new { id = thread.Id })
+                                    @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                 </td>
                                 <td class="col-xs-3">
-                                    @Html.Action("LastPost", "Threads", new { id = thread.Id })
+                                    @Html.Action("LastPost", "Threads", new {id = thread.Id})
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                    {
+                                        @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning"})
+                                        @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger"})
+                                    }
                                 </td>
                             </tr>
                         </table>
@@ -155,5 +163,5 @@
     </div>
 
 </div>
-<br />
-@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary btn-sm" })
+<br/>
+@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})

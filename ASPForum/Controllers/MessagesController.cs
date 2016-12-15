@@ -214,6 +214,7 @@ namespace ASPForum.Controllers
             var id = User.Identity.GetUserId();
             var messageId = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
             var list = new LinkedList<Message>();
+
             foreach (var item in messageId)
             {
                 var ii = db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false);
