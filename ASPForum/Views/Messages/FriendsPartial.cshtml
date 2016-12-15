@@ -7,8 +7,9 @@
     @foreach (var item in Model)
     {
         <tr style="border-bottom:1px solid black;">
-            <td  onclick="location.href='yourpage.html'">
-                @item.Friend.UserName
+            <td>
+                @Ajax.ActionLink(@item.Friend.UserName, "FriendMessages", "Manage", new { id = item.Friend.Id }, new AjaxOptions { UpdateTargetId = "messages_", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
+                
             </td>
             <td>
                 @Ajax.ActionLink("Usun", "Delete", "Friends", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-default", @style ="padding-top:0px; padding-bottom:0px;" })

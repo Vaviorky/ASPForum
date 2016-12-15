@@ -17,7 +17,7 @@ namespace ASPForum.Models
         [Required]
         public DateTime Date { get; set; }
         public string Source { get; set; }
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<MessageUser> Users { get; set; }
 
     }
 }

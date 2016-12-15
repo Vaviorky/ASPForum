@@ -1,51 +1,23 @@
 ﻿@model ASPForum.Models.Message
 
-@{
-    ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Details</h2>
+@Html.Action("IfViewd",new {id=Model.Id })
 
-<div>
-    <h4>Message</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
+    <div class="row">
+        <div class="col-sm-10">
+            Tytuł: @Html.DisplayFor(model => model.Title)
+        </div>
+        <div class="col-sm-2">
             @Html.DisplayFor(model => model.Date)
-        </dd>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            @Html.DisplayFor(model => model.Text)
+        </div>
+    </div>
+    @Ajax.ActionLink("Powrót do listy", "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Source)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Source)
-        </dd>
-
-    </dl>
-</div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+
 </p>

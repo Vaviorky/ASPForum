@@ -26,7 +26,7 @@ namespace ASPForum.Models
         public DateTime RegistrationDate { get; set; }
         public string Privileges { get; set; }
         public virtual ICollection<Moderator> Moderators { get; set; }
-        public virtual ICollection<Message> Messages { get; set; }
+        public virtual ICollection<MessageUser> Messages { get; set; }
         public virtual ICollection<Thread> Posts { get; set; }
         public virtual ICollection<Post> Comments { get; set; }
 
@@ -52,6 +52,7 @@ namespace ASPForum.Models
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }
         public DbSet<News> News { get; set; }
+        public DbSet<MessageUser> MessageUser { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,6 +61,30 @@ namespace ASPForum.Models
                 .HasRequired(f=>f.Friend)
                 .WithOptional()
                 .WillCascadeOnDelete(false);
+
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Friends>()
+                .HasRequired(f => f.Friend)
+                .WithOptional()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<MessageUser>()
+            .HasKey(mu => new { mu.MessageId, mu.ReceiverId, mu.SenderId });
+
+            modelBuilder.Entity<ApplicationUser>()
+                        .HasMany(m1 => m1.Messages)
+                        .WithRequired()
+                        .HasForeignKey(mu => mu.ReceiverId);
+
+            modelBuilder.Entity<ApplicationUser>()
+                        .HasMany(m2 => m2.Messages)
+                        .WithRequired()
+                        .HasForeignKey(mu => mu.SenderId);
+
+            modelBuilder.Entity<Message>()
+                        .HasMany(u => u.Users)
+                        .WithRequired()
+                        .HasForeignKey(mu => mu.MessageId);
         }
     }
 

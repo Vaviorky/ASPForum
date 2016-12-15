@@ -2,9 +2,9 @@
 
 <h2>Usuanie</h2>
 
-<h3>Napewno chcesz usunąć znajomego? @Model.Friend.UserName</h3>
+<h3>Napewno chcesz usunąć znajomego? </h3>
+<h4> @Model.Friend.UserName</h4>
 <div>
-    <h4>Friends</h4>
     <hr />
     <dl class="dl-horizontal">
     </dl>
@@ -13,8 +13,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Delete" class="btn btn-default" /> 
+            @Ajax.ActionLink("Powrót do listy", "Inbox","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
         </div>
     }
 </div>

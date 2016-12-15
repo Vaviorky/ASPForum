@@ -6,7 +6,12 @@
 
 <h2>Nowa</h2>
 
-@using (Html.BeginForm())
+@using (Ajax.BeginForm("Create", "Messages", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "moj_div",
+    InsertionMode = InsertionMode.Replace
+}))
 {
     @Html.AntiForgeryToken()
 

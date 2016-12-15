@@ -3,7 +3,7 @@ namespace ASPForum.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class init : DbMigration
+    public partial class messages : DbMigration
     {
         public override void Up()
         {
@@ -18,6 +18,33 @@ namespace ASPForum.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.Subjects",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Title = c.String(nullable: false, maxLength: 70),
+                        Text = c.String(),
+                        CategoryId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categories", t => t.CategoryId, cascadeDelete: true)
+                .Index(t => t.CategoryId);
+            
+            CreateTable(
+                "dbo.Moderators",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.String(maxLength: 128),
+                        SubjectId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Subjects", t => t.SubjectId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.SubjectId);
+            
+            CreateTable(
                 "dbo.AspNetUsers",
                 c => new
                     {
@@ -25,6 +52,7 @@ namespace ASPForum.Migrations
                         Login = c.String(),
                         Rank = c.Int(nullable: false),
                         Avatar = c.String(),
+                        RegistrationDate = c.DateTime(nullable: false),
                         Privileges = c.String(),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
@@ -62,31 +90,14 @@ namespace ASPForum.Migrations
                         Title = c.String(nullable: false, maxLength: 70),
                         Text = c.String(),
                         Date = c.DateTime(nullable: false),
-                        Thread_Id = c.Int(),
-                        User_Id = c.String(maxLength: 128),
+                        UserId = c.String(maxLength: 128),
+                        ThreadId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Threads", t => t.Thread_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id)
-                .Index(t => t.Thread_Id)
-                .Index(t => t.User_Id);
-            
-            CreateTable(
-                "dbo.Threads",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Content = c.String(nullable: false),
-                        Title = c.String(nullable: false, maxLength: 70),
-                        Date = c.DateTime(nullable: false),
-                        Subject_Id = c.Int(nullable: false),
-                        User_Id = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Subjects", t => t.Subject_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
-                .Index(t => t.Subject_Id)
-                .Index(t => t.User_Id);
+                .ForeignKey("dbo.Threads", t => t.ThreadId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.ThreadId);
             
             CreateTable(
                 "dbo.Photos",
@@ -96,24 +107,33 @@ namespace ASPForum.Migrations
                         Title = c.String(nullable: false, maxLength: 70),
                         Text = c.String(),
                         Source = c.String(),
-                        Post_Id = c.Int(nullable: false),
+                        ThreadId = c.Int(nullable: false),
+                        Post_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Threads", t => t.Post_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Threads", t => t.ThreadId, cascadeDelete: true)
+                .ForeignKey("dbo.Posts", t => t.Post_Id)
+                .Index(t => t.ThreadId)
                 .Index(t => t.Post_Id);
             
             CreateTable(
-                "dbo.Subjects",
+                "dbo.Threads",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Content = c.String(nullable: false),
                         Title = c.String(nullable: false, maxLength: 70),
-                        Text = c.String(),
-                        Category_Id = c.Int(nullable: false),
+                        Date = c.DateTime(nullable: false),
+                        ViewCount = c.Int(nullable: false),
+                        IsPinned = c.Boolean(nullable: false),
+                        UserId = c.String(maxLength: 128),
+                        SubjectId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.Category_Id, cascadeDelete: true)
-                .Index(t => t.Category_Id);
+                .ForeignKey("dbo.Subjects", t => t.SubjectId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId)
+                .Index(t => t.SubjectId);
             
             CreateTable(
                 "dbo.AspNetUserLogins",
@@ -128,12 +148,27 @@ namespace ASPForum.Migrations
                 .Index(t => t.UserId);
             
             CreateTable(
+                "dbo.MessageUsers",
+                c => new
+                    {
+                        MessageId = c.Int(nullable: false),
+                        ReceiverId = c.String(nullable: false, maxLength: 128),
+                        SenderId = c.String(nullable: false, maxLength: 128),
+                    })
+                .PrimaryKey(t => new { t.MessageId, t.ReceiverId, t.SenderId })
+                .ForeignKey("dbo.Messages", t => t.MessageId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.SenderId, cascadeDelete: true)
+                .Index(t => t.MessageId)
+                .Index(t => t.SenderId);
+            
+            CreateTable(
                 "dbo.Messages",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 70),
                         Text = c.String(),
+                        IsRead = c.Boolean(nullable: false),
                         Date = c.DateTime(nullable: false),
                         Source = c.String(),
                     })
@@ -174,11 +209,11 @@ namespace ASPForum.Migrations
                         Title = c.String(nullable: false, maxLength: 70),
                         Text = c.String(),
                         Date = c.DateTime(nullable: false),
-                        User_id_Id = c.String(maxLength: 128),
+                        UserId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_id_Id)
-                .Index(t => t.User_id_Id);
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -190,86 +225,62 @@ namespace ASPForum.Migrations
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
             
-            CreateTable(
-                "dbo.MessageApplicationUsers",
-                c => new
-                    {
-                        Message_Id = c.Int(nullable: false),
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                    })
-                .PrimaryKey(t => new { t.Message_Id, t.ApplicationUser_Id })
-                .ForeignKey("dbo.Messages", t => t.Message_Id, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id, cascadeDelete: true)
-                .Index(t => t.Message_Id)
-                .Index(t => t.ApplicationUser_Id);
-            
-            CreateTable(
-                "dbo.ApplicationUserCategories",
-                c => new
-                    {
-                        ApplicationUser_Id = c.String(nullable: false, maxLength: 128),
-                        Category_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.ApplicationUser_Id, t.Category_Id })
-                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Categories", t => t.Category_Id, cascadeDelete: true)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.Category_Id);
-            
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.News", "User_id_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.News", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Friends", "User_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Friends", "Friend_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.ApplicationUserCategories", "Category_Id", "dbo.Categories");
-            DropForeignKey("dbo.ApplicationUserCategories", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.MessageApplicationUsers", "ApplicationUser_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.MessageApplicationUsers", "Message_Id", "dbo.Messages");
+            DropForeignKey("dbo.Moderators", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.MessageUsers", "SenderId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.MessageUsers", "MessageId", "dbo.Messages");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Posts", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Threads", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Threads", "Subject_Id", "dbo.Subjects");
-            DropForeignKey("dbo.Subjects", "Category_Id", "dbo.Categories");
-            DropForeignKey("dbo.Posts", "Thread_Id", "dbo.Threads");
-            DropForeignKey("dbo.Photos", "Post_Id", "dbo.Threads");
+            DropForeignKey("dbo.Posts", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Photos", "Post_Id", "dbo.Posts");
+            DropForeignKey("dbo.Photos", "ThreadId", "dbo.Threads");
+            DropForeignKey("dbo.Threads", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Threads", "SubjectId", "dbo.Subjects");
+            DropForeignKey("dbo.Posts", "ThreadId", "dbo.Threads");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
-            DropIndex("dbo.ApplicationUserCategories", new[] { "Category_Id" });
-            DropIndex("dbo.ApplicationUserCategories", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.MessageApplicationUsers", new[] { "ApplicationUser_Id" });
-            DropIndex("dbo.MessageApplicationUsers", new[] { "Message_Id" });
+            DropForeignKey("dbo.Moderators", "SubjectId", "dbo.Subjects");
+            DropForeignKey("dbo.Subjects", "CategoryId", "dbo.Categories");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
-            DropIndex("dbo.News", new[] { "User_id_Id" });
+            DropIndex("dbo.News", new[] { "UserId" });
             DropIndex("dbo.Friends", new[] { "User_Id" });
             DropIndex("dbo.Friends", new[] { "Friend_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
+            DropIndex("dbo.MessageUsers", new[] { "SenderId" });
+            DropIndex("dbo.MessageUsers", new[] { "MessageId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropIndex("dbo.Subjects", new[] { "Category_Id" });
+            DropIndex("dbo.Threads", new[] { "SubjectId" });
+            DropIndex("dbo.Threads", new[] { "UserId" });
             DropIndex("dbo.Photos", new[] { "Post_Id" });
-            DropIndex("dbo.Threads", new[] { "User_Id" });
-            DropIndex("dbo.Threads", new[] { "Subject_Id" });
-            DropIndex("dbo.Posts", new[] { "User_Id" });
-            DropIndex("dbo.Posts", new[] { "Thread_Id" });
+            DropIndex("dbo.Photos", new[] { "ThreadId" });
+            DropIndex("dbo.Posts", new[] { "ThreadId" });
+            DropIndex("dbo.Posts", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
-            DropTable("dbo.ApplicationUserCategories");
-            DropTable("dbo.MessageApplicationUsers");
+            DropIndex("dbo.Moderators", new[] { "SubjectId" });
+            DropIndex("dbo.Moderators", new[] { "UserId" });
+            DropIndex("dbo.Subjects", new[] { "CategoryId" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.News");
             DropTable("dbo.Friends");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Messages");
+            DropTable("dbo.MessageUsers");
             DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.Subjects");
-            DropTable("dbo.Photos");
             DropTable("dbo.Threads");
+            DropTable("dbo.Photos");
             DropTable("dbo.Posts");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");
+            DropTable("dbo.Moderators");
+            DropTable("dbo.Subjects");
             DropTable("dbo.Categories");
         }
     }

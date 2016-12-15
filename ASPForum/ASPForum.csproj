@@ -209,37 +209,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612011658010_init.cs" />
-    <Compile Include="Migrations\201612011658010_init.Designer.cs">
-      <DependentUpon>201612011658010_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612052339152_changes.cs" />
-    <Compile Include="Migrations\201612052339152_changes.Designer.cs">
-      <DependentUpon>201612052339152_changes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612061633596_postcount.cs" />
-    <Compile Include="Migrations\201612061633596_postcount.Designer.cs">
-      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612081707049_moderators.cs" />
-    <Compile Include="Migrations\201612081707049_moderators.Designer.cs">
-      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612121227209_Registrationtime.cs" />
-    <Compile Include="Migrations\201612121227209_Registrationtime.Designer.cs">
-      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612141043245_pinningThreads.cs" />
-    <Compile Include="Migrations\201612141043245_pinningThreads.Designer.cs">
-      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612141552542_readingmessages.cs" />
-    <Compile Include="Migrations\201612141552542_readingmessages.Designer.cs">
-      <DependentUpon>201612141552542_readingmessages.cs</DependentUpon>
+    <Compile Include="Migrations\201612150002518_messages.cs" />
+    <Compile Include="Migrations\201612150002518_messages.Designer.cs">
+      <DependentUpon>201612150002518_messages.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\MessageUser.cs" />
     <Compile Include="Models\Moderator.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Friends.cs" />
@@ -389,28 +366,9 @@
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612011658010_init.resx">
-      <DependentUpon>201612011658010_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612052339152_changes.resx">
-      <DependentUpon>201612052339152_changes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612061633596_postcount.resx">
-      <DependentUpon>201612061633596_postcount.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612081707049_moderators.resx">
-      <DependentUpon>201612081707049_moderators.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612121227209_Registrationtime.resx">
-      <DependentUpon>201612121227209_Registrationtime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612141043245_pinningThreads.resx">
-      <DependentUpon>201612141043245_pinningThreads.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612141552542_readingmessages.resx">
-      <DependentUpon>201612141552542_readingmessages.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612150002518_messages.resx">
+      <DependentUpon>201612150002518_messages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

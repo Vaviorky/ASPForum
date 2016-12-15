@@ -14,6 +14,8 @@ using ASPForum.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ASPForum.Controllers
 {
@@ -108,7 +110,7 @@ namespace ASPForum.Controllers
             {
                 message = ManageMessageId.Error;
             }
-            return RedirectToAction("ManageLogins", new {Message = message});
+            return RedirectToAction("ManageLogins", new { Message = message });
         }
 
         //
@@ -137,7 +139,7 @@ namespace ASPForum.Controllers
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new {PhoneNumber = model.Number});
+            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
         }
 
         //
@@ -174,7 +176,7 @@ namespace ASPForum.Controllers
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null
                 ? View("Error")
-                : View(new VerifyPhoneNumberViewModel {PhoneNumber = phoneNumber});
+                : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
         }
 
         //
@@ -192,7 +194,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new {Message = ManageMessageId.AddPhoneSuccess});
+                return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError("", "Failed to verify phone");
@@ -207,11 +209,11 @@ namespace ASPForum.Controllers
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
-                return RedirectToAction("Index", new {Message = ManageMessageId.Error});
+                return RedirectToAction("Index", new { Message = ManageMessageId.Error });
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
                 await SignInManager.SignInAsync(user, false, false);
-            return RedirectToAction("Index", new {Message = ManageMessageId.RemovePhoneSuccess});
+            return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
         //
@@ -236,7 +238,7 @@ namespace ASPForum.Controllers
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                     await SignInManager.SignInAsync(user, false, false);
-                return RedirectToAction("Index", new {Message = ManageMessageId.ChangePasswordSuccess});
+                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
             AddErrors(result);
             return View(model);
@@ -263,7 +265,7 @@ namespace ASPForum.Controllers
                     var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                     if (user != null)
                         await SignInManager.SignInAsync(user, false, false);
-                    return RedirectToAction("Index", new {Message = ManageMessageId.SetPasswordSuccess});
+                    return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
                 AddErrors(result);
             }
@@ -315,11 +317,11 @@ namespace ASPForum.Controllers
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
             if (loginInfo == null)
-                return RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
+                return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded
                 ? RedirectToAction("ManageLogins")
-                : RedirectToAction("ManageLogins", new {Message = ManageMessageId.Error});
+                : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
         protected override void Dispose(bool disposing)
@@ -369,7 +371,7 @@ namespace ASPForum.Controllers
             if (file.ContentType.Contains("image"))
                 return true;
 
-            string[] formats = {".jpg", ".png", ".jpeg"}; // add more if u like...
+            string[] formats = { ".jpg", ".png", ".jpeg" }; // add more if u like...
 
             return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
@@ -700,9 +702,48 @@ namespace ASPForum.Controllers
             return PartialView("DeleteSubject", subject);
         }
 
+        public ActionResult SendMessages()
+        {
+
+            var id = User.Identity.GetUserId();
+            var Message_id = db.MessageUser.Where(mu => mu.SenderId == id).ToList();
+            LinkedList<Message> list = new LinkedList<Message>();
+            foreach (var item in Message_id)
+            {
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
+            }
+            var newlist = list.OrderByDescending(m => m.Date);
+            return PartialView("~/Views/Messages/Index.cshtml", newlist);
+        }
+
+        public ActionResult FriendMessages(string id)
+        {
+
+            var idd = User.Identity.GetUserId();
+            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == idd || mu.SenderId == id || mu.ReceiverId == id || mu.SenderId == idd).ToList();
+            LinkedList<Message> list = new LinkedList<Message>();
+            foreach (var item in Message_id)
+            {
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
+            }
+            var newlist = list.OrderByDescending(m => m.Date);
+
+            return PartialView("~/Views/Messages/Index.cshtml", newlist);
+        }
+
+
         public ActionResult PMessage()
         {
-            return PartialView("~/Views/Messages/Index.cshtml", db.Messeges.ToList());
+
+            var id = User.Identity.GetUserId();
+            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
+            LinkedList<Message> list = new LinkedList<Message>();
+            foreach (var item in Message_id)
+            {
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
+            }
+            var newlist = list.OrderByDescending(m => m.Date);
+            return PartialView("~/Views/Messages/Index.cshtml", newlist);
         }
 
         public ActionResult PFriends()

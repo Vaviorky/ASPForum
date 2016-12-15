@@ -34,7 +34,7 @@ namespace ASPForum.Controllers
             {
                 return HttpNotFound();
             }
-            return View(message);
+            return PartialView("Details",message);
         }
 
         // GET: Messages/Create
@@ -50,15 +50,62 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Text,Source")] Message message)
         {
+            string sending = Request["toName"].ToString();
+            string[] tosend=null;
+            if (sending == "")
+            {
+                ModelState.AddModelError("", "pole Do: jest wymagane");
+                
+            }
+            else
+            {
+
+                sending = sending.ToCharArray()
+               .Where(c => !Char.IsWhiteSpace(c))
+               .Select(c => c.ToString())
+               .Aggregate((a, b) => a + b);
+                tosend = sending.Split(',');
+
+
+                foreach (var item in tosend)
+                {
+                    try
+                    {
+                        var cos = db.Users.First(u => u.UserName == item).UserName;
+                    }
+                    catch (Exception)
+                    {
+                        ModelState.AddModelError("", "pole Do: błędne dane");
+                        break;
+                    }
+
+                }
+           
+                
+           
+               
+            }
+
             if (ModelState.IsValid)
             {
                 message.Date = DateTime.Now;
                 db.Messeges.Add(message);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Manage"); 
+                foreach (var item in tosend)
+                {
+                    MessageUser MU = new MessageUser();
+                    MU.MessageId = message.Id;
+                    MU.SenderId = User.Identity.GetUserId();
+                    MU.ReceiverId = db.Users.FirstOrDefault(u => u.UserName == item).Id;
+                    db.MessageUser.Add(MU);
+                    db.SaveChanges();
+                }
+
+               
+                return RedirectToAction("Inbox", "Manage");
             }
 
-            return PartialView("Create",message);
+            return PartialView("Create", message);
         }
 
         // GET: Messages/Edit/5
@@ -130,10 +177,21 @@ namespace ASPForum.Controllers
         public ActionResult NewMessageFriends()
         {
             var id = User.Identity.GetUserId();
-            var q = db.Friends.Where(f=>f.User.Id== id).ToList();
-            return PartialView("NewMessageFriends",q);
+            var q = db.Friends.Where(f => f.User.Id == id).ToList();
+            return PartialView("NewMessageFriends", q);
         }
+        public void IfViewd(int? id)
+        {
+            var idUser = User.Identity.GetUserId();
+            Message message = db.Messeges.Find(id);
 
+            if (db.MessageUser.FirstOrDefault(mu=>mu.MessageId==id).ReceiverId==idUser)
+            {
+                message.IsRead = true;
+                db.Entry(message).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+        }
 
         public string dateMessage(int id)
         {
@@ -147,7 +205,7 @@ namespace ASPForum.Controllers
             {
                 return date.ToString("dd MMM");
             }
-            
+
         }
 
     }

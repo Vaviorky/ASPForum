@@ -6,13 +6,14 @@
 
 
 <div class="row">
-    <div class="col-xs-9">
+    <div class="col-xs-9" id="messages_">
         @Html.Action("PMessage")
 
     </div>
     <div class="col-xs-3">
         @Ajax.ActionLink("Nowa wiadomosc", "Create", "Messages", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
-        @Html.ActionLink("Wszystkie wiadomosci", "", "", null, new { @class = "list-group-item list-group-item-text" })
+        @Ajax.ActionLink("Wysłane wiadomości", "SendMessages", "Manage", null, new AjaxOptions { UpdateTargetId = "messages_", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+        @Ajax.ActionLink("Wiadomości", "PMessage", "Manage", null, new AjaxOptions { UpdateTargetId = "messages_", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
         @Ajax.ActionLink("Dodaj znajomego", "FriendsAdd", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
         Znajomi:
         @Html.Action("PFriends")

@@ -46,10 +46,11 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text,Date")] News news)
+        public ActionResult Create([Bind(Include = "Id,Title,Text")] News news)
         {
             if (ModelState.IsValid)
             {
+                news.Date= DateTime.Now;
                 db.News.Add(news);
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -7,13 +7,13 @@ namespace ASPForum.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Registrationtime : IMigrationMetadata
+    public sealed partial class messages : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Registrationtime));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(messages));
         
         string IMigrationMetadata.Id
         {
-            get { return "201612121227209_Registrationtime"; }
+            get { return "201612150002518_messages"; }
         }
         
         string IMigrationMetadata.Source
