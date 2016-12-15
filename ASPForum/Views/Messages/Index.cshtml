@@ -1,8 +1,6 @@
 ﻿@model IEnumerable<ASPForum.Models.Message>
 
-<script>
-    
-</script>
+
 <div class="panel-group" id="accordion">
     <div class="panel panel-default">
         <div class="panel-heading title-bar">
@@ -22,8 +20,8 @@
                         <table width="100%">
                             @foreach (var item in Model)
             {
-                                <tr id="detailsMessage" class="subject-content">
-                                    <td class="col-xs-10">
+                                <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Id)">
+                                    <td class="col-xs-10")>
                                         @Ajax.ActionLink(@item.Title, "Details", "Messages", new {id=@item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
                                     </td>
                                     <td class="col-xs-2"> 

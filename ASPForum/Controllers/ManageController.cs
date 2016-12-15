@@ -818,6 +818,7 @@ namespace ASPForum.Controllers
         [HttpPost]
         public ActionResult ModeratorAdd(string selectedId, string userId)
         {
+            
             var subId = int.Parse(selectedId);
             var modcheck = db.Moderators.Any(x => x.SubjectId == subId && x.UserId == userId);
             if (modcheck)
@@ -830,7 +831,9 @@ namespace ASPForum.Controllers
                 UserId = userId,
                 SubjectId = subId
             };
+            var im = new IdentityManager();
             var user = db.Users.Find(userId);
+            im.AddUserToRole(userId, "Moderator");
             user.Privileges = "Moderator";
             db.Entry(user).State = EntityState.Modified;
             db.Moderators.Add(moderator);
@@ -841,15 +844,21 @@ namespace ASPForum.Controllers
         [HttpPost]
         public ActionResult ModeratorRemove(string subjectId, string userId)
         {
-           
+            var im = new IdentityManager();
             var subId = int.Parse(subjectId);
             var moderator = db.Moderators.First(x => x.SubjectId == subId && x.UserId == userId);
             var user = db.Users.Find(userId);
+            
             user.Privileges = "Użytkownik";
             db.Entry(user).State = EntityState.Modified;
             db.Moderators.Remove(moderator);
             db.SaveChanges();
-            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+            var mod = db.Moderators.Any(x => x.UserId == userId);
+            if (!mod)
+            {
+                im.ClearUserFromRole(userId, "Moderator");
+            }
+                return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
         }
 
         #region Helpers

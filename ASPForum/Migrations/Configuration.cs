@@ -26,6 +26,7 @@ namespace ASPForum.Migrations
 
             // Create Admin Role
             string roleName = "Admin";
+            string moderator = "Moderator";
             IdentityResult roleResult;
 
             // Check to see if Role Exists, if not create it
@@ -34,7 +35,13 @@ namespace ASPForum.Migrations
                 roleResult = RoleManager.Create(new IdentityRole(roleName));
                
             }
-            
+
+            if (!RoleManager.RoleExists(moderator))
+            {
+                roleResult = RoleManager.Create(new IdentityRole(moderator));
+
+            }
+
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
@@ -47,8 +54,8 @@ namespace ASPForum.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-/*            var im = new IdentityManager();
-            im.AddUserToRoleByUsername("Vaviorky", "Admin");*/
+            /*            var im = new IdentityManager();
+                        im.AddUserToRoleByUsername("Vaviorky", "Admin");*/
         }
     }
 }

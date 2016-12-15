@@ -212,15 +212,38 @@ namespace ASPForum.Controllers
         public int Unread()
         {
             var id = User.Identity.GetUserId();
-            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
-            LinkedList<Message> list = new LinkedList<Message>();
-            foreach (var item in Message_id)
+            var messageId = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
+            var list = new LinkedList<Message>();
+            foreach (var item in messageId)
             {
                 list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead==false));
             }
           
+            return list.Count();
+        }
+
+        public static int Unread2(string idx)
+        {
+            var db = new ApplicationDbContext();
+            var messageId = db.MessageUser.Where(mu => mu.ReceiverId == idx).ToList();
+            var list = new LinkedList<Message>();
+            foreach (var item in messageId)
+            {
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false));
+            }
 
             return list.Count();
+        }
+
+        public void MarkAsRead(int id)
+        {
+            var m = db.Messeges.FirstOrDefault(x => x.Id == id);
+            if (m.IsRead == false)
+            {
+                m.IsRead = true;
+                db.Entry(m).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
     }

@@ -6,9 +6,42 @@
     <title>@ViewBag.Title - Forum</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script type="text/javascript">
+        function newMs() {
+            $.post("/Messages/Unread", function (ile) {
+                if (ile !== -1) {
+                    if (ile === 0) {
+                        document.getElementById("sumOfNewMessages");
+                    }
+                    else {
+                        document.getElementById("sumOfNewMessages");
+                    }
 
+
+                    document.getElementById("sumOfNewMessages").innerHTML = "(" + ile + ")";
+                }
+            });
+
+            setTimeout("newMs()", 3000);
+        }
+
+        function markAsRead(x) {
+            $(document)
+                .ready(function () {
+                    console.log(x);
+                    $.post("/Messages/IfViewd",
+                        { id: x },
+                        function() {
+                            
+                        });
+                });
+        }
+    </script>
 </head>
-<body>
+<body onload="newMs()">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -36,8 +69,6 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>
