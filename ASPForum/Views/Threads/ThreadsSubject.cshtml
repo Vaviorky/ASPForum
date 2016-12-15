@@ -77,11 +77,10 @@
                                         @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
-                                            @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning"})
-                                            @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger"})
+                                            @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm"})
+                                            @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm"})
                                         }
                                     </td>
-
                                 </tr>
                             </table>
                         </div>
@@ -149,8 +148,8 @@
                                     @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {
-                                        @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning"})
-                                        @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger"})
+                                        @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm" })
+                                        @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm" })
                                     }
                                 </td>
                             </tr>
