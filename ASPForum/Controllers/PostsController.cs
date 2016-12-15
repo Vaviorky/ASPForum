@@ -32,6 +32,7 @@ namespace ASPForum.Controllers
 
             var posts = db.Posts.Where(t => t.Thread.Id == id).ToList();
             ViewBag.ThreadTitle = thread.Title;
+            ViewBag.Title = thread.Title;
             ViewBag.CategoryTitle = thread.Subject.Category.Title;
             ViewBag.SubjectTitle = thread.Subject.Title;
             return View(posts);
