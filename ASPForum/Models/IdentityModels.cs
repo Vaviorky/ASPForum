@@ -171,6 +171,12 @@ namespace ASPForum.Models
 
             return idResult.Succeeded;
         }
+        public bool isAdmin(ApplicationUser user)
+        {
+            var rm = LocalUserManager;
+            
+            return rm.IsInRole(user.Id, "Admin"); ;
+        }
 
 
         public bool AddUserToRoleByUsername(string username, string roleName)

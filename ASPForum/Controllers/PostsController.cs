@@ -199,7 +199,7 @@ namespace ASPForum.Controllers
 
             try
             {
-                var Admins = db.Users.Where(x => x.Privileges == "Administrator");
+                var Admins = db.Users.ToList();
 
 
                 //var   Moderators = db.Users.Where(u => u.Roles == db.Roles.Where(r => r.Name == "Moderator")).DefaultIfEmpty(null);
@@ -219,13 +219,17 @@ namespace ASPForum.Controllers
                 //        }
                 //    }
                 //}
-                
+                IdentityManager IM = new IdentityManager(); 
                     foreach (var item in Admins)
                     {
                     if (item != null)
                     {
-                        var wtf = item.Privileges;
-                        list.AddFirst(item);
+                        if(IM.isAdmin(item))
+                        {
+                            var wtf = item.Privileges;
+                            list.AddFirst(item);
+                        }
+                        
                     }
                     }
                 
@@ -251,7 +255,7 @@ namespace ASPForum.Controllers
                 db.MessageUser.Add(MU);
                 db.SaveChanges();
             }
-            return RedirectToAction("PostThread",db.Posts.FirstOrDefault(p=>p.Id==id));
+            return RedirectToAction("PostThread", new { id = id });
 
         }
     }
