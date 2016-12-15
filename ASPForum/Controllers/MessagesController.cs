@@ -208,6 +208,21 @@ namespace ASPForum.Controllers
 
         }
 
+
+        public int Unread()
+        {
+            var id = User.Identity.GetUserId();
+            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
+            LinkedList<Message> list = new LinkedList<Message>();
+            foreach (var item in Message_id)
+            {
+                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
+            }
+          
+
+            return list.Count();
+        }
+
     }
 
 }

@@ -213,6 +213,10 @@
     <Compile Include="Migrations\201612150002518_messages.Designer.cs">
       <DependentUpon>201612150002518_messages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612150229024_manager.cs" />
+    <Compile Include="Migrations\201612150229024_manager.Designer.cs">
+      <DependentUpon>201612150229024_manager.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -370,6 +374,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612150002518_messages.resx">
       <DependentUpon>201612150002518_messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612150229024_manager.resx">
+      <DependentUpon>201612150229024_manager.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
