@@ -14,11 +14,11 @@
                     var ile = ASPForum.Controllers.MessagesController.Unread2(User.Identity.GetUserId());
                     if (ile == 0)
                     {
-                        <a id="registerLink" href="@Url.Action("Index", "Messages")">Wiadomości <span id="sumOfNewMessages" class="badge">(0)</span></a>
+                        <p id="registerLink" style="position: relative;display: block; padding-top: 19.5px;" >Wiadomości <span id="sumOfNewMessages" class="badge">(0)</span></p>
                     }
                     else
                     {
-                        <a id="registerLink" href="@Url.Action("Index", "Messages")">Wiadomości <span id="sumOfNewMessages" class="badge">@ile</span></a>
+                        <p id="registerLink"  style="position: relative;display: block;  padding-top: 19.5px;">Wiadomości <span id="sumOfNewMessages" class="badge">@ile</span></p>
 
 
                     }
