@@ -236,8 +236,6 @@ namespace ASPForum.Controllers
                     }
                     }
                 
-                
-                
             }
             catch (Exception)
             {
