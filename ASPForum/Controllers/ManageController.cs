@@ -781,10 +781,18 @@ namespace ASPForum.Controllers
                     var result = im.ClearUserFromRole(id, "Admin");
                     if (result == false)
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    var user = db.Users.Find(id);
+                    user.Privileges = "Użytkownik";
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 else
                 {
                     im.AddUserToRole(id, "Admin");
+                    var user = db.Users.Find(id);
+                    user.Privileges = "Administrator";
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
                 }
                 ViewBag.UserList = db.Users.ToList();
                 return PartialView("UserManagement");
@@ -822,6 +830,9 @@ namespace ASPForum.Controllers
                 UserId = userId,
                 SubjectId = subId
             };
+            var user = db.Users.Find(userId);
+            user.Privileges = "Moderator";
+            db.Entry(user).State = EntityState.Modified;
             db.Moderators.Add(moderator);
             db.SaveChanges();
             return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
@@ -833,6 +844,9 @@ namespace ASPForum.Controllers
            
             var subId = int.Parse(subjectId);
             var moderator = db.Moderators.First(x => x.SubjectId == subId && x.UserId == userId);
+            var user = db.Users.Find(userId);
+            user.Privileges = "Użytkownik";
+            db.Entry(user).State = EntityState.Modified;
             db.Moderators.Remove(moderator);
             db.SaveChanges();
             return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());

@@ -47,8 +47,8 @@
                             if ((file = this.files[0])) {
                                 image = new Image();
                                 image.onload = function () {
-                                    if (this.width > 150 ||
-                                        this.height > 150 ||
+                                    if (this.width > 300 ||
+                                        this.height > 300 ||
                                         ((this.width / this.height) !== 1)) {
                                         $("#moj_div").find("#submit").attr("disabled", true);
                                         $("#moj_div").find("#error").append('<p>Nieprawidłowa rozdzielczość obrazka</p>');

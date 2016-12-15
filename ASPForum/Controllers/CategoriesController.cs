@@ -26,7 +26,7 @@ namespace ASPForum.Controllers
             ViewBag.ThreadCount = db.Threads.Count();
             ViewBag.UserCount = db.Users.Count();
             var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
-            ViewBag.NewestUser = user.UserName;
+            if (user != null) ViewBag.NewestUser = user.UserName;
             ViewBag.News =  db.News.OrderByDescending(t => t.Date).Take(3).ToList();
             
             if (User.Identity.IsAuthenticated)
@@ -43,7 +43,7 @@ namespace ASPForum.Controllers
             return View(db.Categories.ToList());
         }
 
-        [Authorize(Roles ="Admins")]
+        [Authorize(Roles ="Admin")]
         // GET: Categories/Create
         public ActionResult Create()
         {
@@ -53,7 +53,7 @@ namespace ASPForum.Controllers
         // POST: Categories/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admins")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Text")] Category category)
@@ -67,7 +67,7 @@ namespace ASPForum.Controllers
 
             return View(category);
         }
-        [Authorize(Roles = "Admins")]
+        [Authorize(Roles = "Admin")]
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -88,7 +88,7 @@ namespace ASPForum.Controllers
         // POST: Categories/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Admins")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Text")] Category category)
@@ -101,7 +101,7 @@ namespace ASPForum.Controllers
             }
             return View(category);
         }
-        [Authorize(Roles = "Admins")]
+        [Authorize(Roles = "Admin")]
         // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -116,7 +116,7 @@ namespace ASPForum.Controllers
             }
             return View(category);
         }
-        [Authorize(Roles = "Admins")]
+        [Authorize(Roles = "Admin")]
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

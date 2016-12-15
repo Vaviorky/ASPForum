@@ -170,7 +170,7 @@ namespace ASPForum.Controllers
             {
                 return "<div style=\"color: red; text-align: center;\">Administrator</div>";
             }
-            else if (im.isUserInRole(user.Id, "Moderator"))
+            else if (user.Privileges=="Moderator")
             {
                 return "<div style=\"color: green; text-align: center;\">Moderator</div>";
 

@@ -2,7 +2,7 @@
 @if (User.IsInRole("Admin"))
 {
     <div class="panel-group title-bar-position" id="accordion">
-        @Ajax.ActionLink("Stwórz nową kategorię", "CreateCategory",null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-mid" })
+        @Ajax.ActionLink("Stwórz nową kategorię", "CreateCategory",null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-md" })
 
 
         @foreach (var item in Model)
@@ -16,8 +16,8 @@
                             </td>
                             <td class="col-xs-3">
                                
-                                @Ajax.ActionLink("Edytuj", "EditCategory", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-mid" })
-                                @Ajax.ActionLink("Usuń", "DeleteCategory", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-mid" })
+                                @Ajax.ActionLink("Edytuj", "EditCategory", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-md" })
+                                @Ajax.ActionLink("Usuń", "DeleteCategory", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-md" })
                                 
                             </td>
                            
