@@ -99,7 +99,10 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            var post = db.Posts.Find(id);
+            ViewBag.ThreadId = post.ThreadId;
+            ViewBag.Date = post.Date;
+            ViewBag.UserId = post.UserId;
             if (post == null)
             {
                 return HttpNotFound();
@@ -119,10 +122,9 @@ namespace ASPForum.Controllers
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("PostThread", new { id = post.ThreadId });
             }
-            ViewBag.ThreadId = new SelectList(db.Threads, "Id", "Content", post.ThreadId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Login", post.UserId);
+           
             return View(post);
         }
         [Authorize]
