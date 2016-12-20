@@ -1,22 +1,14 @@
 ﻿@model ASPForum.Models.News
-
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
+@using (Ajax.BeginForm("Create", "News", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace }))
 {
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>News</h4>
+        <h4>Stwórz nowego newsa</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2">Tytuł: </span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
@@ -24,7 +16,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Text, htmlAttributes: new { @class = "control-label col-md-2" })
+            <span class="control-label col-md-2">Opis: </span>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Text, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
@@ -34,16 +26,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Stwórz newsa" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Ajax.ActionLink("Powrót do listy", "ManageNews", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

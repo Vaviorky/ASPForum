@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ASPForum.Controllers
 {
@@ -35,28 +36,21 @@ namespace ASPForum.Controllers
             return View(news);
         }
 
-        // GET: News/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+            return PartialView("Create");
         }
 
-        // POST: News/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text")] News news)
+        public ActionResult Create(News news)
         {
-            if (ModelState.IsValid)
-            {
-                news.Date= DateTime.Now;
-                db.News.Add(news);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(news);
+            news.UserId = User.Identity.GetUserId();
+            news.Date = DateTime.Now;
+            db.News.Add(news);
+            db.SaveChanges();
+            return RedirectToAction("ManageNews", "Manage", db.News.ToList());
         }
 
         // GET: News/Edit/5
@@ -78,7 +72,6 @@ namespace ASPForum.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Text,Date")] News news)
         {
             if (ModelState.IsValid)
@@ -105,9 +98,7 @@ namespace ASPForum.Controllers
             return View(news);
         }
 
-        // POST: News/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             News news = db.News.Find(id);

@@ -589,119 +589,6 @@ namespace ASPForum.Controllers
             }
         }
 
-        [Authorize(Roles = "Admin")]
-        public ActionResult CreateCategory()
-        {
-            return PartialView("CreateCategory");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult CreateCategorySubmit(Category category)
-        {
-            if (category == null)
-                return HttpNotFound("Nie ma tu nic");
-            db.Categories.Add(category);
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult EditCategory(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var category = db.Categories.Find(id);
-            return PartialView("EditCategory", category);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult EditCategorySubmit(Category category)
-        {
-            if (category == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            db.Entry(category).State = EntityState.Modified;
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult DeleteCategory(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            var category = db.Categories.Find(id);
-            return PartialView("DeleteCategory", category);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult DeleteCategoryConfirmed(int id)
-        {
-            var category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult CreateSubject(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            ViewBag.CategoryId = id;
-            return PartialView("CreateSubject");
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult CreateSubjectSubmit(Subject subject)
-        {
-            if (subject == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
-            db.Subjects.Add(subject);
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult EditSubject(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
-            var subject = db.Subjects.Find(id);
-            ViewBag.CategoryId = subject.CategoryId;
-            return PartialView("EditSubject", subject);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult EditSubjectSubmit(Subject subject)
-        {
-            if (subject == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
-            db.Entry(subject).State = EntityState.Modified;
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult DeleteSubject(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            if (!User.IsInRole("Admin")) return HttpNotFound();
-            var subject = db.Subjects.Find(id);
-            return PartialView("DeleteSubject", subject);
-        }
-
         public ActionResult SendMessages()
         {
 
@@ -757,15 +644,6 @@ namespace ASPForum.Controllers
             return PartialView("~/Views/Friends/Add.cshtml");
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult DeleteSubjectConfirmed(int id)
-        {
-            var subject = db.Subjects.Find(id);
-            db.Subjects.Remove(subject);
-            db.SaveChanges();
-            return PartialView("ForumManagement", db.Categories.ToList());
-        }
 
         [Authorize(Roles = "Admin")]
         [HttpPost]

@@ -47,7 +47,7 @@ namespace ASPForum.Controllers
         // GET: Categories/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView("Create");
         }
 
         // POST: Categories/Create
@@ -55,34 +55,23 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Title,Text")] Category category)
+        public ActionResult Create(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            return View(category);
+            if (category == null)
+                return HttpNotFound();
+            db.Categories.Add(category);
+            db.SaveChanges();
+            return RedirectToAction("ManageForum","Manage", db.Categories.ToList());
         }
         [Authorize(Roles = "Admin")]
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
 
-            ViewBag.Subjects = db.Subjects.Where(x => x.CategoryId == id).ToList();
-            return View(category);
+            var category = db.Categories.Find(id);
+            return PartialView("Edit", category);
         }
 
         // POST: Categories/Edit/5
@@ -90,42 +79,35 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Text")] Category category)
+        public ActionResult Edit(Category category)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(category);
+            if (category == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            db.Entry(category).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ManageForum", "Manage", db.Categories.ToList());
+
         }
         [Authorize(Roles = "Admin")]
         // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
+
+            var category = db.Categories.Find(id);
+            return PartialView("Delete", category);
         }
         [Authorize(Roles = "Admin")]
         // POST: Categories/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
+            var category = db.Categories.Find(id);
             db.Categories.Remove(category);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("ManageForum", "Manage", db.Categories.ToList());
         }
 
         protected override void Dispose(bool disposing)
