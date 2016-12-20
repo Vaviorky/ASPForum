@@ -1,18 +1,11 @@
 ﻿@model ASPForum.Models.News
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Czy na pewno chcesz usunąć news o tytule @Model.Title?</h3>
 <div>
-    <h4>News</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            Tytuł:
         </dt>
 
         <dd>
@@ -20,29 +13,30 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Text)
+            Opis:
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Text)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Ajax.ActionLink("Usuń newsa", "Delete","News", new { id = Model.Id },
+                                new AjaxOptions
+                                {
+                                    HttpMethod = "POST",
+                                    UpdateTargetId = "moj_div",
+                                    InsertionMode = InsertionMode.Replace
+
+                                }, new { @class = "btn btn-danger btn-md" })
+
+            @Ajax.ActionLink("Powrót do listy", "ManageNews","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
         </div>
     }
 </div>

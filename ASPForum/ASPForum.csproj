@@ -348,9 +348,6 @@
     <Content Include="Views\Manage\SubjectsForumManagement.cshtml" />
     <Content Include="Views\Messages\FriendsPartial.cshtml" />
     <Content Include="Views\Manage\NewsManagement.cshtml" />
-    <Content Include="Views\Manage\CreateNews.cshtml" />
-    <Content Include="Views\Manage\EditNews.cshtml" />
-    <Content Include="Views\Manage\DeleteNews.cshtml" />
     <Content Include="Views\Categories\LastPost.cshtml" />
     <Content Include="Views\Threads\LastPost.cshtml" />
     <Content Include="Views\Messages\NewMessageFriends.cshtml" />

@@ -499,47 +499,6 @@ namespace ASPForum.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult EditNews(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = db.News.Find(id);
-            return PartialView("EditNews", news);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult EditNewsSubmit(News news)
-        {
-            if (news == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            news.Date = DateTime.Now;
-            db.Entry(news).State = EntityState.Modified;
-            db.SaveChanges();
-
-            return PartialView("NewsManagement", db.News.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
-        public ActionResult DeleteNews(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var news = db.News.Find(id);
-            return PartialView("DeleteNews", news);
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult DeleteNewsConfirmed(int id)
-        {
-            var news = db.News.Find(id);
-            db.News.Remove(news);
-            db.SaveChanges();
-            return PartialView("NewsManagement", db.News.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
             if (id == null)
