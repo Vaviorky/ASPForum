@@ -117,23 +117,62 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountDetails" xml:space="preserve">
+    <value>Account details</value>
+  </data>
+  <data name="AddFriend" xml:space="preserve">
+    <value>Add friend</value>
+  </data>
+  <data name="AddSubject" xml:space="preserve">
+    <value>Add a subject</value>
+  </data>
+  <data name="AdministrativeOptions" xml:space="preserve">
+    <value>Administrative options</value>
+  </data>
   <data name="Author" xml:space="preserve">
     <value>Author</value>
+  </data>
+  <data name="Ban" xml:space="preserve">
+    <value>Ban</value>
   </data>
   <data name="By" xml:space="preserve">
     <value>By</value>
   </data>
+  <data name="ChangeAccountDetails" xml:space="preserve">
+    <value>Change account details</value>
+  </data>
+  <data name="ChangeAvatar" xml:space="preserve">
+    <value>Change avatar</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change your password</value>
+  </data>
+  <data name="CreateCategory" xml:space="preserve">
+    <value>Create a category</value>
+  </data>
   <data name="CreateNewPost" xml:space="preserve">
     <value>Create new post</value>
   </data>
+  <data name="CreateNews" xml:space="preserve">
+    <value>Create news</value>
+  </data>
   <data name="CreateNewThread" xml:space="preserve">
     <value>Create new thread</value>
+  </data>
+  <data name="CreatePassword" xml:space="preserve">
+    <value>Create password</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
+  </data>
+  <data name="EditAccountData" xml:space="preserve">
+    <value>Edit data associated with your account</value>
+  </data>
+  <data name="FindAFriend" xml:space="preserve">
+    <value>Find a friend</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>Forgot your password?</value>
@@ -144,8 +183,20 @@
   <data name="ForumHomePage" xml:space="preserve">
     <value>Forum Home Page</value>
   </data>
+  <data name="Friends" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="GrantAdmin" xml:space="preserve">
+    <value>Grant admin</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
+  </data>
+  <data name="IncorrectFileExtension" xml:space="preserve">
+    <value>Incorrect file extension</value>
+  </data>
+  <data name="IncorrectImageResolution" xml:space="preserve">
+    <value>Incorrect image resolution</value>
   </data>
   <data name="LastPost" xml:space="preserve">
     <value>Last Post</value>
@@ -153,11 +204,20 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="ManageModeratorRole" xml:space="preserve">
+    <value>Manage moderator role</value>
+  </data>
   <data name="Messages" xml:space="preserve">
     <value>Messages</value>
   </data>
   <data name="NewestUser" xml:space="preserve">
     <value>Newest user</value>
+  </data>
+  <data name="NewMessage" xml:space="preserve">
+    <value>New message</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>News</value>
   </data>
   <data name="NrOfPosts" xml:space="preserve">
     <value>Number of posts</value>
@@ -168,11 +228,17 @@
   <data name="NrOfUsers" xml:space="preserve">
     <value>Number of users</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
   <data name="PinnedThreads" xml:space="preserve">
     <value>Pinned threads</value>
   </data>
   <data name="Posts" xml:space="preserve">
     <value>Posts</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
   </data>
   <data name="Register" xml:space="preserve">
     <value>Register</value>
@@ -180,8 +246,26 @@
   <data name="RegisterAsANewUser" xml:space="preserve">
     <value>Register as a new user</value>
   </data>
+  <data name="RegistrationDate" xml:space="preserve">
+    <value>Registration date</value>
+  </data>
   <data name="Replies" xml:space="preserve">
     <value>Replies</value>
+  </data>
+  <data name="RoleInForum" xml:space="preserve">
+    <value>Role in service</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SentMessages" xml:space="preserve">
+    <value>Sent messages</value>
+  </data>
+  <data name="SizeTooLarge" xml:space="preserve">
+    <value>Size too large</value>
   </data>
   <data name="Statistics" xml:space="preserve">
     <value>Statistics</value>
@@ -189,7 +273,97 @@
   <data name="Threads" xml:space="preserve">
     <value>Threads</value>
   </data>
+  <data name="Unban" xml:space="preserve">
+    <value>Unban</value>
+  </data>
+  <data name="UserControlPanel" xml:space="preserve">
+    <value>User Control Panel</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
   <data name="Views" xml:space="preserve">
     <value>Views</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AddRoleToSubject" xml:space="preserve">
+    <value>Add role to subject</value>
+  </data>
+  <data name="BackToListofPosts" xml:space="preserve">
+    <value>Back to list of posts</value>
+  </data>
+  <data name="BackToPreviousThread" xml:space="preserve">
+    <value>Back to previous thread</value>
+  </data>
+  <data name="ChangingPassword" xml:space="preserve">
+    <value>Password changing</value>
+  </data>
+  <data name="CheckThread" xml:space="preserve">
+    <value>Check thread</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm password</value>
+  </data>
+  <data name="Content" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="CreatePostForThread" xml:space="preserve">
+    <value>Create new post in thread</value>
+  </data>
+  <data name="CreatingPost" xml:space="preserve">
+    <value>Creating new post</value>
+  </data>
+  <data name="DeletePost" xml:space="preserve">
+    <value>Delete Post</value>
+  </data>
+  <data name="DisallowAdmin" xml:space="preserve">
+    <value>Disallow admin</value>
+  </data>
+  <data name="DoYouWantToDeletePost" xml:space="preserve">
+    <value>Do you want to delete this post?</value>
+  </data>
+  <data name="EditPost" xml:space="preserve">
+    <value>Edit post</value>
+  </data>
+  <data name="ListOfSubjectsManagedByUser" xml:space="preserve">
+    <value>The list of subjects managed by</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New password</value>
+  </data>
+  <data name="OldPassword" xml:space="preserve">
+    <value>Old password</value>
+  </data>
+  <data name="PostTitle" xml:space="preserve">
+    <value>Title of post:</value>
+  </data>
+  <data name="ReportPost" xml:space="preserve">
+    <value>Report this post</value>
+  </data>
+  <data name="SelectSubject" xml:space="preserve">
+    <value>Select subject</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Text</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="UploadNewAvatar" xml:space="preserve">
+    <value>Upload a new avatar</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

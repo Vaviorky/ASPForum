@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ASPForum.Models.Subject>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.Subject>
 <div class="row">
 
     @foreach (var item in Model)
@@ -12,8 +13,8 @@
                         @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new { id = item.Id }, null) <br />
                     </td>
                     <td class="col-md-3">
-                        @Ajax.ActionLink("Edytuj", "Edit","Subjects", new {id = item.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
-                        @Ajax.ActionLink("Usuń", "Delete", "Subjects", new {id = item.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-sm" })
+                        @Ajax.ActionLink(GlobalRes.Edit, "Edit","Subjects", new {id = item.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
+                        @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Subjects", new {id = item.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-sm" })
 
                     </td>
                 </tr>

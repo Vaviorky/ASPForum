@@ -1,5 +1,6 @@
-﻿@model ASPForum.Models.ApplicationUser
-<h4>Zmień awatar</h4>
+﻿@using ASPForum.Resources
+@model ASPForum.Models.ApplicationUser
+<h4>@GlobalRes.ChangeAvatar</h4>
 <hr/>
 
 
@@ -11,9 +12,9 @@
     new {enctype = "multipart/form-data", id = "imageform"}))
 {
     <br/>
-    <label for="openFile">Wgraj nowy awatar:</label>
+    <label for="openFile">@GlobalRes.UploadNewAvatar</label>
     <input type="file" name="file" id="openFile" accept="image/*"/>
     <br/>
-    <input type="submit" value="Prześlij" id="submit" class="btn btn-info" />
+    <input type="submit" value="@GlobalRes.Submit" id="submit" class="btn btn-info" />
     <h4 id="error" style="color: red"></h4>
 }

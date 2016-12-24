@@ -1,26 +1,27 @@
-﻿<h3>Szczegóły dotyczące konta</h3>
+﻿@using ASPForum.Resources
+<h3>@GlobalRes.AccountDetails</h3>
 <hr/>
 <dl class="dl-horizontal">
     <dt>
-        Nazwa użytkownika:
+        @GlobalRes.UserName:
     </dt>
     <dd>
         @ViewBag.Username
     </dd>
     <dt>
-        Data rejestracji:
+        @GlobalRes.RegistrationDate:
     </dt>
     <dd>
         @ViewBag.Registered
     </dd>
     <dt>
-        Liczba wątków: 
+        @GlobalRes.NrOfThreads: 
     </dt>
     <dd>
         @ViewBag.ThreadCount
     </dd>
     <dt>
-        Liczba postów: 
+        @GlobalRes.NrOfPosts: 
     </dt>
     <dd>
         @ViewBag.PostCount

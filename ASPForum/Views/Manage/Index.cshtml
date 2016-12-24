@@ -1,4 +1,5 @@
-﻿@model ASPForum.Models.IndexViewModel
+﻿@using ASPForum.Resources
+@model ASPForum.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -33,12 +34,12 @@
                                 break;
                             default:
                                 $("#moj_div").find("#submit").attr("disabled", true);
-                                $("#moj_div").find("#error").append('<p>Nieprawidłowe rozszerzenie pliku</p>');
+                                $("#moj_div").find("#error").append('<p>@GlobalRes.IncorrectFileExtension</p>');
                             }
                             var size = this.files[0].size;
                             if (size > 500000) {
                                 $("#moj_div").find("#submit").attr("disabled", true);
-                                $("#moj_div").find("#error").append('<p>Zbyt duży rozmiar</p>');
+                                $("#moj_div").find("#error").append('<p>@GlobalRes.SizeTooLarge</p>');
                             }
 
                             var url = window.URL || window.webkitURL;
@@ -46,12 +47,13 @@
                             var image, file;
                             if ((file = this.files[0])) {
                                 image = new Image();
-                                image.onload = function () {
+                                image.onload = function() {
                                     if (this.width > 300 ||
                                         this.height > 300 ||
                                         ((this.width / this.height) !== 1)) {
                                         $("#moj_div").find("#submit").attr("disabled", true);
-                                        $("#moj_div").find("#error").append('<p>Nieprawidłowa rozdzielczość obrazka</p>');
+                                        $("#moj_div").find("#error")
+                                            .append('<p>@GlobalRes.IncorrectImageResolution</p>');
                                     }
                                 };
                                 image.src = url.createObjectURL(file);
@@ -63,106 +65,24 @@
 
 
 <div id="page" class="col-md-12">
-    <h3>Panel użytkownika</h3>
+    <h3>@GlobalRes.UserControlPanel</h3>
     <div id="functions" class="col-md-3">
 
-        @Ajax.ActionLink("Profil", "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink("Wiadomości", "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink("Zmień dane", "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink("Zmień awatar", "ChangeAvatar", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink(GlobalRes.Profile, "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink(GlobalRes.Messages, "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink(GlobalRes.ChangeAccountDetails, "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink(GlobalRes.ChangeAvatar, "ChangeAvatar", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
 
         <br/>
         @if (User.IsInRole("Admin") && Request.IsAuthenticated)
         {
-            <h5>Opcje administracyjne:</h5>
-            @Ajax.ActionLink("Użytkownicy", "ManageUsers", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            @Ajax.ActionLink("Forum", "ManageForum", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            @Ajax.ActionLink("Newsy", "ManageNews", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            <h5>@GlobalRes.AdministrativeOptions</h5>
+            @Ajax.ActionLink(GlobalRes.Users, "ManageUsers", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            @Ajax.ActionLink(GlobalRes.Forum, "ManageForum", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            @Ajax.ActionLink(GlobalRes.News, "ManageNews", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
         }
 
     </div>
     <div id="moj_div" class="col-md-9">
-
     </div>
 </div>
-@*<div>
-    <h4>Change your account settings</h4>
-    <hr/>
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Change your password", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Create", "SetPassword")
-            }
-            ]
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
-            @Model.Logins.Count [
-            @Html.ActionLink("Manage", "ManageLogins") ]
-        </dd>
-        $1$
-            Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-             See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-             Uncomment the following block after you have set up two-factor authentication
-        #1#
-        $1$
-            <dt>Phone Number:</dt>
-            <dd>
-                @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                    using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                    }
-                }
-                else
-                {
-                    <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                }
-            </dd>
-        #1#
-        <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            @#1#if (Model.TwoFactor)
-                {
-                    using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                        </text>
-                    }
-                }
-                else
-                {
-                    using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <text>Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                        </text>
-                    }
-                }#1#'
-
-
-        </dd>
-    </dl>
-</div>*@

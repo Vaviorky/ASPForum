@@ -1,13 +1,13 @@
 ﻿@using ASPForum.Models
+@using ASPForum.Resources
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
-
     var im = new IdentityManager();
 
     <table class="table table-bordered">
-        <th class="col-md-4">Użytkownik</th>
-        <th class="col-md-5">Rola w serwisie</th>
-        <th class="col-md-3">Opcje</th>
+        <th class="col-md-4">@GlobalRes.User</th>
+        <th class="col-md-5">@GlobalRes.RoleInForum</th>
+        <th class="col-md-3">@GlobalRes.Options</th>
         @foreach (var user in ViewBag.UserList)
         {
             <tr>
@@ -18,38 +18,37 @@
 
                     @if (im.isUserInRole(user.Id, "Admin"))
                     {
-                        @Ajax.ActionLink("Odbierz admina", "ChangeAdminRole", new { id = user.Id },
+                        @Ajax.ActionLink(GlobalRes.DisallowAdmin, "ChangeAdminRole", new {id = user.Id},
                             new AjaxOptions
                             {
                                 UpdateTargetId = "moj_div",
                                 InsertionMode = InsertionMode.Replace,
                                 HttpMethod = "Post"
                             },
-                            new { @style = "color:red;" })
+                            new {style = "color:red;"})
                     }
                     else
                     {
-                        @Ajax.ActionLink("Nadaj admina", "ChangeAdminRole", new { id = user.Id },
+                        @Ajax.ActionLink(GlobalRes.GrantAdmin, "ChangeAdminRole", new {id = user.Id},
                             new AjaxOptions
                             {
                                 UpdateTargetId = "moj_div",
                                 InsertionMode = InsertionMode.Replace,
                                 HttpMethod = "Post"
                             },
-                            new { @style = "color:SpringGreen;" })
+                            new {style = "color:SpringGreen;"})
                     }
-                    - @Ajax.ActionLink("Zarządzaj rolą moderatora", "ModeratorManage", new { id = user.Id },
-                            new AjaxOptions
-                            {
-                                UpdateTargetId = "moj_div",
-                                InsertionMode = InsertionMode.Replace,
-                                HttpMethod = "GET"
-                            })
+                    - @Ajax.ActionLink(GlobalRes.ManageModeratorRole, "ModeratorManage", new {id = user.Id},
+                          new AjaxOptions
+                          {
+                              UpdateTargetId = "moj_div",
+                              InsertionMode = InsertionMode.Replace,
+                              HttpMethod = "GET"
+                          })
                 </td>
 
-
                 <td>
-                    @Ajax.ActionLink("Edytuj", "EditUser", new { id = user.Id },
+                    @Ajax.ActionLink(GlobalRes.Edit, "EditUser", new {id = user.Id},
                         new AjaxOptions
                         {
                             UpdateTargetId = "moj_div",
@@ -58,34 +57,27 @@
                         }) •
                     @if (user.LockoutEnabled == true)
                     {
-
-                        @Ajax.ActionLink("Odblokuj", "ChangeStateForUser", null, new { id = user.Id },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    UpdateTargetId = "moj_div",
-                                    InsertionMode = InsertionMode.Replace
-
-                                },
-                                new { @style = "color:SpringGreen;" })
-
+                        @Ajax.ActionLink(GlobalRes.Unban, "ChangeStateForUser", null, new {id = user.Id},
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                UpdateTargetId = "moj_div",
+                                InsertionMode = InsertionMode.Replace
+                            },
+                            new {style = "color:SpringGreen;"})
                     }
                     else if (user.LockoutEnabled == false)
                     {
-
-                        @Ajax.ActionLink("Zablokuj", "ChangeStateForUser", null, new { id = user.Id },
-                                new AjaxOptions
-                                {
-                                    HttpMethod = "POST",
-                                    UpdateTargetId = "moj_div",
-                                    InsertionMode = InsertionMode.Replace
-
-                                },
-                                new { @style = "color:red;" })
-
+                        @Ajax.ActionLink(GlobalRes.Ban, "ChangeStateForUser", null, new {id = user.Id},
+                            new AjaxOptions
+                            {
+                                HttpMethod = "POST",
+                                UpdateTargetId = "moj_div",
+                                InsertionMode = InsertionMode.Replace
+                            },
+                            new {style = "color:red;"})
                     }
                 </td>
-
 
 
             </tr>

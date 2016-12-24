@@ -1,25 +1,5 @@
-﻿@model ASPForum.Models.ApplicationUser
-
-@{
-    List<SelectListItem> listItems = new List<SelectListItem>();
-    listItems.Add(new SelectListItem
-    {
-        Text = "Nowy użytkownik",
-        Value = "Nowy użytkownik",
-        Selected = true
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Exemplo2",
-        Value = "Exemplo2",
-        
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Exemplo3",
-        Value = "Exemplo3"
-    });
-}
+﻿@using ASPForum.Resources
+@model ASPForum.Models.ApplicationUser
 
 
 @using (Ajax.BeginForm("EditUserSubmit", "Manage", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace }))
@@ -65,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="@GlobalRes.Save" class="btn btn-default" />
             </div>
         </div>
     </div>

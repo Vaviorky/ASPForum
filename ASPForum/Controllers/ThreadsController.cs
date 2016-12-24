@@ -88,7 +88,7 @@ namespace ASPForum.Controllers
                 db.SaveChanges();
                 return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
             }
-            catch (DbEntityValidationException ex)
+            catch (DbEntityValidationException)
             {
                 return View(thread);
             }
@@ -101,14 +101,10 @@ namespace ASPForum.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Thread thread = db.Threads.Find(id);
+            var thread = db.Threads.Find(id);
             ViewBag.SubjectId = thread.SubjectId;
             ViewBag.UserId = thread.UserId;
             ViewBag.Date = thread.Date;
-            if (thread == null)
-            {
-                return HttpNotFound();
-            }
             return View(thread);
         }
 

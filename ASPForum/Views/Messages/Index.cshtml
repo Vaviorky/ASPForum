@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ASPForum.Models.Message>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.Message>
 
 
 <div class="panel-group" id="accordion">
@@ -7,44 +8,45 @@
             <table>
                 <tr>
                     <td>
-                        Wiadomości
+                        @GlobalRes.Messages
                     </td>
                 </tr>
             </table>
         </div>
 
-        <div class="panel-body" style="padding:0px;">
+        <div class="panel-body" style="padding: 0;">
 
-                    <div>
+            <div>
 
-                        <table width="100%">
-                            @foreach (var item in Model)
-            {
-                                <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Id)">
-                                    @if (item.IsRead==false)
-                                    {
-                                        <td class="col-xs-9")>
-                                        @Ajax.ActionLink(@item.Title, "Details", "Messages", new {id=@item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
-                                    </td>
-                                    <td class="col-xs-1" )>
-                                        Czytaj
-                                    </td>
-
-                                    }
-                                    else
-                                    {
-                                        <td class="col-xs-10" )>
-                                            @Ajax.ActionLink(@item.Title, "Details", "Messages", new { id = @item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
-                                        </td>
-                                        <td class="col-xs-10" )></td>
-                                    }
-                                    <td class="col-xs-2">
-                                        @Html.Action("dateMessage","Messages",new {id=item.Id})
-                                    </td>
-                                </tr>
+                <table width="100%">
+                    @foreach (var item in Model)
+                    {
+                        <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Id)">
+                            @if (item.IsRead == false)
+                            {
+                                <td class="col-xs-9")>
+                                    @Ajax.ActionLink(item.Title, "Details", "Messages", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
+                                </td>
+                                <td class="col-xs-1" )>
+                                    Czytaj
+                                </td>
+                                <td class="col-xs-1" )>
+                                    @item.
+                                </td>
                             }
-                        </table>
-                    </div>
+                            else
+                            {
+                                <td class="col-xs-10" )>
+                                    @Ajax.ActionLink(item.Title, "Details", "Messages", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
+                                </td>
+                            }
+                            <td class="col-xs-2">
+                                @Html.Action("dateMessage", "Messages", new {id = item.Id})
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
 
         </div>
 

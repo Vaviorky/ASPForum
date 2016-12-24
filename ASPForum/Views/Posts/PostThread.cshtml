@@ -8,7 +8,7 @@
 
 
         <div class="panel-heading title-bar">
-            <a href="/"><span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>Strona główna forum</a> > @ViewBag.CategoryTitle > @ViewBag.SubjectTitle > @ViewBag.ThreadTitle
+            <a href="/"><span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>@GlobalRes.ForumHomePage</a> > @ViewBag.CategoryTitle > @ViewBag.SubjectTitle > @ViewBag.ThreadTitle
 
         </div>
     </div>
@@ -27,7 +27,7 @@
         <div id="@item.Id" class="panel panel-default" style="padding-bottom: 0px;">
             <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
                 <table width="100%">
-                    @{ ViewBag.Title = "Zobacz wątek: " + item.Thread.Title; }
+                    @{ ViewBag.Title = GlobalRes.CheckThread + ": " + item.Thread.Title; }
                     <tr>
                         <td class="col-md-1" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
                             <img class="avatar" src="@item.User.Avatar"/><br/>
@@ -39,18 +39,18 @@
                             <table width="100%">
                                 <tr>
                                     <td>
-                                        <div style="font-size: 14px;">Przez: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
+                                        <div style="font-size: 14px;">@GlobalRes.By: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
                                     </td>
                                     <td>
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
-                                            <div align="right">@Html.ActionLink("Edytuj post", "Edit", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }) @Html.ActionLink("Usuń post", "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
+                                            <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }) @Html.ActionLink(GlobalRes.DeletePost, "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }
                                         else if (User.Identity.IsAuthenticated)
                                         {
                                             <div align="right">
                                                 <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>
-                                                @Html.ActionLink("Zgłoś post", "reportPost", "Posts",new {id=@item.ThreadId }, new { @class = "btn btn-primary btn-sm" })
+                                                @Html.ActionLink(GlobalRes.ReportPost, "reportPost", "Posts",new {id=@item.ThreadId }, new { @class = "btn btn-primary btn-sm" })
                                             </div>
                                         }
                                     </td>
@@ -65,4 +65,4 @@
     </div>
 }
 <br/>
-@Html.ActionLink("Utwórz nowy post", "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
+@Html.ActionLink(GlobalRes.CreateNewPost, "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})

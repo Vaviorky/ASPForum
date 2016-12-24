@@ -1,10 +1,11 @@
-﻿@model ASPForum.Models.Post
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Post
 
 @{
-    ViewBag.Title = "Usuń post";
+    ViewBag.Title = GlobalRes.DeletePost;
 }
 
-<h3>Czy na pewno chcesz usunąć ten post?</h3>
+<h3>@GlobalRes.DoYouWantToDeletePost</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -46,9 +47,9 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Usuń" class="btn btn-danger" /> |
+            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" /> |
 
-            @Html.ActionLink("Wróc do poprzedniego wątku", "PostThread", "Posts", new {id=  Model.ThreadId}, new {@class = "btn btn-primary btn-md"})
+            @Html.ActionLink(GlobalRes.BackToPreviousThread, "PostThread", "Posts", new {id=  Model.ThreadId}, new {@class = "btn btn-primary btn-md"})
         </div>
     }
 </div>

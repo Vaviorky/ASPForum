@@ -1,11 +1,12 @@
-﻿@model IEnumerable<ASPForum.Models.News>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.News>
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
-    @Ajax.ActionLink("Stwórz nowego newsa", "Create", "News", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-md" })
+    @Ajax.ActionLink(GlobalRes.CreateNews, "Create", "News", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-md" })
     <table class="table table-bordered">
-        <th class="col-md-5">Tytuł</th>
-        <th class="col-md-5">Autor</th>
-        <th class="col-md-2">Akcja</th>
+        <th class="col-md-5">@GlobalRes.Title</th>
+        <th class="col-md-5">@GlobalRes.Author</th>
+        <th class="col-md-2">@GlobalRes.Action</th>
         @foreach (var news in Model)
         {
             <tr>
@@ -16,8 +17,8 @@
                     @news.User.UserName
                 </td>
                 <td>
-                    @Ajax.ActionLink("Edytuj", "Edit","News", new { id = news.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
-                    @Ajax.ActionLink("Usuń", "Delete", "News", new { id = news.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-sm" })
+                    @Ajax.ActionLink(GlobalRes.Edit, "Edit","News", new { id = news.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
+                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "News", new { id = news.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-sm" })
                 </td>
 
             </tr>
