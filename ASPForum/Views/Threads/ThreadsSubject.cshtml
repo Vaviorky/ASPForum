@@ -1,4 +1,5 @@
-﻿@model ASPForum.Models.ThreadsWithPinnedViewModel
+﻿@using ASPForum.Resources
+@model ASPForum.Models.ThreadsWithPinnedViewModel
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,16 +8,15 @@
 <h3>@ViewBag.Title</h3>
 
 
-@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
-
+@Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
 
 <div class="panel-group title-bar-position" id="accordion">
 
     <div class="panel panel-default">
 
-
         <div class="panel-heading title-bar">
-            <a href="/"><span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>Strona główna forum</a> > @ViewBag.CategoryTitle > @ViewBag.Title
+            <a href="/">
+                <span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>@GlobalRes.ForumHomePage</a> > @ViewBag.CategoryTitle > @ViewBag.Title
 
         </div>
     </div>
@@ -28,23 +28,22 @@
     <div class="panel-group title-bar-position" id="accordion">
 
         <div class="panel panel-default">
-            
+
             <div class="panel-heading title-bar">
                 <table width="100%">
                     <tr>
                         <td class="col-xs-7">
-                            Przypięte wątki
+                            @GlobalRes.PinnedThreads
                         </td>
                         <td class="col-xs-1">
-                            Odpowiedzi
+                            @GlobalRes.Replies
 
                         </td>
                         <td class="col-xs-1">
-                            Wyświetlone
-
+                            @GlobalRes.Views
                         </td>
                         <td class="col-xs-3">
-                            Ostatni post
+                            @GlobalRes.LastPost
                         </td>
                     </tr>
 
@@ -62,7 +61,7 @@
                                         <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                         @if (thread.UserId != null)
                                         {
-                                            <div style="font-size: 13px">Przez: @thread.User.UserName</div>
+                                            <div style="font-size: 13px">@GlobalRes.By: @thread.User.UserName</div>
                                             <div style="font-size: 12px">@($"{thread.Date:dd/MM/yyyy, hh:mm}")</div>
                                         }
 
@@ -77,8 +76,8 @@
                                         @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
-                                            @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm"})
-                                            @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm"})
+                                            @Html.ActionLink(GlobalRes.Edit, "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm"})
+                                            @Html.ActionLink(GlobalRes.Delete, "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm"})
                                         }
                                     </td>
                                 </tr>
@@ -103,18 +102,16 @@
             <table width="100%">
                 <tr>
                     <td class="col-xs-7">
-                        Wątki
+                        @GlobalRes.Threads
                     </td>
                     <td class="col-xs-1">
-                        Odpowiedzi
-
+                        @GlobalRes.Replies
                     </td>
                     <td class="col-xs-1">
-                        Wyświetlone
-
+                        @GlobalRes.Views
                     </td>
                     <td class="col-xs-3">
-                        Ostatni post
+                        @GlobalRes.LastPost
                     </td>
 
                 </tr>
@@ -133,7 +130,7 @@
                                     <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                     @if (thread.UserId != null)
                                     {
-                                        <div style="font-size: 13px">Przez: @thread.User.UserName</div>
+                                        <div style="font-size: 13px">@GlobalRes.By: @thread.User.UserName</div>
                                         <div style="font-size: 12px">@($"{thread.Date:dd/MM/yyyy, hh:mm}")</div>
                                     }
 
@@ -148,8 +145,8 @@
                                     @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {
-                                        @Html.ActionLink("Edytuj", "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm" })
-                                        @Html.ActionLink("Usuń", "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm" })
+                                        @Html.ActionLink(GlobalRes.Edit, "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm"})
+                                        @Html.ActionLink(GlobalRes.Delete, "Delete", "Threads", new {id = thread.Id}, new {@class = "btn btn-danger btn-sm"})
                                     }
                                 </td>
                             </tr>
@@ -163,4 +160,4 @@
 
 </div>
 <br/>
-@Html.ActionLink("Stwórz nowy wątek", "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
+@Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})

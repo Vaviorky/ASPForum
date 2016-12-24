@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ASPForum.Models.Subject>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.Subject>
 <div class="row">
 
     @foreach (var item in Model)
@@ -15,14 +16,13 @@
                             @Html.ActionLink(item.Title, "ThreadsSubject", "Threads", new { id = item.Id }, new { @style = "font-size: 17px;" })
                         </div>
                         <div style="font-size: 14px;">
-                            Wątki: @Html.Action("ThreadsCount", "Categories", new { id = item.Id }),
-                            Posty: @Html.Action("PostCount", "Categories", new { id = item.Id })
+                            @GlobalRes.Threads: @Html.Action("ThreadsCount", "Categories", new { id = item.Id }),
+                            @GlobalRes.Posts: @Html.Action("PostCount", "Categories", new { id = item.Id })
                         </div>
 
                     </td>
                     <td class="col-md-2">
                         @Html.Action("NewPost", "Categories", new { id = item.Id })
-
                     </td>
                 </tr>
             </table>

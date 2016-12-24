@@ -482,23 +482,6 @@ namespace ASPForum.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult CreateNews()
-        {
-            return PartialView("CreateNews");
-        }
-
-        [Authorize(Roles = "Admin")]
-        [HttpPost]
-        public ActionResult CreateNewsSubmit(News news)
-        {
-            news.UserId = User.Identity.GetUserId();
-            news.Date = DateTime.Now;
-            db.News.Add(news);
-            db.SaveChanges();
-            return PartialView("NewsManagement", db.News.ToList());
-        }
-
-        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(string id)
         {
             if (id == null)

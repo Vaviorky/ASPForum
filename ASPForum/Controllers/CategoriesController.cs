@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Diagnostics;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 
 namespace ASPForum.Controllers
 {
     public class CategoriesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Categories
         public ActionResult Index()
@@ -27,8 +20,8 @@ namespace ASPForum.Controllers
             ViewBag.UserCount = db.Users.Count();
             var user = db.Users.OrderByDescending(x => x.RegistrationDate).FirstOrDefault();
             if (user != null) ViewBag.NewestUser = user.UserName;
-            ViewBag.News =  db.News.OrderByDescending(t => t.Date).Take(3).ToList();
-            
+            ViewBag.News = db.News.OrderByDescending(t => t.Date).Take(3).ToList();
+
             if (User.Identity.IsAuthenticated)
             {
                 var userId = User.Identity.GetUserId();
@@ -43,7 +36,7 @@ namespace ASPForum.Controllers
             return View(db.Categories.ToList());
         }
 
-        [Authorize(Roles ="Admin")]
+        [Authorize(Roles = "Admin")]
         // GET: Categories/Create
         public ActionResult Create()
         {
@@ -61,8 +54,9 @@ namespace ASPForum.Controllers
                 return HttpNotFound();
             db.Categories.Add(category);
             db.SaveChanges();
-            return RedirectToAction("ManageForum","Manage", db.Categories.ToList());
+            return RedirectToAction("ManageForum", "Manage", db.Categories.ToList());
         }
+
         [Authorize(Roles = "Admin")]
         // GET: Categories/Edit/5
         public ActionResult Edit(int? id)
@@ -87,8 +81,8 @@ namespace ASPForum.Controllers
             db.Entry(category).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("ManageForum", "Manage", db.Categories.ToList());
-
         }
+
         [Authorize(Roles = "Admin")]
         // GET: Categories/Delete/5
         public ActionResult Delete(int? id)
@@ -99,9 +93,11 @@ namespace ASPForum.Controllers
             var category = db.Categories.Find(id);
             return PartialView("Delete", category);
         }
+
         [Authorize(Roles = "Admin")]
         // POST: Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
             var category = db.Categories.Find(id);
@@ -113,9 +109,7 @@ namespace ASPForum.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -130,20 +124,18 @@ namespace ASPForum.Controllers
         {
             return db.Posts.Count(s => s.Thread.Subject.Id == id).ToString();
         }
+
         public string ThreadsCount(int id)
         {
             return db.Threads.Count(s => s.Subject.Id == id).ToString();
         }
+
         public ActionResult NewPost(int id)
         {
             var post = db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
             if (post != null)
-            {
                 return PartialView("LastPost", post);
-            }
-            else
-                return HttpNotFound("Brak postów");
-            
+            return HttpNotFound("Brak postów");
         }
     }
 }

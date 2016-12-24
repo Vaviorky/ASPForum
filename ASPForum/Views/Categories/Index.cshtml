@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ASPForum.Models.Category>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.Category>
 
 @{
     ViewBag.Title = "Strona główna";
@@ -87,7 +88,7 @@
                             @item.Text
                         </td>
                         <td class="col-xs-2">
-                            Ostatni post
+                            @GlobalRes.LastPost
                         </td>
 
                     </tr>
@@ -104,6 +105,6 @@
     }
 </div>
 <br/>
-<h4>Statystyki</h4>
+<h4>@GlobalRes.Statistics</h4>
 <hr/>
-Liczba postów: <b>@ViewBag.PostCount</b> • Liczba wątków: <b>@ViewBag.ThreadCount</b> • Liczba użytkowników: <b>@ViewBag.UserCount</b> • Najnowszy użytkownik: <b></b>@ViewBag.NewestUser
+@GlobalRes.NrOfPosts: <b>@ViewBag.PostCount</b> • @GlobalRes.NrOfThreads: <b>@ViewBag.ThreadCount</b> • @GlobalRes.NrOfUsers: <b>@ViewBag.UserCount</b> • @GlobalRes.NewestUser: <b></b>@ViewBag.NewestUser
