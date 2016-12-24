@@ -294,11 +294,20 @@
   <data name="AddRoleToSubject" xml:space="preserve">
     <value>Add role to subject</value>
   </data>
+  <data name="BackToCategoryList" xml:space="preserve">
+    <value>Back to category list</value>
+  </data>
   <data name="BackToListofPosts" xml:space="preserve">
     <value>Back to list of posts</value>
   </data>
+  <data name="BackToMessages" xml:space="preserve">
+    <value>Back to messages</value>
+  </data>
   <data name="BackToPreviousThread" xml:space="preserve">
     <value>Back to previous thread</value>
+  </data>
+  <data name="BackToSubjectList" xml:space="preserve">
+    <value>Back to subjest list</value>
   </data>
   <data name="ChangingPassword" xml:space="preserve">
     <value>Password changing</value>
@@ -312,20 +321,41 @@
   <data name="Content" xml:space="preserve">
     <value>Content</value>
   </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Create new category</value>
+  </data>
+  <data name="CreateNewSubject" xml:space="preserve">
+    <value>Create new subject</value>
+  </data>
   <data name="CreatePostForThread" xml:space="preserve">
     <value>Create new post in thread</value>
+  </data>
+  <data name="CreateSubject" xml:space="preserve">
+    <value>Create a subject</value>
   </data>
   <data name="CreatingPost" xml:space="preserve">
     <value>Creating new post</value>
   </data>
+  <data name="DeleteCategory" xml:space="preserve">
+    <value>Delete category</value>
+  </data>
   <data name="DeletePost" xml:space="preserve">
     <value>Delete Post</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
   </data>
   <data name="DisallowAdmin" xml:space="preserve">
     <value>Disallow admin</value>
   </data>
+  <data name="DoYouWanttoDeleteCategory" xml:space="preserve">
+    <value>Do you want to delete category named</value>
+  </data>
   <data name="DoYouWantToDeletePost" xml:space="preserve">
     <value>Do you want to delete this post?</value>
+  </data>
+  <data name="EditingCategory" xml:space="preserve">
+    <value>Editing category</value>
   </data>
   <data name="EditPost" xml:space="preserve">
     <value>Edit post</value>
@@ -348,6 +378,9 @@
   <data name="SelectSubject" xml:space="preserve">
     <value>Select subject</value>
   </data>
+  <data name="Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
@@ -360,10 +393,19 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
   <data name="UploadNewAvatar" xml:space="preserve">
     <value>Upload a new avatar</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="YouAreBanned" xml:space="preserve">
+    <value>You are banned.</value>
+  </data>
+  <data name="YourAccountHasBeenBanned" xml:space="preserve">
+    <value>Your account has been banned. Contact to administrator for more info.</value>
   </data>
 </root>

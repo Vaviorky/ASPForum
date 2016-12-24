@@ -1,11 +1,12 @@
-﻿@model ASPForum.Models.Category
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Category
 
-<h3>Czy na pewno chcesz usunąć kategorię o nazwie @Model.Title?</h3>
+<h3>@GlobalRes.DoYouWanttoDeleteCategory @Model.Title?</h3>
 <div>
     <hr/>
     <dl class="dl-horizontal">
         <dt>
-            Tytuł:
+            @GlobalRes.Title:
         </dt>
 
         <dd>
@@ -13,7 +14,7 @@
         </dd>
 
         <dt>
-            Opis:
+            @GlobalRes.Description:
         </dt>
 
         <dd>
@@ -27,7 +28,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Ajax.ActionLink("Usuń kategorię", "Delete", "Categories", new {id = Model.Id},
+            @Ajax.ActionLink(GlobalRes.DeleteCategory, "Delete", "Categories", new {id = Model.Id},
                 new AjaxOptions
                 {
                     HttpMethod = "POST",
@@ -35,7 +36,7 @@
                     InsertionMode = InsertionMode.Replace
                 }, new {@class = "btn btn-danger btn-md"})
 
-            @Ajax.ActionLink("Powrót do listy", "ManageForum", "Manage", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-primary btn-md"})
+            @Ajax.ActionLink(GlobalRes.BackToCategoryList, "ManageForum", "Manage", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-primary btn-md"})
         </div>
     }
 </div>

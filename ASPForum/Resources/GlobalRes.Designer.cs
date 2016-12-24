@@ -124,6 +124,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to category list.
+        /// </summary>
+        public static string BackToCategoryList {
+            get {
+                return ResourceManager.GetString("BackToCategoryList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to list of posts.
         /// </summary>
         public static string BackToListofPosts {
@@ -133,11 +142,29 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Back to messages.
+        /// </summary>
+        public static string BackToMessages {
+            get {
+                return ResourceManager.GetString("BackToMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to previous thread.
         /// </summary>
         public static string BackToPreviousThread {
             get {
                 return ResourceManager.GetString("BackToPreviousThread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Back to subjest list.
+        /// </summary>
+        public static string BackToSubjectList {
+            get {
+                return ResourceManager.GetString("BackToSubjectList", resourceCulture);
             }
         }
         
@@ -232,6 +259,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new category.
+        /// </summary>
+        public static string CreateNewCategory {
+            get {
+                return ResourceManager.GetString("CreateNewCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new post.
         /// </summary>
         public static string CreateNewPost {
@@ -246,6 +282,15 @@ namespace ASPForum.Resources {
         public static string CreateNews {
             get {
                 return ResourceManager.GetString("CreateNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create new subject.
+        /// </summary>
+        public static string CreateNewSubject {
+            get {
+                return ResourceManager.GetString("CreateNewSubject", resourceCulture);
             }
         }
         
@@ -277,6 +322,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a subject.
+        /// </summary>
+        public static string CreateSubject {
+            get {
+                return ResourceManager.GetString("CreateSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating new post.
         /// </summary>
         public static string CreatingPost {
@@ -295,6 +349,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete category.
+        /// </summary>
+        public static string DeleteCategory {
+            get {
+                return ResourceManager.GetString("DeleteCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete Post.
         /// </summary>
         public static string DeletePost {
@@ -304,11 +367,29 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disallow admin.
         /// </summary>
         public static string DisallowAdmin {
             get {
                 return ResourceManager.GetString("DisallowAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete category named.
+        /// </summary>
+        public static string DoYouWanttoDeleteCategory {
+            get {
+                return ResourceManager.GetString("DoYouWanttoDeleteCategory", resourceCulture);
             }
         }
         
@@ -336,6 +417,15 @@ namespace ASPForum.Resources {
         public static string EditAccountData {
             get {
                 return ResourceManager.GetString("EditAccountData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing category.
+        /// </summary>
+        public static string EditingCategory {
+            get {
+                return ResourceManager.GetString("EditingCategory", resourceCulture);
             }
         }
         
@@ -691,6 +781,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source.
+        /// </summary>
+        public static string Source {
+            get {
+                return ResourceManager.GetString("Source", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Statistics.
         /// </summary>
         public static string Statistics {
@@ -741,6 +840,15 @@ namespace ASPForum.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
             }
         }
         
@@ -804,6 +912,24 @@ namespace ASPForum.Resources {
         public static string Views {
             get {
                 return ResourceManager.GetString("Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are banned..
+        /// </summary>
+        public static string YouAreBanned {
+            get {
+                return ResourceManager.GetString("YouAreBanned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your account has been banned. Contact to administrator for more info..
+        /// </summary>
+        public static string YourAccountHasBeenBanned {
+            get {
+                return ResourceManager.GetString("YourAccountHasBeenBanned", resourceCulture);
             }
         }
     }
