@@ -1,11 +1,12 @@
-﻿@model ASPForum.Models.News
+﻿@using ASPForum.Resources
+@model ASPForum.Models.News
 
-<h3>Czy na pewno chcesz usunąć news o tytule @Model.Title?</h3>
+<h3>@GlobalRes.DoYouWantToDeleteNews: @Model.Title?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Tytuł:
+            @GlobalRes.Title:
         </dt>
 
         <dd>
@@ -13,7 +14,7 @@
         </dd>
 
         <dt>
-            Opis:
+            @GlobalRes.Description:
         </dt>
 
         <dd>
@@ -27,7 +28,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Ajax.ActionLink("Usuń newsa", "Delete","News", new { id = Model.Id },
+            @Ajax.ActionLink(GlobalRes.DeleteNews, "Delete","News", new { id = Model.Id },
                                 new AjaxOptions
                                 {
                                     HttpMethod = "POST",
@@ -36,7 +37,7 @@
 
                                 }, new { @class = "btn btn-danger btn-md" })
 
-            @Ajax.ActionLink("Powrót do listy", "ManageNews","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+            @Ajax.ActionLink(GlobalRes.BackToList, "ManageNews","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
         </div>
     }
 </div>

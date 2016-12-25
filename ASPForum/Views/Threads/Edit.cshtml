@@ -1,11 +1,10 @@
-﻿@model ASPForum.Models.Thread
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Thread
 
 @{
-    ViewBag.Title = "Edycja wątku";
+    ViewBag.Title = GlobalRes.EditingThread;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Edit</h2>
 
 
 @using (Html.BeginForm())
@@ -13,13 +12,13 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Edytuj wątek</h4>
+        <h3>@GlobalRes.EditingThread</h3>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            <span class="control-label col-md-2">Tytuł: </span>
+            <span class="control-label col-md-2">@GlobalRes.Title: </span>
 
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
@@ -28,7 +27,7 @@
         </div>
 
         <div class="form-group">
-            <span class="control-label col-md-2">Opis: </span>
+            <span class="control-label col-md-2">@GlobalRes.Description: </span>
 
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Content, new { htmlAttributes = new { @class = "form-control" } })
@@ -39,10 +38,10 @@
         @if (User.IsInRole("Admin"))
         {
             <div class="form-group">
-                <span class="control-label col-md-2">Czy przypiąć? </span>
+                <span class="control-label col-md-2">@GlobalRes.DoYouWantToPin? </span>
                 <div class="col-md-10">
-                    Tak @Html.RadioButtonFor(m => m.IsPinned, true, new { @class = "radio-inline" })
-                    Nie @Html.RadioButtonFor(m => m.IsPinned, false, new { @class = "radio-inline" })
+                    @GlobalRes.Yes @Html.RadioButtonFor(m => m.IsPinned, true, new { @class = "radio-inline" })
+                    @GlobalRes.No @Html.RadioButtonFor(m => m.IsPinned, false, new { @class = "radio-inline" })
                     @Html.ValidationMessageFor(model => model.IsPinned, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -58,14 +57,14 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="@GlobalRes.Save" class="btn btn-success" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Wróć do listy wątków", "ThreadsSubject", "Threads", new { id = ViewBag.SubjectId }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(GlobalRes.BackToList, "ThreadsSubject", "Threads", new { id = Model.SubjectId }, new { @class = "btn btn-primary" })
 
 </div>
 

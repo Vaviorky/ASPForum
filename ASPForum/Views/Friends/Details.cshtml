@@ -1,4 +1,5 @@
-﻿@model ASPForum.Models.ApplicationUser
+﻿@using ASPForum.Resources
+@model ASPForum.Models.ApplicationUser
 
 <h4>@Model.UserName</h4>
 <div>
@@ -12,5 +13,5 @@
        
     @Html.ActionLink("Dodaj znajomego","AddFriend","Friends",new {id=Model.Id },new {@class = "btn btn-primary btn-md"  })
 
-    @Ajax.ActionLink("Powrót do listy", "FriendsAdd", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+    @Ajax.ActionLink(GlobalRes.BackToList, "FriendsAdd", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
 </div>

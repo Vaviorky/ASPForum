@@ -181,7 +181,7 @@
     <value>Forum</value>
   </data>
   <data name="ForumHomePage" xml:space="preserve">
-    <value>Forum Home Page</value>
+    <value>Forum home page</value>
   </data>
   <data name="Friends" xml:space="preserve">
     <value>Friends</value>
@@ -297,9 +297,6 @@
   <data name="BackToCategoryList" xml:space="preserve">
     <value>Back to category list</value>
   </data>
-  <data name="BackToListofPosts" xml:space="preserve">
-    <value>Back to list of posts</value>
-  </data>
   <data name="BackToMessages" xml:space="preserve">
     <value>Back to messages</value>
   </data>
@@ -307,7 +304,7 @@
     <value>Back to previous thread</value>
   </data>
   <data name="BackToSubjectList" xml:space="preserve">
-    <value>Back to subjest list</value>
+    <value>Back to subject list</value>
   </data>
   <data name="ChangingPassword" xml:space="preserve">
     <value>Password changing</value>
@@ -340,7 +337,7 @@
     <value>Delete category</value>
   </data>
   <data name="DeletePost" xml:space="preserve">
-    <value>Delete Post</value>
+    <value>Delete post</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -403,9 +400,54 @@
     <value>User</value>
   </data>
   <data name="YouAreBanned" xml:space="preserve">
-    <value>You are banned.</value>
+    <value>You have been banned.</value>
   </data>
   <data name="YourAccountHasBeenBanned" xml:space="preserve">
     <value>Your account has been banned. Contact to administrator for more info.</value>
+  </data>
+  <data name="BackToList" xml:space="preserve">
+    <value>Back to list</value>
+  </data>
+  <data name="DoYouWantToRemoveFriend" xml:space="preserve">
+    <value>Do you want to remove this friend</value>
+  </data>
+  <data name="CreatingNewThread" xml:space="preserve">
+    <value>Creating new thread</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DeleteNews" xml:space="preserve">
+    <value>Delete news</value>
+  </data>
+  <data name="DoYouWantToDeleteNews" xml:space="preserve">
+    <value>Do you want to delete news with title</value>
+  </data>
+  <data name="DoYouWantToDeleteThread" xml:space="preserve">
+    <value>Do you want to delete this thread</value>
+  </data>
+  <data name="DoYouWantToPin" xml:space="preserve">
+    <value>Do you want to pin</value>
+  </data>
+  <data name="EditingNews" xml:space="preserve">
+    <value>Editing news</value>
+  </data>
+  <data name="EditingThread" xml:space="preserve">
+    <value>Editing thread</value>
+  </data>
+  <data name="EditNews" xml:space="preserve">
+    <value>Edit news</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="RankPoints" xml:space="preserve">
+    <value>Rank points</value>
+  </data>
+  <data name="UserEditing" xml:space="preserve">
+    <value>User editing</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
-﻿@model ASPForum.Models.Friends
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Friends
 
 @{
     ViewBag.Title = "Edit";
@@ -26,5 +27,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink(GlobalRes.BackToList, "Index")
 </div>

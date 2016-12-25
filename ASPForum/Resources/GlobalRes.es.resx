@@ -118,336 +118,336 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountDetails" xml:space="preserve">
-    <value>Szczegóły dotyczące konta</value>
+    <value>Detalles de la cuenta</value>
   </data>
   <data name="AddFriend" xml:space="preserve">
-    <value>Dodaj znajomego</value>
+    <value>Añadir amigo</value>
   </data>
   <data name="AddSubject" xml:space="preserve">
-    <value>Dodaj temat</value>
+    <value>Añadir un asunto</value>
   </data>
   <data name="AdministrativeOptions" xml:space="preserve">
-    <value>Opcje administracyjne</value>
+    <value>Opciones administrativas</value>
   </data>
   <data name="Author" xml:space="preserve">
     <value>Autor</value>
   </data>
   <data name="Ban" xml:space="preserve">
-    <value>Zablokuj</value>
+    <value>Prohibición</value>
   </data>
   <data name="By" xml:space="preserve">
-    <value>Przez</value>
+    <value>Por</value>
   </data>
   <data name="ChangeAccountDetails" xml:space="preserve">
-    <value>Zmień szczegóły konta</value>
+    <value>Cambiar los detalles de la cuenta</value>
   </data>
   <data name="ChangeAvatar" xml:space="preserve">
-    <value>Zmień awatar</value>
+    <value>Cambiar avatar</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
-    <value>Zmień swoje hasło</value>
+    <value>Cambia tu contraseña</value>
   </data>
   <data name="CreateCategory" xml:space="preserve">
-    <value>Stwórz kategorię</value>
+    <value>Crear una categoría</value>
   </data>
   <data name="CreateNewPost" xml:space="preserve">
-    <value>Stwórz nowy post</value>
+    <value>Crear una nueva mensaje</value>
   </data>
   <data name="CreateNews" xml:space="preserve">
-    <value>Stwórz newsa</value>
+    <value>Crear noticias</value>
   </data>
   <data name="CreateNewThread" xml:space="preserve">
-    <value>Stwórz nowy wątek</value>
+    <value>Crear nuevo hilo</value>
   </data>
   <data name="CreatePassword" xml:space="preserve">
-    <value>Stwórz hasło</value>
+    <value>Crear contraseña</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Usuń</value>
+    <value>Eliminar</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edytuj</value>
+    <value>Editar</value>
   </data>
   <data name="EditAccountData" xml:space="preserve">
-    <value>Edytuj dane związane z kontem</value>
+    <value>Editar datos asociados con su cuenta</value>
   </data>
   <data name="FindAFriend" xml:space="preserve">
-    <value>Znajdź znajomego</value>
+    <value>Encuentra un amigo</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Zapomniałeś hasła?</value>
+    <value>¿Olvidaste tu contraseña</value>
   </data>
   <data name="Forum" xml:space="preserve">
-    <value>Forum</value>
+    <value>Foro</value>
   </data>
   <data name="ForumHomePage" xml:space="preserve">
-    <value>Strona główna forum</value>
+    <value>Página principal del foro</value>
   </data>
   <data name="Friends" xml:space="preserve">
-    <value>Znajomi</value>
+    <value>Amigos</value>
   </data>
   <data name="GrantAdmin" xml:space="preserve">
-    <value>Nadaj admina</value>
+    <value>Conceder administración</value>
   </data>
   <data name="Hello" xml:space="preserve">
-    <value>Witaj</value>
+    <value>Hola</value>
   </data>
   <data name="IncorrectFileExtension" xml:space="preserve">
-    <value>Nieprawidłowe rozszerzenie pliku</value>
+    <value>Extensión de archivo incorrecta</value>
   </data>
   <data name="IncorrectImageResolution" xml:space="preserve">
-    <value>Nieprawidłowa rozdzielczość obrazka</value>
+    <value>Resolución incorrecta de la imagen</value>
   </data>
   <data name="LastPost" xml:space="preserve">
-    <value>Ostatni post</value>
+    <value>Ultima mensaje</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Zaloguj się</value>
+    <value>Login</value>
   </data>
   <data name="ManageModeratorRole" xml:space="preserve">
-    <value>Zarządzaj rolą moderatora</value>
+    <value>Administrar el rol de moderador</value>
   </data>
   <data name="Messages" xml:space="preserve">
-    <value>Wiadomości</value>
+    <value>Mensajes</value>
   </data>
   <data name="NewestUser" xml:space="preserve">
-    <value>Najnowszy użytkownik</value>
+    <value>Usuario nuevo</value>
   </data>
   <data name="NewMessage" xml:space="preserve">
-    <value>Nowa wiadomość</value>
+    <value>Nuevo mensaje</value>
   </data>
   <data name="News" xml:space="preserve">
-    <value>Newsy</value>
+    <value>Noticias</value>
   </data>
   <data name="NrOfPosts" xml:space="preserve">
-    <value>Liczba postow</value>
+    <value>Número de mesanjos</value>
   </data>
   <data name="NrOfThreads" xml:space="preserve">
-    <value>Liczba wątków</value>
+    <value>Número de hilos</value>
   </data>
   <data name="NrOfUsers" xml:space="preserve">
-    <value>Liczba użytkowników</value>
+    <value>Número de usuarios</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opcje</value>
+    <value>Opciones</value>
   </data>
   <data name="PinnedThreads" xml:space="preserve">
-    <value>Przypięte wątki</value>
+    <value>Hilos fijados</value>
   </data>
   <data name="Posts" xml:space="preserve">
-    <value>Posty</value>
+    <value>Mensajes</value>
   </data>
   <data name="Profile" xml:space="preserve">
-    <value>Profil</value>
+    <value>Perfil</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Zarejestruj się</value>
+    <value>Registro</value>
   </data>
   <data name="RegisterAsANewUser" xml:space="preserve">
-    <value>Zarejestruj się jako nowy użytkownik</value>
+    <value>Registrarse como usuario nuevo</value>
   </data>
   <data name="RegistrationDate" xml:space="preserve">
-    <value>Data rejestracji</value>
+    <value>Fecha de Registro</value>
   </data>
   <data name="Replies" xml:space="preserve">
-    <value>Odpowiedzi</value>
+    <value>Respuestas</value>
   </data>
   <data name="RoleInForum" xml:space="preserve">
-    <value>Rola w serwisie</value>
+    <value>Función en servicio</value>
   </data>
   <data name="Save" xml:space="preserve">
-    <value>Zapisz</value>
+    <value>Salvar</value>
   </data>
   <data name="Search" xml:space="preserve">
-    <value>Wyszukaj</value>
+    <value>Buscar</value>
   </data>
   <data name="SentMessages" xml:space="preserve">
-    <value>Wysłane wiadomości</value>
+    <value>Mensajes enviados</value>
   </data>
   <data name="SizeTooLarge" xml:space="preserve">
-    <value>Zbyt duży rozmiar pliku</value>
+    <value>Tamaño demasiado grande</value>
   </data>
   <data name="Statistics" xml:space="preserve">
-    <value>Statystyki</value>
+    <value>Estadística</value>
   </data>
   <data name="Threads" xml:space="preserve">
-    <value>Wątki</value>
+    <value>Hilos</value>
   </data>
   <data name="Unban" xml:space="preserve">
-    <value>Odblokuj</value>
+    <value>Débannir</value>
   </data>
   <data name="UserControlPanel" xml:space="preserve">
-    <value>Panel użytkownika</value>
+    <value>Panel de control del usuario</value>
   </data>
   <data name="UserName" xml:space="preserve">
-    <value>Nazwa użytkownika</value>
+    <value>Nombre de usuario</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Użytkownicy</value>
+    <value>Usuarios</value>
   </data>
   <data name="Views" xml:space="preserve">
-    <value>Wyświetlono</value>
+    <value>Visitas</value>
   </data>
   <data name="Action" xml:space="preserve">
-    <value>Akcja</value>
+    <value>Acción</value>
   </data>
   <data name="AddRoleToSubject" xml:space="preserve">
-    <value>Dodaj rolę do tematu</value>
+    <value>Añadir rol a asunto</value>
   </data>
   <data name="BackToCategoryList" xml:space="preserve">
-    <value>Powrót do listy kategorii</value>
+    <value>Volver a la lista de categorías</value>
   </data>
   <data name="BackToMessages" xml:space="preserve">
-    <value>Powrót do wiadomości</value>
+    <value>Volver a los mensajes</value>
   </data>
   <data name="BackToPreviousThread" xml:space="preserve">
-    <value>Powrót do poprzedniego wątku</value>
+    <value>Volver al hilo anterior</value>
   </data>
   <data name="BackToSubjectList" xml:space="preserve">
-    <value>Powrót do listy tematów</value>
+    <value>Volver a la lista de sujetos</value>
   </data>
   <data name="ChangingPassword" xml:space="preserve">
-    <value>Zmiana hasła</value>
+    <value>Cambio de contraseña</value>
   </data>
   <data name="CheckThread" xml:space="preserve">
-    <value>Zobacz wątek</value>
+    <value>Compruebe el hilo</value>
   </data>
   <data name="ConfirmPassword" xml:space="preserve">
-    <value>Powtórz hasło</value>
+    <value>Confirmar contraseña</value>
   </data>
   <data name="Content" xml:space="preserve">
-    <value>Zawartość</value>
+    <value>Contenido</value>
   </data>
   <data name="CreateNewCategory" xml:space="preserve">
-    <value>Stwórz nową kategorię</value>
+    <value>Crear una nueva categoría</value>
   </data>
   <data name="CreateNewSubject" xml:space="preserve">
-    <value>Stwórz nowy temat</value>
+    <value>Crear nuevo tema</value>
   </data>
   <data name="CreatePostForThread" xml:space="preserve">
-    <value>Stwórz nowy post w wątku</value>
+    <value>Crear una nueva entrada en hilo</value>
   </data>
   <data name="CreateSubject" xml:space="preserve">
-    <value>Stwórz temat</value>
+    <value>Crear un tema</value>
   </data>
   <data name="CreatingPost" xml:space="preserve">
-    <value>Tworzenie postu</value>
+    <value>Creación de una nueva mensaje</value>
   </data>
   <data name="DeleteCategory" xml:space="preserve">
-    <value>Usuń kategorię</value>
+    <value>Eliminar categoría</value>
   </data>
   <data name="DeletePost" xml:space="preserve">
-    <value>Usuń post</value>
+    <value>Eliminar mensaje</value>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Opis</value>
+    <value>Descripción</value>
   </data>
   <data name="DisallowAdmin" xml:space="preserve">
-    <value>Odbierz admina</value>
+    <value>Prohibir admin</value>
   </data>
   <data name="DoYouWanttoDeleteCategory" xml:space="preserve">
-    <value>Czy chcesz usunąć kategorię o nazwie</value>
+    <value>Do you want to delete category named</value>
   </data>
   <data name="DoYouWantToDeletePost" xml:space="preserve">
-    <value>Czy chcesz usunąć ten post?</value>
+    <value>¿Quieres eliminar el mensaje</value>
   </data>
   <data name="EditingCategory" xml:space="preserve">
-    <value>Edycja kategorii</value>
+    <value>Editar categoría</value>
   </data>
   <data name="EditPost" xml:space="preserve">
-    <value>Edytuj post</value>
+    <value>Editar mensaje</value>
   </data>
   <data name="ListOfSubjectsManagedByUser" xml:space="preserve">
-    <value>Lista tematów zarządzana przez użytkownika</value>
+    <value>La lista de temas administrados por</value>
   </data>
   <data name="NewPassword" xml:space="preserve">
-    <value>Nowe hasło</value>
+    <value>Nueva contraseña</value>
   </data>
   <data name="OldPassword" xml:space="preserve">
-    <value>Stare hasło</value>
+    <value>Contraseña anterior</value>
   </data>
   <data name="PostTitle" xml:space="preserve">
-    <value>Tytuł postu:</value>
+    <value>Título de la mensaje:</value>
   </data>
   <data name="ReportPost" xml:space="preserve">
-    <value>Zgłoś post</value>
+    <value>Reportar esta mesanje</value>
   </data>
   <data name="SelectSubject" xml:space="preserve">
-    <value>Wybierz temat</value>
+    <value>Seleccionar tema</value>
   </data>
   <data name="Source" xml:space="preserve">
-    <value>Źródło</value>
+    <value>Fuente</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Temat</value>
+    <value>Tema</value>
   </data>
   <data name="Submit" xml:space="preserve">
-    <value>Wyślij</value>
+    <value>Enviar</value>
   </data>
   <data name="Text" xml:space="preserve">
-    <value>Tekst</value>
+    <value>Texto</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Tytuł</value>
+    <value>Título</value>
   </data>
   <data name="To" xml:space="preserve">
-    <value>Do</value>
+    <value>Para</value>
   </data>
   <data name="UploadNewAvatar" xml:space="preserve">
-    <value>Załaduj nowy awatar</value>
+    <value>Sube un nuevo avatar</value>
   </data>
   <data name="User" xml:space="preserve">
-    <value>Użytkownik</value>
+    <value>Usuario</value>
   </data>
   <data name="YouAreBanned" xml:space="preserve">
-    <value>Zostałeś zablokowany</value>
+    <value>Usted ha sido prohibido.</value>
   </data>
   <data name="YourAccountHasBeenBanned" xml:space="preserve">
-    <value>Twoje konto zostało zablokowane. Skontaktuj się z administratorem w celu uzyskania szczegółów.</value>
+    <value>Se ha prohibido su cuenta. Póngase en contacto con el administrador para obtener más información.</value>
   </data>
   <data name="BackToList" xml:space="preserve">
-    <value>Powrót do listy</value>
+    <value>Volver a la lista</value>
   </data>
   <data name="DoYouWantToRemoveFriend" xml:space="preserve">
-    <value>Czy chcesz usunąć znajomego</value>
+    <value>¿Quieres eliminar a este amigo</value>
   </data>
   <data name="CreatingNewThread" xml:space="preserve">
-    <value>Tworzenie nowego wątku</value>
+    <value>Creando un nuevo hilo</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Data</value>
+    <value>Fecha</value>
   </data>
   <data name="DeleteNews" xml:space="preserve">
-    <value>Usuń newsa</value>
+    <value>Eliminar noticias</value>
   </data>
   <data name="DoYouWantToDeleteNews" xml:space="preserve">
-    <value>Czy chcesz usunąć newsa o tytule</value>
+    <value>¿Quieres eliminar las noticias sobre el título</value>
   </data>
   <data name="DoYouWantToDeleteThread" xml:space="preserve">
-    <value>Czy chcesz usunąć ten wątek</value>
+    <value>¿Quieres eliminar este tema</value>
   </data>
   <data name="DoYouWantToPin" xml:space="preserve">
-    <value>Czy przypiąć</value>
+    <value>Es alfiler</value>
   </data>
   <data name="EditingNews" xml:space="preserve">
-    <value>Edycja newsa</value>
+    <value>Edición de noticias</value>
   </data>
   <data name="EditingThread" xml:space="preserve">
-    <value>Edycja wątku</value>
+    <value>Edición de hilo</value>
   </data>
   <data name="EditNews" xml:space="preserve">
-    <value>Edytuj newsa</value>
+    <value>Editar noticias</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>Nie</value>
+    <value>No</value>
   </data>
   <data name="RankPoints" xml:space="preserve">
-    <value>Punkty do rangi</value>
+    <value>Puntos de rango</value>
   </data>
   <data name="UserEditing" xml:space="preserve">
-    <value>Edycja użytkownika</value>
+    <value>Edición del usuario</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Tak</value>
+    <value>Sí</value>
   </data>
 </root>

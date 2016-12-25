@@ -10,15 +10,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Thread.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Thread.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @GlobalRes.Title
         </dt>
 
         <dd>
@@ -26,7 +18,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Text)
+            @GlobalRes.Description
         </dt>
 
         <dd>
@@ -34,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @GlobalRes.Date
         </dt>
 
         <dd>
@@ -49,7 +41,7 @@
         <div class="form-actions no-color">
             <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" /> |
 
-            @Html.ActionLink(GlobalRes.BackToPreviousThread, "PostThread", "Posts", new {id=  Model.ThreadId}, new {@class = "btn btn-primary btn-md"})
+            @Html.ActionLink(GlobalRes.BackToList, "PostThread", "Posts", new {id=  Model.ThreadId}, new {@class = "btn btn-primary btn-md"})
         </div>
     }
 </div>

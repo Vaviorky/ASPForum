@@ -133,11 +133,11 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to list of posts.
+        ///   Looks up a localized string similar to Back to list.
         /// </summary>
-        public static string BackToListofPosts {
+        public static string BackToList {
             get {
-                return ResourceManager.GetString("BackToListofPosts", resourceCulture);
+                return ResourceManager.GetString("BackToList", resourceCulture);
             }
         }
         
@@ -160,7 +160,7 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back to subjest list.
+        ///   Looks up a localized string similar to Back to subject list.
         /// </summary>
         public static string BackToSubjectList {
             get {
@@ -331,11 +331,29 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating new thread.
+        /// </summary>
+        public static string CreatingNewThread {
+            get {
+                return ResourceManager.GetString("CreatingNewThread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating new post.
         /// </summary>
         public static string CreatingPost {
             get {
                 return ResourceManager.GetString("CreatingPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
             }
         }
         
@@ -358,7 +376,16 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete Post.
+        ///   Looks up a localized string similar to Delete news.
+        /// </summary>
+        public static string DeleteNews {
+            get {
+                return ResourceManager.GetString("DeleteNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete post.
         /// </summary>
         public static string DeletePost {
             get {
@@ -394,11 +421,47 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete news with title.
+        /// </summary>
+        public static string DoYouWantToDeleteNews {
+            get {
+                return ResourceManager.GetString("DoYouWantToDeleteNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete this post?.
         /// </summary>
         public static string DoYouWantToDeletePost {
             get {
                 return ResourceManager.GetString("DoYouWantToDeletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete this thread.
+        /// </summary>
+        public static string DoYouWantToDeleteThread {
+            get {
+                return ResourceManager.GetString("DoYouWantToDeleteThread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to pin.
+        /// </summary>
+        public static string DoYouWantToPin {
+            get {
+                return ResourceManager.GetString("DoYouWantToPin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove this friend.
+        /// </summary>
+        public static string DoYouWantToRemoveFriend {
+            get {
+                return ResourceManager.GetString("DoYouWantToRemoveFriend", resourceCulture);
             }
         }
         
@@ -426,6 +489,33 @@ namespace ASPForum.Resources {
         public static string EditingCategory {
             get {
                 return ResourceManager.GetString("EditingCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing news.
+        /// </summary>
+        public static string EditingNews {
+            get {
+                return ResourceManager.GetString("EditingNews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editing thread.
+        /// </summary>
+        public static string EditingThread {
+            get {
+                return ResourceManager.GetString("EditingThread", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit news.
+        /// </summary>
+        public static string EditNews {
+            get {
+                return ResourceManager.GetString("EditNews", resourceCulture);
             }
         }
         
@@ -466,7 +556,7 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forum Home Page.
+        ///   Looks up a localized string similar to Forum home page.
         /// </summary>
         public static string ForumHomePage {
             get {
@@ -601,6 +691,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of posts.
         /// </summary>
         public static string NrOfPosts {
@@ -678,6 +777,15 @@ namespace ASPForum.Resources {
         public static string Profile {
             get {
                 return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rank points.
+        /// </summary>
+        public static string RankPoints {
+            get {
+                return ResourceManager.GetString("RankPoints", resourceCulture);
             }
         }
         
@@ -889,6 +997,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User editing.
+        /// </summary>
+        public static string UserEditing {
+            get {
+                return ResourceManager.GetString("UserEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string UserName {
@@ -916,7 +1033,16 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are banned..
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have been banned..
         /// </summary>
         public static string YouAreBanned {
             get {

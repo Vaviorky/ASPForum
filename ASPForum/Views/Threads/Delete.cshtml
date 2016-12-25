@@ -1,27 +1,17 @@
-﻿@model ASPForum.Models.Thread
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Thread
 
 @{
     ViewBag.Title = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>@GlobalRes.DoYouWantToDeleteThread?</h3>
 <div>
-    <h4>Thread</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Content)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @GlobalRes.Title
         </dt>
 
         <dd>
@@ -29,7 +19,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Date)
+            @GlobalRes.Description
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+
+        <dt>
+            @GlobalRes.Date
         </dt>
 
         <dd>
@@ -42,8 +40,10 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" /> |
+            @Html.ActionLink(GlobalRes.BackToList, "ThreadsSubject", "Threads", new { id = Model.SubjectId }, new { @class = "btn btn-primary" })
+
+
         </div>
     }
 </div>

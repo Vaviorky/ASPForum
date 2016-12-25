@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using ASPForum.Resources
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Forum</title>
+    <title>@ViewBag.Title - @GlobalRes.Forum</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
@@ -50,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Forum", "Index", "Categories", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink(GlobalRes.Forum, "Index", "Categories", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -64,6 +65,11 @@
                             <img src="~/Content/Images/polishlag.png" alt="polishflag" width="24" height="24" />
                         </a>
                     </li>
+                    <li>
+                        <a href="@Url.Action("Change", "Language", new {language = "es"})">
+                            <img src="~/Content/Images/spanishflag.png" alt="spanishflag" width="24" height="24" />
+                        </a>
+                    </li>
                     @*
                     <li>@Html.ActionLink("Categories", "Index", "Categories")</li>*@
                 </ul>
@@ -75,7 +81,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Forum</p>
+            <p>&copy; @DateTime.Now.Year - @GlobalRes.Forum</p>
         </footer>
     </div>
 

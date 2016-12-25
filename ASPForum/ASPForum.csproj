@@ -234,6 +234,11 @@
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Models\Subject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\GlobalRes.es.Designer.cs">
+      <DependentUpon>GlobalRes.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Resources\GlobalRes.pl.Designer.cs">
       <DependentUpon>GlobalRes.pl.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -256,6 +261,7 @@
     <Content Include="Content\Images\defaultavatar.jpg" />
     <Content Include="Content\Images\englishflag.png" />
     <Content Include="Content\Images\polishlag.png" />
+    <Content Include="Content\Images\spanishflag.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -380,6 +386,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612150229024_manager.resx">
       <DependentUpon>201612150229024_manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GlobalRes.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalRes.es.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalRes.pl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
