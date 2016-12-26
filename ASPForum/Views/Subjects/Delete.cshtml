@@ -1,11 +1,12 @@
-﻿@model ASPForum.Models.Subject
+﻿@using ASPForum.Resources
+@model ASPForum.Models.Subject
 
-<h3>Czy na pewno chcesz usunąć temat o nazwie @Model.Title?</h3>
+<h3>@GlobalRes.DoYouWantToDeleteSubject @Model.Title?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Tytuł:
+            @GlobalRes.Title:
         </dt>
 
         <dd>
@@ -13,7 +14,7 @@
         </dd>
 
         <dt>
-            Opis:
+            @GlobalRes.Text:
         </dt>
 
         <dd>
@@ -26,7 +27,7 @@
     {
 
         <div class="form-actions no-color">
-            @Ajax.ActionLink("Usuń temat", "Delete", "Subjects", new { id = Model.Id },
+            @Ajax.ActionLink(GlobalRes.DeleteSubject, "Delete", "Subjects", new { id = Model.Id },
                 new AjaxOptions
                 {
                     HttpMethod = "POST",
@@ -34,7 +35,7 @@
                     InsertionMode = InsertionMode.Replace
                 }, new { @class = "btn btn-danger btn-md" })
 
-            @Ajax.ActionLink("Powrót do listy", "ManageForum","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+            @Ajax.ActionLink(GlobalRes.BackToList, "ManageForum","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
 
         </div>
     }

@@ -412,6 +412,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete subject.
+        /// </summary>
+        public static string DeleteSubject {
+            get {
+                return ResourceManager.GetString("DeleteSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         public static string Description {
@@ -453,6 +462,15 @@ namespace ASPForum.Resources {
         public static string DoYouWantToDeletePost {
             get {
                 return ResourceManager.GetString("DoYouWantToDeletePost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete subject named.
+        /// </summary>
+        public static string DoYouWantToDeleteSubject {
+            get {
+                return ResourceManager.GetString("DoYouWantToDeleteSubject", resourceCulture);
             }
         }
         
@@ -520,6 +538,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editing subject.
+        /// </summary>
+        public static string EditingSubject {
+            get {
+                return ResourceManager.GetString("EditingSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editing thread.
         /// </summary>
         public static string EditingThread {
@@ -552,6 +579,24 @@ namespace ASPForum.Resources {
         public static string EditPost {
             get {
                 return ResourceManager.GetString("EditPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter your email.
+        /// </summary>
+        public static string EnterEmail {
+            get {
+                return ResourceManager.GetString("EnterEmail", resourceCulture);
             }
         }
         
@@ -736,6 +781,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New user account.
+        /// </summary>
+        public static string NewUserAccount {
+            get {
+                return ResourceManager.GetString("NewUserAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
@@ -786,6 +840,15 @@ namespace ASPForum.Resources {
         public static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -858,6 +921,15 @@ namespace ASPForum.Resources {
         public static string RegistrationDate {
             get {
                 return ResourceManager.GetString("RegistrationDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remember me.
+        /// </summary>
+        public static string RememberMe {
+            get {
+                return ResourceManager.GetString("RememberMe", resourceCulture);
             }
         }
         
@@ -1024,6 +1096,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use an existing account to log in.
+        /// </summary>
+        public static string UseAccountToLogIn {
+            get {
+                return ResourceManager.GetString("UseAccountToLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User.
         /// </summary>
         public static string User {
@@ -1047,6 +1128,15 @@ namespace ASPForum.Resources {
         public static string UserEditing {
             get {
                 return ResourceManager.GetString("UserEditing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string UserLogin {
+            get {
+                return ResourceManager.GetString("UserLogin", resourceCulture);
             }
         }
         

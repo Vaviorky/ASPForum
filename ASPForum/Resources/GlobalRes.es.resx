@@ -468,4 +468,31 @@
   <data name="EditingWord" xml:space="preserve">
     <value>Edición de la palabra</value>
   </data>
+  <data name="EditingSubject" xml:space="preserve">
+    <value>Editar tema</value>
+  </data>
+  <data name="DeleteSubject" xml:space="preserve">
+    <value>Eliminar tema</value>
+  </data>
+  <data name="DoYouWantToDeleteSubject" xml:space="preserve">
+    <value>¿Quieres eliminar este tema</value>
+  </data>
+  <data name="EnterEmail" xml:space="preserve">
+    <value>Entrar tu email</value>
+  </data>
+  <data name="NewUserAccount" xml:space="preserve">
+    <value>Nueva cuenta de usuario</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Recuérdame</value>
+  </data>
+  <data name="UseAccountToLogIn" xml:space="preserve">
+    <value>Utilizar una cuenta existente para iniciar sesión</value>
+  </data>
+  <data name="UserLogin" xml:space="preserve">
+    <value>Login</value>
+  </data>
 </root>
