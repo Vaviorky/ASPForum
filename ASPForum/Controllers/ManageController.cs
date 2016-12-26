@@ -549,9 +549,9 @@ namespace ASPForum.Controllers
         {
 
             var idd = User.Identity.GetUserId();
-            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == idd || mu.SenderId == id || mu.ReceiverId == id || mu.SenderId == idd).ToList();
-            LinkedList<Message> list = new LinkedList<Message>();
-            foreach (var item in Message_id)
+            var messageId = db.MessageUser.Where(mu => mu.ReceiverId == idd || mu.SenderId == id || mu.ReceiverId == id || mu.SenderId == idd).ToList();
+            var list = new LinkedList<Message>();
+            foreach (var item in messageId)
             {
                 list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
             }
@@ -565,9 +565,9 @@ namespace ASPForum.Controllers
         {
 
             var id = User.Identity.GetUserId();
-            var Message_id = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
-            LinkedList<Message> list = new LinkedList<Message>();
-            foreach (var item in Message_id)
+            var messageId = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
+            var list = new LinkedList<Message>();
+            foreach (var item in messageId)
             {
                 list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
             }

@@ -453,4 +453,19 @@
   <data name="Manage" xml:space="preserve">
     <value>Administrar</value>
   </data>
+  <data name="ForbiddenWords" xml:space="preserve">
+    <value>Palabras prohibidas</value>
+  </data>
+  <data name="CreateWord" xml:space="preserve">
+    <value>Crear palabra</value>
+  </data>
+  <data name="CreatingWord" xml:space="preserve">
+    <value>Crear palabra</value>
+  </data>
+  <data name="Word" xml:space="preserve">
+    <value>Palabra</value>
+  </data>
+  <data name="EditingWord" xml:space="preserve">
+    <value>Edición de la palabra</value>
+  </data>
 </root>

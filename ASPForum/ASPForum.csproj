@@ -198,6 +198,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\ForbiddenWordsController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
@@ -258,6 +259,7 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\forbiddenwords.txt" />
     <Content Include="Content\Images\defaultavatar.jpg" />
     <Content Include="Content\Images\englishflag.png" />
     <Content Include="Content\Images\polishlag.png" />
@@ -371,6 +373,8 @@
     <Content Include="Views\Threads\LastPost.cshtml" />
     <Content Include="Views\Messages\NewMessageFriends.cshtml" />
     <Content Include="Views\Manage\ManageModerator.cshtml" />
+    <Content Include="Views\ForbiddenWords\Index.cshtml" />
+    <Content Include="Views\ForbiddenWords\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

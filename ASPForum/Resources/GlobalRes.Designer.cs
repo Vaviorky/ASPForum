@@ -331,6 +331,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create word.
+        /// </summary>
+        public static string CreateWord {
+            get {
+                return ResourceManager.GetString("CreateWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Creating new thread.
         /// </summary>
         public static string CreatingNewThread {
@@ -345,6 +354,15 @@ namespace ASPForum.Resources {
         public static string CreatingPost {
             get {
                 return ResourceManager.GetString("CreatingPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Creating word.
+        /// </summary>
+        public static string CreatingWord {
+            get {
+                return ResourceManager.GetString("CreatingWord", resourceCulture);
             }
         }
         
@@ -511,6 +529,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Editing word.
+        /// </summary>
+        public static string EditingWord {
+            get {
+                return ResourceManager.GetString("EditingWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit news.
         /// </summary>
         public static string EditNews {
@@ -534,6 +561,15 @@ namespace ASPForum.Resources {
         public static string FindAFriend {
             get {
                 return ResourceManager.GetString("FindAFriend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forbidden words.
+        /// </summary>
+        public static string ForbiddenWords {
+            get {
+                return ResourceManager.GetString("ForbiddenWords", resourceCulture);
             }
         }
         
@@ -1038,6 +1074,15 @@ namespace ASPForum.Resources {
         public static string Views {
             get {
                 return ResourceManager.GetString("Views", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word.
+        /// </summary>
+        public static string Word {
+            get {
+                return ResourceManager.GetString("Word", resourceCulture);
             }
         }
         

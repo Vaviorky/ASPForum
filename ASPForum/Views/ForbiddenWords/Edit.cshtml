@@ -1,0 +1,39 @@
+﻿@using ASPForum.Resources
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#saveEditWord").click(function () {
+            var word = $('#wordeditor').val();
+            if (word !== "") {
+                $.post("ForbiddenWords/Edit", { oldword: "@ViewBag.wordEdit", newword: word }, function (data) {
+                    $('#moj_div').html(data);
+                });
+             }
+        });
+    })
+</script>
+
+    <div class="form-horizontal">
+        <h3>@GlobalRes.EditingWord: @ViewBag.wordEdit</h3>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <span class="control-label col-md-2">@GlobalRes.Word: </span>
+            <div class="col-md-10">
+                <input type="text" value="@ViewBag.wordEdit" id="wordeditor" class="form-control"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button id="saveEditWord" class="btn btn-success" >@GlobalRes.Save</button>
+            </div>
+        </div>
+    </div>
+
+
+<div>
+    @Ajax.ActionLink(GlobalRes.BackToList, "Index", "ForbiddenWords", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+
+</div>

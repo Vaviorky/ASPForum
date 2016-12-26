@@ -1,0 +1,47 @@
+﻿@using ASPForum.Resources
+@if (User.IsInRole("Admin") && Request.IsAuthenticated)
+{
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#addword").click(function() {
+                var word = $('#word').val();
+                if (word !== "") {
+                    $.post("ForbiddenWords/Create", { newword: word }, function (data) {
+                        $('#moj_div').html(data);
+                    });
+                    
+                } 
+            });
+        })
+    </script>
+    <div class="col-md-4">
+        <div class="form-group">
+            @Html.Editor("word", new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <button id="addword" class="btn btn-success">@GlobalRes.CreateWord</button>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <table class="table table-bordered">
+            <th class="col-md-5">@GlobalRes.Word</th>
+            <th class="col-md-2">@GlobalRes.Action</th>
+            @foreach (var word in ViewBag.Words)
+            {
+                <tr>
+                    <td>
+                        @word
+                    </td>
+                    <td>
+                        @Ajax.ActionLink(GlobalRes.Edit, "Edit", "ForbiddenWords", new { wordstring = word }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
+                        @Ajax.ActionLink(GlobalRes.Delete, "Delete", "ForbiddenWords", new {wordstring = word}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "POST"}, new {@class = "btn btn-danger btn-sm"})
+                    </td>
+
+                </tr>
+            }
+        </table>
+    </div>
+}

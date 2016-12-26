@@ -1,41 +1,42 @@
-﻿@using ASPForum.Models
-@using ASPForum.Resources
+﻿@using ASPForum.Resources
 @model IEnumerable<ASPForum.Models.Category>
 @if (User.IsInRole("Admin"))
 {
-    <div class="panel-group title-bar-position" id="accordion">
-        @Ajax.ActionLink(GlobalRes.CreateCategory, "Create","Categories", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-md" })
+    <div class="col-md-12">
+        <div class="panel-group title-bar-position" id="accordion">
+            @Ajax.ActionLink(GlobalRes.CreateCategory, "Create", "Categories", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-success btn-md"})
 
 
-        @foreach (var item in Model)
-        {
-            <div class="panel panel-default">
-                <div class="panel-heading title-bar">
-                    <table>
-                        <tr>
-                            <td class="col-xs-9">
-                                <b>@item.Title</b>
-                            </td>
-                            <td class="col-xs-3">
-                               
-                                @Ajax.ActionLink(GlobalRes.Edit, "Edit", "Categories", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-md" })
-                                @Ajax.ActionLink(GlobalRes.Delete, "Delete","Categories" ,new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-danger btn-md" })
-                                
-                            </td>
-                           
-                        </tr>
-                    </table>
+            @foreach (var item in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading title-bar">
+                        <table>
+                            <tr>
+                                <td class="col-xs-9">
+                                    <b>@item.Title</b>
+                                </td>
+                                <td class="col-xs-3">
+
+                                    @Ajax.ActionLink(GlobalRes.Edit, "Edit", "Categories", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-info btn-md"})
+                                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Categories", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-danger btn-md"})
+
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="panel-body">
+                        @Html.Action("ManageSubjectsInForum", "Manage", new {id = item.Id})
+                    </div>
+
+                    <div class="panel-footer">
+                        @Ajax.ActionLink(GlobalRes.AddSubject, "Create", "Subjects", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-success"})
+                    </div>
+
                 </div>
-
-                <div class="panel-body">
-                    @Html.Action("ManageSubjectsInForum", "Manage", new { id = item.Id })
-                </div>
-
-                <div class="panel-footer">
-                    @Ajax.ActionLink(GlobalRes.AddSubject, "Create", "Subjects", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success" })
-                </div>
-
-            </div>
-        }
+            }
+        </div>
     </div>
 }
