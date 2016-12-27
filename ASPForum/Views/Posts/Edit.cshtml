@@ -30,7 +30,7 @@
             <span class="control-label col-md-2">@GlobalRes.Content: </span>
 
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Text, new {rows = 10, cols = 70})
+                @Html.TextAreaFor(model => model.Text)
                 @Html.ValidationMessageFor(model => model.Text, "", new {@class = "text-danger"})
             </div>
         </div>
