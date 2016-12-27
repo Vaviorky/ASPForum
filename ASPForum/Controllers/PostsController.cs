@@ -125,7 +125,7 @@ namespace ASPForum.Controllers
                 db.SaveChanges();
                 return RedirectToAction("PostThread", new { id = post.ThreadId });
             }
-           
+
             return View(post);
         }
         [Authorize]
@@ -196,64 +196,49 @@ namespace ASPForum.Controllers
         }
 
 
-        public ActionResult reportPost(int id)
+        public ActionResult ReportPost(int id)
         {
-            LinkedList<ApplicationUser> list = new LinkedList<ApplicationUser>();
+            var list = new LinkedList<ApplicationUser>();
 
             try
             {
-                var Admins = db.Users.ToList();
-
-
-                //var   Moderators = db.Users.Where(u => u.Roles == db.Roles.Where(r => r.Name == "Moderator")).DefaultIfEmpty(null);
-
-
-                //if(Moderators !=null)
-                //{
-                //    var allmoderators = db.Moderators.Where(m => m.SubjectId == id);
-                //    foreach (var mod in Moderators)
-                //    {
-                //        foreach (var allM in allmoderators)
-                //        {
-                //            if (mod.Moderators == allM)
-                //            {
-                //                list.AddFirst(mod);
-                //            }
-                //        }
-                //    }
-                //}
-                IdentityManager IM = new IdentityManager(); 
-                    foreach (var item in Admins)
-                    {
+                var admins = db.Users.ToList();
+                var im = new IdentityManager();
+                foreach (var item in admins)
+                {
                     if (item != null)
                     {
-                        if(IM.isAdmin(item))
+                        if (im.isAdmin(item))
                         {
                             var wtf = item.Privileges;
                             list.AddFirst(item);
                         }
-                        
+
                     }
-                    }
-                
+                }
+
             }
             catch (Exception)
             {
             }
 
-            Message message = new Message();
-            message.Date = DateTime.Now;
-            message.Title = "Zgłoszenie postu";
-            message.Text = " Zgłoszono post : http://localhost:51438/Posts/PostThread/" + id ;
+            var message = new Message
+            {
+                Date = DateTime.Now,
+                Title = "Zgłoszenie postu",
+                Text = "Zgłoszono post : <a href=\"http://localhost:51438/Posts/PostThread/\"" + id
+            };
             db.Messeges.Add(message);
             db.SaveChanges();
             foreach (var item in list)
             {
-                MessageUser MU = new MessageUser();
-                MU.MessageId = message.Id;
-                MU.SenderId = User.Identity.GetUserId();
-                MU.ReceiverId = item.Id;
-                db.MessageUser.Add(MU);
+                var mu = new MessageUser
+                {
+                    MessageId = message.Id,
+                    SenderId = User.Identity.GetUserId(),
+                    ReceiverId = item.Id
+                };
+                db.MessageUser.Add(mu);
                 db.SaveChanges();
             }
             return RedirectToAction("PostThread", new { id = id });

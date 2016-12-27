@@ -1,5 +1,5 @@
 ﻿@using ASPForum.Resources
-@model IEnumerable<ASPForum.Models.Message>
+@model IEnumerable<ASPForum.Models.MessageUser>
 
 
 <div class="panel-group" id="accordion">
@@ -21,27 +21,27 @@
                 <table width="100%">
                     @foreach (var item in Model)
                     {
-                        <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Id)">
-                            @if (item.IsRead == false)
+                        <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Message.Id)">
+                            @if (item.Message.IsRead == false)
                             {
                                 <td class="col-xs-9")>
-                                    @Ajax.ActionLink(item.Title, "Details", "Messages", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
+                                    @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
                                 </td>
                                 <td class="col-xs-1" )>
                                     Czytaj
                                 </td>
                                 <td class="col-xs-1" )>
-                                    @item.
+                                    @item.Sender.UserName
                                 </td>
                             }
                             else
                             {
                                 <td class="col-xs-10" )>
-                                    @Ajax.ActionLink(item.Title, "Details", "Messages", new {id = item.Id}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
+                                    @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
                                 </td>
                             }
                             <td class="col-xs-2">
-                                @Html.Action("dateMessage", "Messages", new {id = item.Id})
+                                @Html.Action("dateMessage", "Messages", new {id = item.MessageId})
                             </td>
                         </tr>
                     }

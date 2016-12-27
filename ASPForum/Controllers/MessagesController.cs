@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
@@ -14,27 +12,29 @@ namespace ASPForum.Controllers
     [Authorize]
     public class MessagesController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Messages
         public ActionResult Index()
         {
-            return View(db.Messeges.ToList());
+            var messages = db.MessageUser.ToList();
+            var orderByDescending = messages.OrderByDescending(x => x.Message.Date);
+            return View(orderByDescending);
         }
 
         // GET: Messages/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Message message = db.Messeges.Find(id);
+            var message = db.Messeges.Find(id);
+            var messageusers = db.MessageUser.First(x => x.MessageId == id);
+            
+            ViewBag.MessageInfo = messageusers;
+            
             if (message == null)
-            {
                 return HttpNotFound();
-            }
-            return PartialView("Details",message);
+            return PartialView("Details", message);
         }
 
         // GET: Messages/Create
@@ -50,25 +50,22 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Title,Text,Source")] Message message)
         {
-            string sending = Request["toName"].ToString();
-            string[] tosend=null;
+            var sending = Request["toName"];
+            string[] tosend = null;
             if (sending == "")
             {
                 ModelState.AddModelError("", "pole Do: jest wymagane");
-                
             }
             else
             {
-
                 sending = sending.ToCharArray()
-               .Where(c => !Char.IsWhiteSpace(c))
-               .Select(c => c.ToString())
-               .Aggregate((a, b) => a + b);
+                    .Where(c => !char.IsWhiteSpace(c))
+                    .Select(c => c.ToString())
+                    .Aggregate((a, b) => a + b);
                 tosend = sending.Split(',');
 
 
                 foreach (var item in tosend)
-                {
                     try
                     {
                         var cos = db.Users.First(u => u.UserName == item).UserName;
@@ -78,12 +75,6 @@ namespace ASPForum.Controllers
                         ModelState.AddModelError("", "pole Do: błędne dane");
                         break;
                     }
-
-                }
-           
-                
-           
-               
             }
 
             if (ModelState.IsValid)
@@ -93,7 +84,7 @@ namespace ASPForum.Controllers
                 db.SaveChanges();
                 foreach (var item in tosend)
                 {
-                    MessageUser MU = new MessageUser();
+                    var MU = new MessageUser();
                     MU.MessageId = message.Id;
                     MU.SenderId = User.Identity.GetUserId();
                     MU.ReceiverId = db.Users.FirstOrDefault(u => u.UserName == item).Id;
@@ -101,7 +92,7 @@ namespace ASPForum.Controllers
                     db.SaveChanges();
                 }
 
-               
+
                 return RedirectToAction("Inbox", "Manage");
             }
 
@@ -112,14 +103,10 @@ namespace ASPForum.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Message message = db.Messeges.Find(id);
+            var message = db.Messeges.Find(id);
             if (message == null)
-            {
                 return HttpNotFound();
-            }
             return View(message);
         }
 
@@ -143,23 +130,20 @@ namespace ASPForum.Controllers
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Message message = db.Messeges.Find(id);
+            var message = db.Messeges.Find(id);
             if (message == null)
-            {
                 return HttpNotFound();
-            }
             return View(message);
         }
 
         // POST: Messages/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Message message = db.Messeges.Find(id);
+            var message = db.Messeges.Find(id);
             db.Messeges.Remove(message);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -168,9 +152,7 @@ namespace ASPForum.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -180,12 +162,13 @@ namespace ASPForum.Controllers
             var q = db.Friends.Where(f => f.User.Id == id).ToList();
             return PartialView("NewMessageFriends", q);
         }
+
         public void IfViewd(int? id)
         {
             var idUser = User.Identity.GetUserId();
-            Message message = db.Messeges.Find(id);
+            var message = db.Messeges.Find(id);
 
-            if (db.MessageUser.FirstOrDefault(mu=>mu.MessageId==id).ReceiverId==idUser)
+            if (db.MessageUser.FirstOrDefault(mu => mu.MessageId == id).ReceiverId == idUser)
             {
                 message.IsRead = true;
                 db.Entry(message).State = EntityState.Modified;
@@ -196,16 +179,10 @@ namespace ASPForum.Controllers
         public string dateMessage(int id)
         {
             var date = db.Messeges.FirstOrDefault(m => m.Id == id).Date;
-            DateTime localDate = DateTime.Now;
+            var localDate = DateTime.Now;
             if (date.ToString("MM dd yyyy") == localDate.ToString("MM dd yyyy"))
-            {
                 return date.ToString("HH:mm");
-            }
-            else
-            {
-                return date.ToString("dd MMM");
-            }
-
+            return date.ToString("dd MMM");
         }
 
 
@@ -218,14 +195,10 @@ namespace ASPForum.Controllers
             foreach (var item in messageId)
             {
                 var ii = db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false);
-                if (ii!=null)
-                {
+                if (ii != null)
                     list.AddFirst(ii);
-                }
-                
-                
             }
-            int alejaa = list.Count();
+            var alejaa = list.Count();
             return list.Count();
         }
 
@@ -236,12 +209,9 @@ namespace ASPForum.Controllers
             var list = new LinkedList<Message>();
             foreach (var item in messageId)
             {
-
                 var ii = db.Messeges.FirstOrDefault(m => m.Id == item.MessageId && m.IsRead == false);
                 if (ii != null)
-                {
                     list.AddFirst(ii);
-                }
             }
 
             return list.Count();
@@ -257,7 +227,5 @@ namespace ASPForum.Controllers
                 db.SaveChanges();
             }
         }
-
     }
-
 }

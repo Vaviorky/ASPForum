@@ -673,6 +673,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inappropriate word.
+        /// </summary>
+        public static string InappropriateWord {
+            get {
+                return ResourceManager.GetString("InappropriateWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect file extension.
         /// </summary>
         public static string IncorrectFileExtension {
@@ -993,6 +1002,15 @@ namespace ASPForum.Resources {
         public static string SentMessages {
             get {
                 return ResourceManager.GetString("SentMessages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Session expiration time (minutes).
+        /// </summary>
+        public static string SessionExpirationTime {
+            get {
+                return ResourceManager.GetString("SessionExpirationTime", resourceCulture);
             }
         }
         

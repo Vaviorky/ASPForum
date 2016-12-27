@@ -495,4 +495,10 @@
   <data name="UserLogin" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="InappropriateWord" xml:space="preserve">
+    <value>Palabra inapropiada</value>
+  </data>
+  <data name="SessionExpirationTime" xml:space="preserve">
+    <value>Tiempo de expiración de la sesión (minutos)</value>
+  </data>
 </root>
