@@ -501,4 +501,13 @@
   <data name="SessionExpirationTime" xml:space="preserve">
     <value>Czas braku aktywności, po którym nastąpi wylogowanie (w minutach)</value>
   </data>
+  <data name="Respond" xml:space="preserve">
+    <value>Odpowiedz</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Wyślij</value>
+  </data>
+  <data name="SendReplyTo" xml:space="preserve">
+    <value>Wysyłanie odpowiedzi dla</value>
+  </data>
 </root>

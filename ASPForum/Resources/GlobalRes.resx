@@ -504,4 +504,13 @@
   <data name="SessionExpirationTime" xml:space="preserve">
     <value>Session expiration time (minutes)</value>
   </data>
+  <data name="Respond" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendReplyTo" xml:space="preserve">
+    <value>Send reply to</value>
+  </data>
 </root>

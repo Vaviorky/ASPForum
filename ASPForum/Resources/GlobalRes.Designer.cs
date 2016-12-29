@@ -961,6 +961,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reply.
+        /// </summary>
+        public static string Respond {
+            get {
+                return ResourceManager.GetString("Respond", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Role in service.
         /// </summary>
         public static string RoleInForum {
@@ -993,6 +1002,24 @@ namespace ASPForum.Resources {
         public static string SelectSubject {
             get {
                 return ResourceManager.GetString("SelectSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Send reply to.
+        /// </summary>
+        public static string SendReplyTo {
+            get {
+                return ResourceManager.GetString("SendReplyTo", resourceCulture);
             }
         }
         

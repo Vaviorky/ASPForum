@@ -235,6 +235,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\MessageUser.cs" />
+    <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\Moderator.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\Friends.cs" />
@@ -558,6 +559,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Messages\Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

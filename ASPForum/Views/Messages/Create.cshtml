@@ -41,20 +41,17 @@
                 @Html.ValidationMessageFor(model => model.Text, "", new {@class = "text-danger"})
             </div>
         </div>
+        <h4 id="error" style="color: red"></h4>
+
 
         <div class="form-group">
-            <span class="control-label col-md-2">@GlobalRes.Source: </span>
-            <h4 id="error" style="color: red"></h4>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="@GlobalRes.Submit" class="btn btn-default"/>
-                </div>
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@GlobalRes.Submit" class="btn btn-default"/>
             </div>
-
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink(GlobalRes.BackToMessages, "Index")
+    @Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "btn btn-primary btn-md"})
 </div>

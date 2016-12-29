@@ -1,0 +1,39 @@
+﻿@using ASPForum.Resources
+@model ASPForum.Models.MessageViewModel
+    
+@using (Ajax.BeginForm("Reply", "Messages", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "moj_div",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>@GlobalRes.SendReplyTo @Model.User.UserName</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.User)
+
+        <div class="form-group">
+            <span class="control-label col-md-2">@GlobalRes.Text: </span>
+
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.Message.Text, new { rows = 10, cols = 40, @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Message.Text, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <h4 id="error" style="color: red"></h4>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="@GlobalRes.Send" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+</div>
