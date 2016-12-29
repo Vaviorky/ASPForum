@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
 
@@ -14,14 +11,12 @@ namespace ASPForum.Controllers
 {
     public class PostsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: Posts
         public ActionResult PostThread(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var thread = db.Threads.FirstOrDefault(t => t.Id == id);
 
@@ -48,24 +43,19 @@ namespace ASPForum.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
+            var post = db.Posts.Find(id);
             if (post == null)
-            {
                 return HttpNotFound();
-            }
             return View(post);
         }
+
         [Authorize]
         // GET: Posts/Create
         public ActionResult Create(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var firstOrDefault = db.Threads.FirstOrDefault(t => t.Id == id);
             if (firstOrDefault != null)
                 ViewBag.ThreadTitle = firstOrDefault.Title;
@@ -82,32 +72,31 @@ namespace ASPForum.Controllers
         public ActionResult Create([Bind(Include = "Title,Text,ThreadId")] Post post)
         {
             post.UserId = User.Identity.GetUserId();
+            var user = db.Users.Find(post.UserId);
             post.Date = DateTime.Now;
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) return View(post);
+            db.Posts.Add(post);
+            if (user.IfAdminChangedRank == false)
             {
-                db.Posts.Add(post);
-                db.SaveChanges();
-                return RedirectToAction("PostThread", new { id = post.ThreadId });
+                user.Rank++;
+                db.Entry(user).State = EntityState.Modified;
             }
-
-            return View(post);
+            db.SaveChanges();
+            return RedirectToAction("PostThread", new {id = post.ThreadId});
         }
+
         [Authorize]
         // GET: Posts/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var post = db.Posts.Find(id);
             ViewBag.ThreadId = post.ThreadId;
             ViewBag.Date = post.Date;
             ViewBag.UserId = post.UserId;
             if (post == null)
-            {
                 return HttpNotFound();
-            }
             return View(post);
         }
 
@@ -119,49 +108,43 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Text,Date,UserId,ThreadId")] Post post)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("PostThread", new { id = post.ThreadId });
-            }
+            if (!ModelState.IsValid) return View(post);
 
-            return View(post);
+            db.Entry(post).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("PostThread", new {id = post.ThreadId});
         }
+
         [Authorize]
         // GET: Posts/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Post post = db.Posts.Find(id);
+            var post = db.Posts.Find(id);
             if (post == null)
-            {
                 return HttpNotFound();
-            }
             return View(post);
         }
 
         // POST: Posts/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Post post = db.Posts.Find(id);
+            var post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("PostThread", "Posts", new { id = post.ThreadId });
+            return RedirectToAction("PostThread", "Posts", new {id = post.ThreadId});
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -170,29 +153,18 @@ namespace ASPForum.Controllers
             var user = db.Users.Find(userid);
             var im = new IdentityManager();
             if (im.isUserInRole(user.Id, "Admin"))
-            {
                 return "<div style=\"color: red; text-align: center;\">Administrator</div>";
-            }
-            else if (user.Privileges == "Moderator")
-            {
+            if (user.Privileges == "Moderator")
                 return "<div style=\"color: green; text-align: center;\">Moderator</div>";
-
-            }
-
-            if (id >= 0 && id <= 20)
-            {
+            var rank = user.Rank;
+            if (rank >= 0 && rank <= 20)
                 return "<span style: \"color=white;\">Nowy użytkownik</span>";
-
-            }
-            else if (id > 20 && id <= 50)
-            {
+            if (rank > 20 && rank <= 50)
                 return "Bywalec";
-            }
-            else if (id > 50 && id <= 100)
-            {
+            if (rank > 50 && rank <= 100)
                 return "Forumowicz";
-            }
-            return "";
+
+            return "Nałogowicz";
         }
 
 
@@ -205,28 +177,25 @@ namespace ASPForum.Controllers
                 var admins = db.Users.ToList();
                 var im = new IdentityManager();
                 foreach (var item in admins)
-                {
                     if (item != null)
-                    {
                         if (im.isAdmin(item))
                         {
                             var wtf = item.Privileges;
                             list.AddFirst(item);
                         }
-
-                    }
-                }
-
             }
             catch (Exception)
             {
+                return HttpNotFound();
             }
+
+            var post = db.Posts.Find(id);
 
             var message = new Message
             {
                 Date = DateTime.Now,
                 Title = "Zgłoszenie postu",
-                Text = "Zgłoszono post : <a href=\"http://localhost:51438/Posts/PostThread/\"" + id
+                Text = "Użytkwonik " + User.Identity.GetUserName()+ " zgłosił post do moderacji. </br> <a href=\"/Posts/PostThread/" + post.ThreadId + "#" + id +"\">Sprawdź szczegóły postu</a>"
             };
             db.Messeges.Add(message);
             db.SaveChanges();
@@ -241,8 +210,7 @@ namespace ASPForum.Controllers
                 db.MessageUser.Add(mu);
                 db.SaveChanges();
             }
-            return RedirectToAction("PostThread", new { id = id });
-
+            return RedirectToAction("PostThread", new {id = post.ThreadId});
         }
     }
 }

@@ -20,11 +20,11 @@ namespace ASPForum.Models
             return userIdentity;
         }
 
-        public string Login { get; set; }
         public int Rank { get; set; }
         public string Avatar { get; set; }
         public DateTime RegistrationDate { get; set; }
         public string Privileges { get; set; }
+        public bool IfAdminChangedRank { get; set; }
         public virtual ICollection<Moderator> Moderators { get; set; }
         public virtual ICollection<MessageUser> Messages { get; set; }
         public virtual ICollection<Thread> Posts { get; set; }
@@ -47,7 +47,7 @@ namespace ASPForum.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Message> Messeges { get; set; }
-        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Attachment> Photos { get; set; }
         public DbSet<Thread> Threads { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<Friends> Friends { get; set; }

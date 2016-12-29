@@ -21,7 +21,7 @@ namespace ASPForum.Models
         public virtual ApplicationUser User { get; set; }
         public int ThreadId { get; set; }
         public virtual Thread Thread { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Attachment> Attachments { get; set; }
 
     }
 }

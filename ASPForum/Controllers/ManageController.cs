@@ -530,21 +530,16 @@ namespace ASPForum.Controllers
                 return HttpNotFound();
             }
         }
-
+        [Authorize]
         public ActionResult SendMessages()
         {
-
             var id = User.Identity.GetUserId();
-            var messageUser = db.MessageUser.Where(mu => mu.SenderId == id).ToList();
-            LinkedList<Message> list = new LinkedList<Message>();
-            foreach (var item in messageUser)
-            {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
-            }
-            var newlist = list.OrderByDescending(m => m.Date);
-            return PartialView("~/Views/Messages/Index.cshtml", messageUser);
-        }
+            var messages = db.MessageUser.Where(mu => mu.SenderId == id).ToList();
 
+            var messagessorted = messages.OrderByDescending(m => m.Message.Date);
+            return PartialView("~/Views/Messages/Index.cshtml", messagessorted);
+        }
+        [Authorize]
         public ActionResult FriendMessages(string id)
         {
 
@@ -560,28 +555,22 @@ namespace ASPForum.Controllers
             return PartialView("~/Views/Messages/Index.cshtml", messageUsers);
         }
 
-
+        [Authorize]
         public ActionResult PMessage()
         {
 
             var id = User.Identity.GetUserId();
             var messageUsers = db.MessageUser.Where(mu => mu.ReceiverId == id).ToList();
-            var list = new LinkedList<Message>();
-           
-            foreach (var item in messageUsers)
-            {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
-            }
             var newlist = messageUsers.OrderByDescending(m => m.Message.Date);
             return PartialView("~/Views/Messages/Index.cshtml", newlist);
         }
-
+        [Authorize]
         public ActionResult PFriends()
         {
             var id = User.Identity.GetUserId();
             return PartialView("~/Views/Messages/FriendsPartial.cshtml", db.Friends.Where(f => f.User.Id == id).ToList());
         }
-
+        [Authorize]
         public ActionResult FriendsAdd()
         {
             return PartialView("~/Views/Friends/Add.cshtml");

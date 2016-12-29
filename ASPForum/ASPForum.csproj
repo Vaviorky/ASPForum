@@ -219,6 +219,18 @@
     <Compile Include="Migrations\201612150229024_manager.Designer.cs">
       <DependentUpon>201612150229024_manager.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612291100597_AdminChangingRanks.cs" />
+    <Compile Include="Migrations\201612291100597_AdminChangingRanks.Designer.cs">
+      <DependentUpon>201612291100597_AdminChangingRanks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612291208571_RemoveLoginField.cs" />
+    <Compile Include="Migrations\201612291208571_RemoveLoginField.Designer.cs">
+      <DependentUpon>201612291208571_RemoveLoginField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612291515393_RemoveSourceMessage.cs" />
+    <Compile Include="Migrations\201612291515393_RemoveSourceMessage.Designer.cs">
+      <DependentUpon>201612291515393_RemoveSourceMessage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -230,7 +242,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\News.cs" />
-    <Compile Include="Models\Photo.cs" />
+    <Compile Include="Models\Attachment.cs" />
     <Compile Include="Models\ThreadsWithPinnedViewModel.cs" />
     <Compile Include="Models\Thread.cs" />
     <Compile Include="Models\Subject.cs" />
@@ -561,6 +573,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612150229024_manager.resx">
       <DependentUpon>201612150229024_manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291100597_AdminChangingRanks.resx">
+      <DependentUpon>201612291100597_AdminChangingRanks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291208571_RemoveLoginField.resx">
+      <DependentUpon>201612291208571_RemoveLoginField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291515393_RemoveSourceMessage.resx">
+      <DependentUpon>201612291515393_RemoveSourceMessage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalRes.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -34,7 +34,7 @@ namespace ASPForum.Controllers
             
             if (message == null)
                 return HttpNotFound();
-            return PartialView("Details", message);
+            return PartialView("Details", messageusers);
         }
 
         // GET: Messages/Create

@@ -2,7 +2,7 @@
 @model IEnumerable<ASPForum.Models.Post>
 <h3>@ViewBag.ThreadTitle</h3>
 
-<div class="panel-group title-bar-position" id="accordion">
+<div class="panel-group title-bar-position">
 
     <div class="panel panel-default">
 
@@ -42,7 +42,7 @@
                                         <div style="font-size: 14px;">@GlobalRes.By: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
                                     </td>
                                     <td>
-                                        @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                        @if (User.IsInRole("Admin"))
                                         {
                                             <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }) @Html.ActionLink(GlobalRes.DeletePost, "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }
@@ -50,7 +50,7 @@
                                         {
                                             <div align="right">
                                                 <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>
-                                                @Html.ActionLink(GlobalRes.ReportPost, "ReportPost", "Posts",new {id=@item.ThreadId }, new { @class = "btn btn-primary btn-sm" })
+                                                @Html.ActionLink(GlobalRes.ReportPost, "ReportPost", "Posts",new {id=@item.Id }, new { @class = "btn btn-primary btn-sm" })
                                             </div>
                                         }
                                     </td>

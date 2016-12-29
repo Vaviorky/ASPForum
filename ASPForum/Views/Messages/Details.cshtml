@@ -1,23 +1,35 @@
-﻿@model ASPForum.Models.Message
+﻿@using ASPForum.Resources
+@model ASPForum.Models.MessageUser
 
 
-@Html.Action("IfViewd",new {id=Model.Id })
+@Html.Action("IfViewd", new { id = Model.MessageId })
 
-    <div class="row">
-        <div class="col-sm-10">
-            Tytuł: @Html.DisplayFor(model => model.Title)
+<div class="panel-group title-bar-position" id="accordion">
+
+    <div class="panel panel-default" style="padding-bottom: 0px;">
+        <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
+            <table width="100%">
+                <tr>
+                    <td class="col-md-2" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
+                        <img class="avatar" src="@Model.Sender.Avatar" alt="avatar" /><br />
+                        <div style="text-align: center;">@Html.DisplayFor(model => model.Sender.UserName)</div>
+                        @Html.Action("Privillege", "Posts", new { rank = Model.Sender.Rank, userId = Model.SenderId })
+                    </td>
+                    <td class="col-md-10" style="vertical-align: top;">
+                        <div style="font-size: 22px; padding-bottom: 3px; color: lightblue">
+                            <b>@Html.DisplayFor(model => model.Message.Title)</b> 
+                        </div>
+                        <div style="font-size: 12px; padding-bottom: 10px;">
+                            <b>Wysłano: </b>@Html.DisplayFor(model => model.Message.Date)
+                        </div>
+                        <div>
+                            @Html.Raw(Model.Message.Text)
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <div class="col-sm-2">
-            @Html.DisplayFor(model => model.Date)
-        </div>  
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-            @Html.DisplayFor(model => model.Text)
-        </div>
-    </div>
-    @Ajax.ActionLink("Powrót do listy", "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+</div>
 
-<p>
-
-</p>
+@Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })

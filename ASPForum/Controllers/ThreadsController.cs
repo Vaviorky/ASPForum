@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
 
@@ -17,12 +11,13 @@ namespace ASPForum.Controllers
 {
     public class ThreadsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private readonly ApplicationDbContext db = new ApplicationDbContext();
+
         public ActionResult ThreadsSubject(int id)
         {
-            var threads = db.Threads.Where(t => t.SubjectId == id).OrderByDescending(t=>t.Date).ToList();
+            var threads = db.Threads.Where(t => t.SubjectId == id).OrderByDescending(t => t.Date).ToList();
             var threadsNotPinned = threads.Where(t => t.IsPinned == false);
-            var threadsPinned = threads.Where(t => t.IsPinned == true);
+            var threadsPinned = threads.Where(t => t.IsPinned);
 
             var model = new ThreadsWithPinnedViewModel
             {
@@ -31,14 +26,9 @@ namespace ASPForum.Controllers
             };
 
             var firstOrDefault = db.Subjects.FirstOrDefault(s => s.Id == id);
-            if (firstOrDefault != null)
-            {
-                ViewBag.Title = firstOrDefault.Title;
-                ViewBag.CategoryTitle = firstOrDefault.Category.Title;
-            }
-
-
-
+            if (firstOrDefault == null) return View(model);
+            ViewBag.Title = firstOrDefault.Title;
+            ViewBag.CategoryTitle = firstOrDefault.Category.Title;
             return View(model);
         }
 
@@ -53,14 +43,10 @@ namespace ASPForum.Controllers
         public ActionResult Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Thread thread = db.Threads.Find(id);
+            var thread = db.Threads.Find(id);
             if (thread == null)
-            {
                 return HttpNotFound();
-            }
             return View(thread);
         }
 
@@ -77,16 +63,22 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Thread thread)
+        public ActionResult Create([Bind(Include = "Title,Content,SubjectId,Date")]Thread thread)
         {
             thread.Date = DateTime.Now;
             thread.UserId = User.Identity.GetUserId();
-            
+            var user = db.Users.Find(thread.UserId);
             try
             {
                 db.Threads.Add(thread);
+                if (user.IfAdminChangedRank == false)
+                {
+                    user.Rank += 2;
+                    db.Entry(user).State = EntityState.Modified;
+                }
+
                 db.SaveChanges();
-                return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
+                return RedirectToAction("ThreadsSubject", new {id = thread.SubjectId});
             }
             catch (DbEntityValidationException)
             {
@@ -98,9 +90,7 @@ namespace ASPForum.Controllers
         public ActionResult Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
             var thread = db.Threads.Find(id);
             ViewBag.SubjectId = thread.SubjectId;
             ViewBag.UserId = thread.UserId;
@@ -113,45 +103,40 @@ namespace ASPForum.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Thread thread)
+        public ActionResult Edit([Bind(Include = "Id,Title,Content,IsPinned,SubjectId,UserId,Date")]Thread thread)
         {
-                db.Entry(thread).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
+            db.Entry(thread).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("ThreadsSubject", new {id = thread.SubjectId});
         }
 
         // GET: Threads/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Thread thread = db.Threads.Find(id);
+            var thread = db.Threads.Find(id);
             if (thread == null)
-            {
                 return HttpNotFound();
-            }
             return View(thread);
         }
 
         // POST: Threads/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Thread thread = db.Threads.Find(id);
+            var thread = db.Threads.Find(id);
             db.Threads.Remove(thread);
             db.SaveChanges();
-            return RedirectToAction("ThreadsSubject", new { id = thread.SubjectId });
+            return RedirectToAction("ThreadsSubject", new {id = thread.SubjectId});
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -171,13 +156,8 @@ namespace ASPForum.Controllers
             var post = db.Posts.Where(t => t.ThreadId == id).OrderByDescending(t => t.Date).FirstOrDefault();
             if (post != null)
                 return PartialView("LastPost", post);
-            else
-            {
-                ViewBag.NoPost = "Brak postów";
-                return HttpNotFound("");
-
-            }
+            ViewBag.NoPost = "Brak postów";
+            return HttpNotFound("");
         }
-
     }
 }

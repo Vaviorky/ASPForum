@@ -39,7 +39,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" /> |
+            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" />
 
             @Html.ActionLink(GlobalRes.BackToList, "PostThread", "Posts", new {id=  Model.ThreadId}, new {@class = "btn btn-primary btn-md"})
         </div>
