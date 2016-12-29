@@ -13,12 +13,22 @@
     <script src="~/scripts/tinymce/tinymce.min.js"></script>
     <!-- Script to wire up your TinyMCE editor -->
     <script type="text/javascript">
-        
+
 
         // Initialize your tinyMCE Editor with your preferred options
         tinyMCE.init({
-            
-            // General options
+            setup: function(ed) {
+                ed.on('init',
+                    function() {
+                        // add custom shortcut for fullscreen
+                        ed.addShortcut('alt+x', 'CutRow', 'mceTableCutRow', this);
+                        ed.addShortcut('alt+v', 'PasteRow', 'mceTablePasteRowAfter', this);
+                        ed.addShortcut('alt+b', 'bold_desc', 'mceFullScreen');
+                    });
+
+
+            },
+            table_toolbar: "",
             selector: 'textarea',
             theme: 'modern',
             plugins: [
@@ -33,10 +43,6 @@
             image_advtab: true,
             theme_advanced_resizing: true,
             height: "250"
-            // Example content CSS (should be your site CSS)
-            //content_css: "css/example.css"
-
-           
         });
     </script>
     <script type="text/javascript">
@@ -72,14 +78,18 @@
         function newMs() {
             $.post("/Messages/Unread",
                 function(ile) {
-                    if (ile !== -1) {
-                        if (ile === 0) {
-                            document.getElementById("sumOfNewMessages");
-                        } else {
-                            document.getElementById("sumOfNewMessages");
+                    if (ile !== null) {
+                        if (ile !== -1) {
+                            if (ile === 0) {
+                                document.getElementById("sumOfNewMessages");
+                            } else {
+                                document.getElementById("sumOfNewMessages");
+                            }
+                            document.getElementById("sumOfNewMessages").innerHTML = "(" + ile + ")";
                         }
-                        document.getElementById("sumOfNewMessages").innerHTML = "(" + ile + ")";
+
                     }
+
                 });
         }
     </script>
@@ -101,6 +111,7 @@
                     <a href="@Url.Action("Change", "Language", new {language = "en"})">
                         <img src="~/Content/Images/englishflag.png" alt="englishflag" width="24" height="24"/>
                     </a>
+                    
                 </li>
                 <li>
                     <a href="@Url.Action("Change", "Language", new {language = "pl"})">
