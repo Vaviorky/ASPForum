@@ -26,7 +26,7 @@
         <div class="form-group">
             <span class="control-label col-md-2">@GlobalRes.Content: </span>
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Text)
+                @Html.TextAreaFor(model => model.Text, new { htmlAttributes = new { @class = "posttext" } })
                 @Html.ValidationMessageFor(model => model.Text, "", new {@class = "text-danger"})
             </div>
         </div>

@@ -88,7 +88,7 @@ namespace ASPForum.Controllers
             var message = db.Messeges.Find(id);
             var reply = new Message()
             {
-                Title = message.Title
+                Title = "Re: " + message.Title
             };
             
             var receiver = db.Users.First(x => x.Id == user);

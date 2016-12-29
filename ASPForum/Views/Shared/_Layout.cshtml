@@ -13,26 +13,65 @@
     <script src="~/scripts/tinymce/tinymce.min.js"></script>
     <!-- Script to wire up your TinyMCE editor -->
     <script type="text/javascript">
+        function spellchecktinymce() {
+            $.get('/Content/forbiddenwords.txt',
+                function(result) {
+                    var splitfile = result.split(/\r\n/);
+                    var content = tinyMCE.activeEditor.getContent({ format: 'raw' });
+                    for (var i = 0; i < splitfile.length - 1; i++) {
+                        if (content.search(splitfile[i]) !== -1) {
+                            console.log("TINYMCE");
+                            $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
+                                splitfile[i] +
+                                '</p>');
+                            $("input[type=submit]").attr("disabled", true);
+                        }
+                    }
 
+                });
+        }
+
+        function spellchecktitle() {
+            $('#error').empty();
+            $("input[type=submit]").attr("disabled", false);
+            var content = $("input:text").val();
+            if (content !== "") {
+                var split = content.split(' ');
+                $.get('/Content/forbiddenwords.txt',
+                    function (result) {
+                        var splitfile = result.split(/\r\n/);
+                        for (var i = 0; i < split.length; i++) {
+                            for (var j = 0; j < splitfile.length - 1; j++) {
+                                if (split[i].toLowerCase() === splitfile[j].toLowerCase()) {
+                                    console.log("TITLE");
+
+                                    $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
+                                        split[i] +
+                                        '</p>');
+                                    $("input[type=submit]").attr("disabled", true);
+                                }
+                            }
+                        }
+                    });
+            }
+        }
 
         // Initialize your tinyMCE Editor with your preferred options
         tinyMCE.init({
             setup: function(ed) {
-                ed.on('init',
-                    function() {
-                        // add custom shortcut for fullscreen
-                        ed.addShortcut('alt+x', 'CutRow', 'mceTableCutRow', this);
-                        ed.addShortcut('alt+v', 'PasteRow', 'mceTablePasteRowAfter', this);
-                        ed.addShortcut('alt+b', 'bold_desc', 'mceFullScreen');
+                ed.on('change',
+                    function(e) {
+                        $('#error').empty();
+                        $("input[type=submit]").attr("disabled", false);
+                        spellchecktinymce();
+                        spellchecktitle();
                     });
-
-
             },
             table_toolbar: "",
             selector: 'textarea',
             theme: 'modern',
             plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak wordcount',
                 'searchreplace wordcount visualblocks visualchars code fullscreen',
                 'insertdatetime media nonbreaking save table contextmenu directionality',
                 'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
@@ -45,36 +84,22 @@
             height: "250"
         });
     </script>
+    <script type="text/javascript">
+        function spellcheck() {
+            $("input[type=text]").change(function() {
+                    $('#error').empty();
+                    $("input[type=submit]").attr("disabled", false);
+                    console.log("aaaa");
+                    spellchecktinymce();
+                    spellchecktitle();
+                });
+        }
+    </script>
     @if (User.Identity.IsAuthenticated)
     {
         <script type="text/javascript">
             $(document).ready(function() {
-                $("input[type=text], textarea").change(function() {
-                    $("input[type=text], textarea").each(function() {
-                        console.log("siemanko");
-                        $('#error').empty();
-                        $("input[type=submit]").attr("disabled", false);
-                        var content = $(this).val();
-                        if (content !== "") {
-                            var split = content.split(' ');
-                            $.get('/Content/forbiddenwords.txt',
-                                function(result) {
-                                    var splitfile = result.split(/\r\n/);
-                                    for (var i = 0; i < split.length; i++) {
-                                        for (var j = 0; j < splitfile.length - 1; j++) {
-                                            if (split[i].toLowerCase() === splitfile[j].toLowerCase()) {
-                                                $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
-                                                    split[i] +
-                                                    '</p>');
-                                                $("input[type=submit]").attr("disabled", true);
-                                            }
-                                        }
-                                    }
-
-                                });
-                        }
-                    });
-                });
+                spellcheck();
 
             });
 
@@ -102,57 +127,57 @@
     {
         <script type="text/javascript">
             function newMs() {
-                
+
             }
         </script>
     }
 
 </head>
-    <body onload="newMs()">
-       
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink(GlobalRes.Forum, "Index", "Categories", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="@Url.Action("Change", "Language", new {language = "en"})">
-                                <img src="~/Content/Images/englishflag.png" alt="englishflag" width="24" height="24" />
-                            </a>
+<body onload="newMs()">
 
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Change", "Language", new {language = "pl"})">
-                                <img src="~/Content/Images/polishlag.png" alt="polishflag" width="24" height="24" />
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Change", "Language", new {language = "es"})">
-                                <img src="~/Content/Images/spanishflag.png" alt="spanishflag" width="24" height="24" />
-                            </a>
-                        </li>
-                        @*
-                            <li>@Html.ActionLink("Categories", "Index", "Categories")</li>*@
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                </div>
-            </div>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink(GlobalRes.Forum, "Index", "Categories", new {area = ""}, new {@class = "navbar-brand"})
         </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - @GlobalRes.Forum</p>
-            </footer>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="@Url.Action("Change", "Language", new {language = "en"})">
+                        <img src="~/Content/Images/englishflag.png" alt="englishflag" width="24" height="24"/>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="@Url.Action("Change", "Language", new {language = "pl"})">
+                        <img src="~/Content/Images/polishlag.png" alt="polishflag" width="24" height="24"/>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Change", "Language", new {language = "es"})">
+                        <img src="~/Content/Images/spanishflag.png" alt="spanishflag" width="24" height="24"/>
+                    </a>
+                </li>
+                @*
+                        <li>@Html.ActionLink("Categories", "Index", "Categories")</li>*@
+            </ul>
+            @Html.Partial("_LoginPartial")
         </div>
+    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+    <hr/>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - @GlobalRes.Forum</p>
+    </footer>
+</div>
 
 
-    </body>
+</body>
 </html>
