@@ -1,0 +1,30 @@
+﻿@using ASPForum.Resources
+@model IList<ASPForum.Models.HtmlTagsViewModel>
+@using (Ajax.BeginForm("ChangeVaue", "HtmlEditor", new AjaxOptions
+{
+    HttpMethod = "POST",
+    UpdateTargetId = "moj_div",
+    InsertionMode = InsertionMode.Replace
+}))
+{
+    <table class="table table-bordered">
+        <th class="col-md-4" style="background-color: cadetblue">@GlobalRes.Option</th>
+        <th class="col-md-4" style="background-color: cadetblue">@GlobalRes.Action</th>
+
+        @for (var i = 0; i < Model.Count(); i++)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model[i].Option)
+                    @Html.HiddenFor(model => model[i].Option)
+                </td>
+                <td>@Html.CheckBoxFor(model => model[i].IsEnabled, new { Style = "vertical-aign:3px}" }) </td>
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="@GlobalRes.Save" class="btn btn-success" />
+        </div>
+    </div>
+}

@@ -11,11 +11,11 @@
 
     <script type="text/javascript">
         $(document)
-            .ready(function() {
+            .ready(function () {
                 $(document)
                     .on('change',
                         "#openFile",
-                        function() {
+                        function () {
                             $('#error').empty();
                             var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '');
                             var extension = filename.replace(/^.*\./, '');
@@ -47,7 +47,7 @@
                             var image, file;
                             if ((file = this.files[0])) {
                                 image = new Image();
-                                image.onload = function() {
+                                image.onload = function () {
                                     if (this.width > 300 ||
                                         this.height > 300 ||
                                         ((this.width / this.height) !== 1)) {
@@ -61,6 +61,8 @@
                         });
             });
     </script>
+
+    <script src="~/scripts/tinymce/tinymce.min.js"></script>
 }
 
 
@@ -68,19 +70,20 @@
     <h3>@GlobalRes.UserControlPanel</h3>
     <div id="functions" class="col-md-3">
 
-        @Ajax.ActionLink(GlobalRes.Profile, "AccountDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink(GlobalRes.Messages, "Inbox", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink(GlobalRes.ChangeAccountDetails, "ChangeDetails", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
-        @Ajax.ActionLink(GlobalRes.ChangeAvatar, "ChangeAvatar", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-info"})
+        @Ajax.ActionLink(GlobalRes.Profile, "AccountDetails", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink(GlobalRes.Messages, "Inbox", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink(GlobalRes.ChangeAccountDetails, "ChangeDetails", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
+        @Ajax.ActionLink(GlobalRes.ChangeAvatar, "ChangeAvatar", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-info" })
 
-        <br/>
+        <br />
         @if (User.IsInRole("Admin") && Request.IsAuthenticated)
         {
             <h5>@GlobalRes.AdministrativeOptions</h5>
-            @Ajax.ActionLink(GlobalRes.Users, "ManageUsers", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            @Ajax.ActionLink(GlobalRes.Forum, "ManageForum", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            @Ajax.ActionLink(GlobalRes.News, "ManageNews", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
-            @Ajax.ActionLink(GlobalRes.ForbiddenWords, "Index", "ForbiddenWords", null, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = "list-group-item list-group-item-text"})
+            @Ajax.ActionLink(GlobalRes.Users, "ManageUsers", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink(GlobalRes.Forum, "ManageForum", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink(GlobalRes.News, "ManageNews", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink(GlobalRes.ForbiddenWords, "Index", "ForbiddenWords", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
+            @Ajax.ActionLink(GlobalRes.HTMLEditor, "Index","HtmlEditor", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
         }
 
     </div>

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ForbiddenWordsController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HtmlEditorController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\HtmlTagsViewModel.cs" />
     <Compile Include="Models\MessageUser.cs" />
     <Compile Include="Models\MessageViewModel.cs" />
     <Compile Include="Models\Moderator.cs" />
@@ -273,6 +275,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\forbiddenwords.txt" />
+    <Content Include="Content\htmltags.txt" />
     <Content Include="Content\Images\defaultavatar.jpg" />
     <Content Include="Content\Images\englishflag.png" />
     <Content Include="Content\Images\polishlag.png" />
@@ -287,6 +290,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\allhtmltags.txt" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -560,6 +564,7 @@
     <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
     <Content Include="Scripts\tinymce\langs\readme.md" />
     <Content Include="Views\Messages\Reply.cshtml" />
+    <Content Include="Views\HTMLEditor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

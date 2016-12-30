@@ -510,4 +510,10 @@
   <data name="SendReplyTo" xml:space="preserve">
     <value>Enviar respuesta a</value>
   </data>
+  <data name="HTMLEditor" xml:space="preserve">
+    <value>HTML Edición</value>
+  </data>
+  <data name="Option" xml:space="preserve">
+    <value>Opción</value>
+  </data>
 </root>

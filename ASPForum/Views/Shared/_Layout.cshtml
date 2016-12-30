@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @GlobalRes.Forum</title>
     @Styles.Render("~/Content/css")
@@ -15,19 +15,19 @@
     <script type="text/javascript">
         function spellchecktinymce() {
             $.get('/Content/forbiddenwords.txt',
-                function(result) {
+                function (result) {
                     var splitfile = result.split(/\r\n/);
-                    var content = tinyMCE.activeEditor.getContent({ format: 'raw' });
-                    for (var i = 0; i < splitfile.length - 1; i++) {
-                        if (content.search(splitfile[i]) !== -1) {
-                            console.log("TINYMCE");
-                            $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
-                                splitfile[i] +
-                                '</p>');
-                            $("input[type=submit]").attr("disabled", true);
+                    if (tinymce.editors.length > 0) {
+                        var content = tinyMCE.activeEditor.getContent({ format: 'raw' });
+                        for (var i = 0; i < splitfile.length - 1; i++) {
+                            if (content.search(splitfile[i]) !== -1) {
+                                $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
+                                    splitfile[i] +
+                                    '</p>');
+                                $("input[type=submit]").attr("disabled", true);
+                            }
                         }
                     }
-
                 });
         }
 
@@ -58,9 +58,9 @@
 
         // Initialize your tinyMCE Editor with your preferred options
         tinyMCE.init({
-            setup: function(ed) {
+            setup: function (ed) {
                 ed.on('change',
-                    function(e) {
+                    function (e) {
                         $('#error').empty();
                         $("input[type=submit]").attr("disabled", false);
                         spellchecktinymce();
@@ -86,26 +86,27 @@
     </script>
     <script type="text/javascript">
         function spellcheck() {
-            $("input[type=text]").change(function() {
-                    $('#error').empty();
-                    $("input[type=submit]").attr("disabled", false);
-                    console.log("aaaa");
-                    spellchecktinymce();
-                    spellchecktitle();
-                });
+            $("input[type=text]").change(function (e) {
+                $('#error').empty();
+                $("input[type=submit]").attr("disabled", false);
+                spellchecktinymce();
+                spellchecktitle();
+            });
         }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            spellcheck();
+
+        });
     </script>
     @if (User.Identity.IsAuthenticated)
     {
         <script type="text/javascript">
-            $(document).ready(function() {
-                spellcheck();
-
-            });
 
             function newMs() {
                 $.post("/Messages/Unread",
-                    function(ile) {
+                    function (ile) {
 
                         if (ile !== null) {
                             if (ile !== -1) {
@@ -135,48 +136,48 @@
 </head>
 <body onload="newMs()">
 
-<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            @Html.ActionLink(GlobalRes.Forum, "Index", "Categories", new {area = ""}, new {@class = "navbar-brand"})
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="@Url.Action("Change", "Language", new {language = "en"})">
-                        <img src="~/Content/Images/englishflag.png" alt="englishflag" width="24" height="24"/>
-                    </a>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(GlobalRes.Forum, "Index", "Categories", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="@Url.Action("Change", "Language", new {language = "en"})">
+                            <img src="~/Content/Images/englishflag.png" alt="englishflag" width="24" height="24" />
+                        </a>
 
-                </li>
-                <li>
-                    <a href="@Url.Action("Change", "Language", new {language = "pl"})">
-                        <img src="~/Content/Images/polishlag.png" alt="polishflag" width="24" height="24"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Change", "Language", new {language = "es"})">
-                        <img src="~/Content/Images/spanishflag.png" alt="spanishflag" width="24" height="24"/>
-                    </a>
-                </li>
-                @*
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Change", "Language", new {language = "pl"})">
+                            <img src="~/Content/Images/polishlag.png" alt="polishflag" width="24" height="24" />
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Change", "Language", new {language = "es"})">
+                            <img src="~/Content/Images/spanishflag.png" alt="spanishflag" width="24" height="24" />
+                        </a>
+                    </li>
+                    @*
                         <li>@Html.ActionLink("Categories", "Index", "Categories")</li>*@
-            </ul>
-            @Html.Partial("_LoginPartial")
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
         </div>
     </div>
-</div>
-<div class="container body-content">
-    @RenderBody()
-    <hr/>
-    <footer>
-        <p>&copy; @DateTime.Now.Year - @GlobalRes.Forum</p>
-    </footer>
-</div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - @GlobalRes.Forum</p>
+        </footer>
+    </div>
 
 
 </body>

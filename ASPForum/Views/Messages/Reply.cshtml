@@ -1,6 +1,53 @@
 ﻿@using ASPForum.Resources
 @model ASPForum.Models.MessageViewModel
-    
+<script type="text/javascript">
+    tinyMCE.remove();
+    tinyMCE.init({
+        setup: function (ed) {
+            ed.on('change',
+                function (e) {
+                    $('#error').empty();
+                    $("input[type=submit]").attr("disabled", false);
+                    spellchecktinymce();
+                });
+        },
+        table_toolbar: "",
+        mode: "exact",
+        elements: "txtid",
+        theme: 'modern',
+        plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak wordcount',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc'
+        ],
+        toolbar1:
+            'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar2: 'print preview media | forecolor backcolor emoticons | codesample',
+        image_advtab: true,
+        theme_advanced_resizing: true,
+        height: "250"
+    });
+</script>
+<script type="text/javascript">
+    function spellchecktinymce() {
+        $.get('/Content/forbiddenwords.txt',
+            function(result) {
+                var splitfile = result.split(/\r\n/);
+                if (tinymce.editors.length > 0) {
+                    var content = tinyMCE.activeEditor.getContent({ format: 'raw' });
+                    for (var i = 0; i < splitfile.length - 1; i++) {
+                        if (content.search(splitfile[i]) !== -1) {
+                            $("#error").append('<p>@GlobalRes.InappropriateWord: ' +
+                                splitfile[i] +
+                                '</p>');
+                            $("input[type=submit]").attr("disabled", true);
+                        }
+                    }
+                }
+            });
+    }
+</script>
 @using (Ajax.BeginForm("Reply", "Messages", new AjaxOptions
 {
     HttpMethod = "POST",
@@ -18,18 +65,17 @@
         @Html.HiddenFor(model => model.User)
 
         <div class="form-group">
-            <span class="control-label col-md-2">@GlobalRes.Text: </span>
 
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Message.Text, new { rows = 10, cols = 40, @class = "form-control" })
+            <div class="col-md-12">
+                @Html.TextAreaFor(model => model.Message.Text, new { @id = "txtid", @onload = "textareload();" })
                 @Html.ValidationMessageFor(model => model.Message.Text, "", new { @class = "text-danger" })
             </div>
         </div>
         <h4 id="error" style="color: red"></h4>
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@GlobalRes.Send" class="btn btn-default" />
+            <div class="col-md-10">
+                <input type="submit" value="@GlobalRes.Send" class="btn btn-success" />
             </div>
         </div>
     </div>

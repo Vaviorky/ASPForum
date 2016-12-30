@@ -673,6 +673,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to HTML Editor.
+        /// </summary>
+        public static string HTMLEditor {
+            get {
+                return ResourceManager.GetString("HTMLEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Inappropriate word.
         /// </summary>
         public static string InappropriateWord {
@@ -840,6 +849,15 @@ namespace ASPForum.Resources {
         public static string OldPassword {
             get {
                 return ResourceManager.GetString("OldPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Option.
+        /// </summary>
+        public static string Option {
+            get {
+                return ResourceManager.GetString("Option", resourceCulture);
             }
         }
         
