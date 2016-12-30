@@ -1,5 +1,3 @@
-undo
-insert
 styleselect
 bold
 italic
@@ -8,12 +6,10 @@ aligncenter
 alignright
 alignjustify
 bullist
-indent
+outdent
 link
 image
 print
-preview
-media
 forecolor
 backcolor
 emoticons

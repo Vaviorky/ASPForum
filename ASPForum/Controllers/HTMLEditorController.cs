@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using ASPForum.Models;
+using static System.String;
 
 namespace ASPForum.Controllers
 {
@@ -36,9 +37,9 @@ namespace ASPForum.Controllers
                             option.IsEnabled = true;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                Debug.WriteLine(e.StackTrace);
+                // nothing
             }
             return PartialView(options);
         }
@@ -49,14 +50,10 @@ namespace ASPForum.Controllers
             var file = ReadTxtFile(AllOptionsInFile());
 
             foreach (var option in editedoptions)
-            {
                 if (option.IsEnabled == false)
-                {
                     file.Remove(option.Option);
-                }
-            }
             System.IO.File.WriteAllLines(FilePath(), file.Cast<string>());
-
+            ConvertToConfiguration();
             return RedirectToAction("Index");
         }
 
@@ -79,13 +76,63 @@ namespace ASPForum.Controllers
 
         private string AllOptionsInFile()
         {
-            var path = Path.Combine(Server.MapPath("~/Content"), "allhtmltags.txt");
-            return path;
+            return Path.Combine(Server.MapPath("~/Content"), "allhtmltags.txt");
         }
 
-        private void ConvertToConfiguration(string path)
+        private void ConvertToConfiguration()
         {
-            
+            var alloptions = ReadTxtFile(AllOptionsInFile());
+            var selectedoptions = ReadTxtFile(FilePath());
+            var content = "";
+            content += "toolbar1: '";
+            for (var i = 0; i < 16; i++)
+            {
+                if (i == 2) content += "| ";
+                if (i == 3) content += "| ";
+                if (i == 4) content += "| ";
+                if (i == 6) content += "| ";
+                if (i == 10) content += "| ";
+                if (i == 14) content += "| ";
+
+                if (selectedoptions.Contains(alloptions[i]))
+                    content += alloptions[i] + " ";
+            }
+            content += "',\n";
+            content += "toolbar2: '";
+            for (var i = 16; i < alloptions.Count; i++)
+            {
+                if (i == 19) content += "| ";
+                if (i == 22) content += "| ";
+
+                if (selectedoptions.Contains(alloptions[i]))
+                    content += alloptions[i] + " ";
+            }
+            content += "',";
+
+            System.IO.File.WriteAllText(ConfiguredFile(), content);
+        }
+
+        private string ConfiguredFile()
+        {
+            return Path.Combine(Server.MapPath("~/Content"), "tinymce_conf.txt");
+        }
+
+        public ActionResult FileContent()
+        {
+            string content;
+            try
+            {
+                using (var stream = new StreamReader(ConfiguredFile()))
+                {
+                    content = stream.ReadToEnd();
+                }
+            }
+            catch (Exception exc)
+            {
+                return Content("");
+            }
+            Debug.WriteLine(content);
+            return Content(content);
         }
     }
 }

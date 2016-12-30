@@ -280,6 +280,7 @@
     <Content Include="Content\Images\englishflag.png" />
     <Content Include="Content\Images\polishlag.png" />
     <Content Include="Content\Images\spanishflag.png" />
+    <Content Include="Content\tinymce_conf.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
