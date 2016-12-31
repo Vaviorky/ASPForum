@@ -10,7 +10,6 @@ using static System.String;
 
 namespace ASPForum.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class HtmlEditorController : Controller
     {
         private readonly List<HtmlTagsViewModel> options = new List<HtmlTagsViewModel>();

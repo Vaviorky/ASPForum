@@ -207,6 +207,7 @@
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
     <Compile Include="Controllers\ThreadsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -604,7 +605,9 @@
       <LastGenOutput>GlobalRes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Search\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
