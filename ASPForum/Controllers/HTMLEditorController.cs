@@ -10,11 +10,12 @@ using static System.String;
 
 namespace ASPForum.Controllers
 {
+ 
     public class HtmlEditorController : Controller
     {
         private readonly List<HtmlTagsViewModel> options = new List<HtmlTagsViewModel>();
 
-        // GET: HTMLEditor
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             try
@@ -42,7 +43,7 @@ namespace ASPForum.Controllers
             }
             return PartialView(options);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult ChangeVaue(IEnumerable<HtmlTagsViewModel> editedoptions)
         {
@@ -130,7 +131,6 @@ namespace ASPForum.Controllers
             {
                 return Content("");
             }
-            Debug.WriteLine(content);
             return Content(content);
         }
     }
