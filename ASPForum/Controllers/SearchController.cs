@@ -12,51 +12,59 @@ namespace ASPForum.Controllers
 
         public ActionResult SearchAll(string query)
         {
-            IQueryable<Post> dbPosts = _db.Posts;
+            var dbPosts = _db.Posts;
+            var posts = Search(dbPosts, query);
+            if (posts == null)
+                return RedirectToAction("Index", "Categories");
+            return View("Search", posts.ToList());
+        }
 
+        public ActionResult SearchInSubject(string query, int subjectId)
+        {
+            return PartialView();
+        }
+
+        public ActionResult SearchInThread(string query, int threadId)
+        {
+            return PartialView();
+        }
+
+        private static IQueryable<Post> Search(IQueryable<Post> dbPosts, string query)
+        {
             var myquery = query.Split(' ');
             switch (myquery.Length)
             {
                 case 0:
-                    return RedirectToAction("Index", "Categories");
+                    return null;
                 case 1:
                     if (myquery[0].ToLower() == "or")
-                        return RedirectToAction("Index", "Categories");
+                        return null;
                     var word = myquery[0];
                     if (myquery[0].StartsWith("-"))
                     {
                         word = myquery[0].Substring(1);
                         dbPosts = dbPosts.Where(x => !x.Text.Contains(word));
-                        return View("Search", dbPosts.ToList());
+                        return dbPosts;
                     }
 
                     dbPosts = dbPosts.Where(x => x.Text.Contains(word));
-                    return View("Search", dbPosts.ToList());
+                    return dbPosts;
                 case 2:
                     if (!myquery.Contains("or"))
                     {
-                        var queries = new List<IQueryable<Post>>();
                         var finalquery = dbPosts;
                         foreach (var w in myquery)
-                        {
                             if (w.StartsWith("-"))
                             {
                                 var q1 = dbPosts.Where(x => !x.Text.Contains(w.Substring(1)));
-
                                 finalquery = finalquery.Intersect(q1);
-                                foreach (var post in finalquery)
-                                {
-                                    Debug.WriteLine(post.Text);
-                                }
                             }
                             else
                             {
                                 var q2 = dbPosts.Where(x => x.Text.Contains(w));
                                 finalquery = finalquery.Intersect(q2);
                             }
-                            
-                        }
-                        return View("Search", finalquery.ToList());
+                        return finalquery;
                     }
                     foreach (var w in myquery)
                     {
@@ -64,84 +72,43 @@ namespace ASPForum.Controllers
                         if (w.StartsWith("-"))
                         {
                             var q = dbPosts.Where(x => !x.Text.Contains(w.Substring(1)));
-                            return View("Search", q.ToList());
+                            return q;
                         }
                         var q1 = dbPosts.Where(x => x.Text == w);
-                        return View("Search", q1.ToList());
+                        return q1;
                     }
                     break;
                 default:
-                    break;
+                    var finalquerym = dbPosts;
+                    for (var i = 0; i < myquery.Length; i++)
+                    {
+                        if (myquery[i].ToLower() == "or" && i != 0)
+                        {
+                            i++;
+                            var next = myquery[i];
+                            var q = dbPosts.Where(x => x.Text.Contains(next));
+                            foreach (var post in q)
+                            {
+                                Debug.WriteLine(post.Text);
+                            }
+                            finalquerym = q.Union(finalquerym);
+                        }
+                        else if (myquery[i].StartsWith("-"))
+                        {
+                            var ww = myquery[i].Substring(1);
+                            var qq = dbPosts.Where(x => x.Text.Contains(ww));
+                            finalquerym = finalquerym.Except(qq);
+                        }
+                        else
+                        {
+                            var ww = myquery[i];
+                            finalquerym = finalquerym.Where(x => x.Text.Contains(ww));
+                        }
+                    }
+                    return finalquerym;
+
             }
-
-            /*if (!query.ToLower().Contains(" or ") && !query.Contains(" -"))
-            {
-                var myquery = query.Split(' ');
-                if (myquery.Length > 1)
-                {
-                    for (var i = 0; i < myquery.Length - 1; i++)
-                    {
-                        var left = myquery[i];
-                        var right = myquery[i + 1];
-                        dbPosts = dbPosts.Where(x => x.Text.Contains(left) && x.Text.Contains(right));
-                    }
-                }
-                else
-                {
-                    dbPosts = dbPosts.Where(x => x.Text.Contains(query));
-                    return View("Search", dbPosts);
-                }
-                
-                return View("Search", dbPosts);
-            }
-            var result = query.Split(' ');
-            
-            for (var i = 0; i < result.Length-1; i++)
-            {
-                if (result[i].ToLower() == "or" && i != 0)
-                {
-                    var leftor = result[i - 1];
-                    var rightor = result[i + 1];
-                    if(leftor.Contains("-") || rightor.StartsWith("-")) continue;
-                    dbPosts = dbPosts.Where(x => x.Text.Contains(leftor) || x.Text.Contains(rightor));
-                }
-                else
-                {
-
-                    if (!result[i + 1].StartsWith("-") || result[i+1].ToLower()==" or ")
-                    {
-                        var left = result[i];
-                        var right = result[i + 1];
-                        var q = dbPosts.Where(x => x.Text.Contains(left) || x.Text.Contains(right));
-                        dbPosts = dbPosts.Union(q);
-
-                    }
-
-                    else if (result[i + 1].StartsWith("-"))
-                    {
-                        var left = result[i];
-                        var right = result[i + 1];
-                        var q = dbPosts.Where(x => x.Text.Contains(left) && !x.Text.Contains(right));
-                        dbPosts = dbPosts.Union(q);
-
-                    }
-
-
-                    else if (result[i].StartsWith("-"))
-                    {
-                        var word = result[i].Substring(1);
-                        dbPosts = dbPosts.Where(x => !x.Text.Contains(word));
-                    }
-
-                }
-            }*/
-
-            return View("Search", dbPosts.ToList());
-        }
-
-        public ActionResult SearchInSubject(string query, int subjectId)
-        {
-            return PartialView();
+            return null;
         }
     }
 }
