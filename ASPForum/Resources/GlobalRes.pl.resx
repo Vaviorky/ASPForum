@@ -516,4 +516,10 @@
   <data name="Option" xml:space="preserve">
     <value>Opcja</value>
   </data>
+  <data name="ShowingResultsFor" xml:space="preserve">
+    <value>Wyniki wyszukiwania dla zapytania:</value>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Wyszukiwanie</value>
+  </data>
 </root>

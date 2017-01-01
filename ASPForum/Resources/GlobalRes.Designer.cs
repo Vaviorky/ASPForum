@@ -1015,6 +1015,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search.
+        /// </summary>
+        public static string Searching {
+            get {
+                return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select subject.
         /// </summary>
         public static string SelectSubject {
@@ -1056,6 +1065,15 @@ namespace ASPForum.Resources {
         public static string SessionExpirationTime {
             get {
                 return ResourceManager.GetString("SessionExpirationTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Showing results for query.
+        /// </summary>
+        public static string ShowingResultsFor {
+            get {
+                return ResourceManager.GetString("ShowingResultsFor", resourceCulture);
             }
         }
         

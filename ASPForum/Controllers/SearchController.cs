@@ -21,12 +21,20 @@ namespace ASPForum.Controllers
 
         public ActionResult SearchInSubject(string query, int subjectId)
         {
-            return PartialView();
+            var dbPosts = _db.Posts.Where(x => x.Thread.SubjectId == subjectId);
+            var posts = Search(dbPosts, query);
+            if (posts == null)
+                return RedirectToAction("Index", "Categories");
+            return View("Search", posts.ToList());
         }
 
         public ActionResult SearchInThread(string query, int threadId)
         {
-            return PartialView();
+            var dbPosts = _db.Posts.Where(x => x.ThreadId == threadId);
+            var posts = Search(dbPosts, query);
+            if (posts == null)
+                return RedirectToAction("Index", "Categories");
+            return View("Search", posts.ToList());
         }
 
         private static IQueryable<Post> Search(IQueryable<Post> dbPosts, string query)

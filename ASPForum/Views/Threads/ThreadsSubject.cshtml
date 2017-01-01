@@ -5,44 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h3>@ViewBag.Title</h3>
-
-
-@Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
-
-<div class="panel-group title-bar-position" id="accordion">
+<div class="panel-group title-bar-position">
 
     <div class="panel panel-default">
 
         <div class="panel-heading title-bar">
             <a href="/">
-                <span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>@GlobalRes.ForumHomePage</a> > @ViewBag.CategoryTitle > @ViewBag.Title
+                <span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>@GlobalRes.ForumHomePage
+            </a> > @ViewBag.CategoryTitle > @ViewBag.Title
 
         </div>
     </div>
 </div>
+<br />
+<h3>@ViewBag.Title</h3>
 
+<div class="col-md-7">
+    @Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary"})
+
+</div>
+<div class="col-md-5">
+    @using (Html.BeginForm("SearchInSubject", "Search", FormMethod.Get))
+    {
+        <div class="col-md-9">
+            <div class="form-group" align="right">
+                @Html.Editor("query", new {htmlAttributes = new {@class = "form-control"}})
+            </div>
+        </div>
+        @Html.Hidden("subjectId", Url.RequestContext.RouteData.Values["id"])
+        <div class="col-md-3" align="right">
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="@GlobalRes.Search"/>
+            </div>
+        </div>
+    }
+</div>
+<br/><br/><br/>
 
 @if (Model.PinnedThreads.Any())
 {
-    <div class="panel-group title-bar-position" id="accordion">
+    <div class="panel-group">
 
         <div class="panel panel-default">
 
             <div class="panel-heading title-bar">
                 <table width="100%">
                     <tr>
-                        <td class="col-xs-7">
+                        <td class="col-md-8">
                             @GlobalRes.PinnedThreads
                         </td>
-                        <td class="col-xs-1">
+                        <td class="col-md-1">
                             @GlobalRes.Replies
 
                         </td>
-                        <td class="col-xs-1">
+                        <td class="col-md-1">
                             @GlobalRes.Views
                         </td>
-                        <td class="col-xs-3">
+                        <td class="col-md-2">
                             @GlobalRes.LastPost
                         </td>
                     </tr>
@@ -57,7 +76,7 @@
                         <div class="col-md-12 subject-content">
                             <table width="100%">
                                 <tr>
-                                    <td class="col-xs-7" style="border-right: 1px">
+                                    <td class="col-xs-8" style="border-right: 1px">
                                         <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                         @if (thread.UserId != null)
                                         {
@@ -72,7 +91,7 @@
                                     <td class="col-xs-1">
                                         @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                     </td>
-                                    <td class="col-xs-3">
+                                    <td class="col-xs-2">
                                         @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
@@ -91,9 +110,15 @@
 
     </div>
 }
+@{
+    var x = "";
+    if (!Model.PinnedThreads.Any())
+    {
+        x = "padding-top: 50px;";
+    }
+}
 
-
-<div class="panel-group title-bar-position" id="accordion">
+<div class="panel-group title-bar-position" id="accordion" style="@x">
 
     <div class="panel panel-default">
 
@@ -101,7 +126,7 @@
         <div class="panel-heading title-bar">
             <table width="100%">
                 <tr>
-                    <td class="col-xs-7">
+                    <td class="col-xs-8">
                         @GlobalRes.Threads
                     </td>
                     <td class="col-xs-1">
@@ -110,7 +135,7 @@
                     <td class="col-xs-1">
                         @GlobalRes.Views
                     </td>
-                    <td class="col-xs-3">
+                    <td class="col-xs-2">
                         @GlobalRes.LastPost
                     </td>
 
@@ -126,7 +151,7 @@
                     <div class="col-md-12 subject-content">
                         <table width="100%">
                             <tr>
-                                <td class="col-xs-7" style="border-right: 1px">
+                                <td class="col-xs-8" style="border-right: 1px">
                                     <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                     @if (thread.UserId != null)
                                     {
@@ -141,7 +166,7 @@
                                 <td class="col-xs-1">
                                     @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                 </td>
-                                <td class="col-xs-3">
+                                <td class="col-xs-2">
                                     @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {
@@ -159,5 +184,5 @@
     </div>
 
 </div>
-<br/>
-@Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary btn-sm"})
+<br />
+@Html.ActionLink(GlobalRes.CreateNewThread, "Create", "Threads", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary"})

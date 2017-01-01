@@ -71,51 +71,33 @@
         <span class="glyphicon glyphicon-chevron-right"></span>
     </a>
 </div><!-- /carousel -->
-@*    @using (Html.BeginForm())
-    {
-        <div class="col-md-8"></div>
-        <div class="col-md-2">
-            <div class="form-group">
-                @Html.Editor("word", new { htmlAttributes = new { @class = "form-control" } })
-            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="form-group">
-                <input type="submit" id="addword" class="btn btn-success" value="@GlobalRes.Search" />
-            </div>
-        </div>
-    }*@
 
+<div class="col-md-7">
 
-<div class="col-md-7"></div>
+</div>
 <div class="col-md-5">
     @using (Html.BeginForm("SearchAll", "Search", FormMethod.Get))
     {
         <div class="col-md-9">
-
-
             <div class="form-group" align="right">
-                @Html.Editor("query", new {htmlAttributes = new {@class = "form-control", style = "align= \"right\""}})
+                @Html.Editor("query", new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
+
         <div class="col-md-3" align="right">
             <div class="form-group">
-                <button id="addword" class="btn btn-success" style="align-content: right;">@GlobalRes.Search</button>
+                <input type="submit" class="btn btn-success" value="@GlobalRes.Search"/>
             </div>
         </div>
     }
-
 </div>
-
-
-<div class="panel-group title-bar-position" id="accordion" style="padding-top: 55px">
+<br/><br/><br/>
+<div class="panel-group" id="accordion">
 
     @foreach (var item in Model)
     {
         <div class="panel panel-default">
             <div class="panel-heading title-bar">
-
-
                 <table>
                     <tr>
                         <td class="col-sm-10 col-xs-7">

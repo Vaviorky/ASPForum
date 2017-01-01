@@ -148,9 +148,9 @@ namespace ASPForum.Controllers
             base.Dispose(disposing);
         }
 
-        public string Privillege(int id, string userid)
+        public string Privillege(string userId)
         {
-            var user = db.Users.Find(userid);
+            var user = db.Users.Find(userId);
             var im = new IdentityManager();
             if (im.isUserInRole(user.Id, "Admin"))
                 return "<div style=\"color: red; text-align: center;\">Administrator</div>";

@@ -519,4 +519,10 @@
   <data name="Option" xml:space="preserve">
     <value>Option</value>
   </data>
+  <data name="ShowingResultsFor" xml:space="preserve">
+    <value>Showing results for query</value>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Search</value>
+  </data>
 </root>

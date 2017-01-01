@@ -1,37 +1,64 @@
-﻿@model IEnumerable<ASPForum.Models.Post>
+﻿@using ASPForum.Resources
+@model IEnumerable<ASPForum.Models.Post>
 
-@{
-    ViewBag.Title = "Search";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+<div class="panel-group title-bar-position">
+
+    <div class="panel panel-default">
+
+
+        <div class="panel-heading title-bar">
+            <a href="/">
+                <span class="glyphicon glyphicon-home" style="padding-right: 5px;"></span>@GlobalRes.ForumHomePage
+            </a> > @GlobalRes.Searching
+
+        </div>
+    </div>
+</div>
+<br/>
+<h3>@GlobalRes.ShowingResultsFor @Request.Params["query"]</h3>
+@foreach (var item in Model)
+{
+    <div class="panel-group title-bar-position" id="accordion" style="padding-bottom: 0px;">
+
+        <div id="@item.Id" class="panel panel-default" style="padding-bottom: 0px;">
+            <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
+                <table>
+                    @{ ViewBag.Title = GlobalRes.CheckThread + ": " + item.Thread.Title; }
+                    <tr>
+                        <td class="col-md-1" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
+                            <img class="avatar" src="@item.User.Avatar"/><br/>
+                            <div style="text-align: center;">@Html.DisplayFor(modelItem => item.User.UserName)</div>
+                            @Html.Action("Privillege", "Posts", new {userId = item.UserId})
+
+                        </td>
+                        <td class="col-md-11" style="vertical-align: top;">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        <div style="font-size: 14px;">@GlobalRes.By: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
+                                    </td>
+                                    <td>
+                                        @if (User.IsInRole("Admin"))
+                                        {
+                                            <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", "Posts", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"}) @Html.ActionLink(GlobalRes.DeletePost, "Delete", "Posts", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
+                                        }
+                                        else if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div align="right">
+                                                <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>
+                                                @Html.ActionLink(GlobalRes.ReportPost, "ReportPost", "Posts", new {id = item.Id}, new {@class = "btn btn-primary btn-sm"})
+                                            </div>
+                                        }
+                                    </td>
+                                </tr>
+                            </table>
+                            <div>@Html.Raw(item.Text)</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 }
-
-<h2>Search</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-    </tr>
-}
-
-</table>
+<br/>
