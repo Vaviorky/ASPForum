@@ -108,7 +108,7 @@ namespace ASPForum.Controllers
             var message = db.Messeges.Find(id);
             if (message == null)
                 return HttpNotFound();
-            return View(message);
+            return PartialView(message);
         }
 
         // POST: Messages/Delete/5
@@ -120,7 +120,7 @@ namespace ASPForum.Controllers
             var message = db.Messeges.Find(id);
             db.Messeges.Remove(message);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return PartialView("~/Views/Manage/Inbox.cshtml");
         }
 
         protected override void Dispose(bool disposing)
@@ -162,7 +162,6 @@ namespace ASPForum.Controllers
                 if (ii != null)
                     list.AddFirst(ii);
             }
-            var alejaa = list.Count();
             return list.Count();
         }
 

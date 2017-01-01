@@ -522,4 +522,7 @@
   <data name="Searching" xml:space="preserve">
     <value>Wyszukiwanie</value>
   </data>
+  <data name="DoYouWantToDeleteThisMessage" xml:space="preserve">
+    <value>Czy na pewno chcesz usunąć tę wiadomość?</value>
+  </data>
 </root>

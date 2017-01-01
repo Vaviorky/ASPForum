@@ -475,6 +475,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete this message?.
+        /// </summary>
+        public static string DoYouWantToDeleteThisMessage {
+            get {
+                return ResourceManager.GetString("DoYouWantToDeleteThisMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete this thread.
         /// </summary>
         public static string DoYouWantToDeleteThread {
