@@ -633,6 +633,10 @@ namespace ASPForum.Controllers
             var modcheck = db.Moderators.Any(x => x.SubjectId == subId && x.UserId == userId);
             if (modcheck)
             {
+                var subjectsa = db.Subjects.ToList();
+                ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == userId).UserName;
+                ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == userId).Id;
+                ViewBag.SelectList = new SelectList(subjectsa, "Id", "Title");
                 return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
             }
             
@@ -648,6 +652,10 @@ namespace ASPForum.Controllers
             db.Entry(user).State = EntityState.Modified;
             db.Moderators.Add(moderator);
             db.SaveChanges();
+            ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == userId).UserName;
+            ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == userId).Id;
+            var subjects = db.Subjects.ToList();
+            ViewBag.SelectList = new SelectList(subjects, "Id", "Title");
             return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
         }
 
@@ -668,7 +676,11 @@ namespace ASPForum.Controllers
             {
                 im.ClearUserFromRole(userId, "Moderator");
             }
-                return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
+            ViewBag.UserName = db.Users.FirstOrDefault(x => x.Id == userId).UserName;
+            ViewBag.UserId = db.Users.FirstOrDefault(x => x.Id == userId).Id;
+            var subjects = db.Subjects.ToList();
+            ViewBag.SelectList = new SelectList(subjects, "Id", "Title");
+            return PartialView("ManageModerator", db.Moderators.Where(m => m.UserId == userId).ToList());
         }
 
         #region Helpers
