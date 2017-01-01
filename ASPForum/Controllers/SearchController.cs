@@ -1,4 +1,5 @@
-﻿using System.Data.Entity.Infrastructure;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using ASPForum.Models;
@@ -12,7 +13,68 @@ namespace ASPForum.Controllers
         public ActionResult SearchAll(string query)
         {
             IQueryable<Post> dbPosts = _db.Posts;
-            if (!query.ToLower().Contains(" or ") && !query.Contains(" -"))
+
+            var myquery = query.Split(' ');
+            switch (myquery.Length)
+            {
+                case 0:
+                    return RedirectToAction("Index", "Categories");
+                case 1:
+                    if (myquery[0].ToLower() == "or")
+                        return RedirectToAction("Index", "Categories");
+                    var word = myquery[0];
+                    if (myquery[0].StartsWith("-"))
+                    {
+                        word = myquery[0].Substring(1);
+                        dbPosts = dbPosts.Where(x => !x.Text.Contains(word));
+                        return View("Search", dbPosts.ToList());
+                    }
+
+                    dbPosts = dbPosts.Where(x => x.Text.Contains(word));
+                    return View("Search", dbPosts.ToList());
+                case 2:
+                    if (!myquery.Contains("or"))
+                    {
+                        var queries = new List<IQueryable<Post>>();
+                        var finalquery = dbPosts;
+                        foreach (var w in myquery)
+                        {
+                            if (w.StartsWith("-"))
+                            {
+                                var q1 = dbPosts.Where(x => !x.Text.Contains(w.Substring(1)));
+
+                                finalquery = finalquery.Intersect(q1);
+                                foreach (var post in finalquery)
+                                {
+                                    Debug.WriteLine(post.Text);
+                                }
+                            }
+                            else
+                            {
+                                var q2 = dbPosts.Where(x => x.Text.Contains(w));
+                                finalquery = finalquery.Intersect(q2);
+                            }
+                            
+                        }
+                        return View("Search", finalquery.ToList());
+                    }
+                    foreach (var w in myquery)
+                    {
+                        if (w == "or") continue;
+                        if (w.StartsWith("-"))
+                        {
+                            var q = dbPosts.Where(x => !x.Text.Contains(w.Substring(1)));
+                            return View("Search", q.ToList());
+                        }
+                        var q1 = dbPosts.Where(x => x.Text == w);
+                        return View("Search", q1.ToList());
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            /*if (!query.ToLower().Contains(" or ") && !query.Contains(" -"))
             {
                 var myquery = query.Split(' ');
                 if (myquery.Length > 1)
@@ -72,8 +134,8 @@ namespace ASPForum.Controllers
                     }
 
                 }
-            }
-               
+            }*/
+
             return View("Search", dbPosts.ToList());
         }
 
@@ -82,5 +144,4 @@ namespace ASPForum.Controllers
             return PartialView();
         }
     }
-    
 }
