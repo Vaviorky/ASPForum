@@ -1,4 +1,7 @@
-﻿@using ASPForum.Resources
+﻿@using ASPForum.Controllers
+@using ASPForum.Models
+@using ASPForum.Resources
+@using Microsoft.AspNet.Identity
 @model IEnumerable<ASPForum.Models.Post>
 
 
@@ -59,7 +62,7 @@
                                         <div style="font-size: 14px;">@GlobalRes.By: @item.User.UserName, @($"{item.Date:dd/MM/yyyy, hh:mm}"), @item.Thread.Title</div>
                                     </td>
                                     <td>
-                                        @if (User.IsInRole("Admin"))
+                                        @if (User.IsInRole("Admin") || PostsController.IsUserAdminInThread(User.Identity.GetUserId(), item.Thread.SubjectId))
                                         {
                                             <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"}) @Html.ActionLink(GlobalRes.DeletePost, "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }

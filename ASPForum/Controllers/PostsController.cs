@@ -212,5 +212,11 @@ namespace ASPForum.Controllers
             }
             return RedirectToAction("PostThread", new {id = post.ThreadId});
         }
+
+        public static bool IsUserAdminInThread(string userId, int subjectId)
+        {
+            var context = new ApplicationDbContext();
+            return context.Moderators.Any(x => x.UserId == userId && x.SubjectId == subjectId);
+        }
     }
 }
