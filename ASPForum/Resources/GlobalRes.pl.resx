@@ -528,4 +528,13 @@
   <data name="Rank" xml:space="preserve">
     <value>Ranga</value>
   </data>
+  <data name="Joined" xml:space="preserve">
+    <value>Dołączył</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Wysłano</value>
+  </data>
+  <data name="DoYouWantToAddHimToFriends" xml:space="preserve">
+    <value>Czy chcesz dodać go do listy Twoim znajomych</value>
+  </data>
 </root>

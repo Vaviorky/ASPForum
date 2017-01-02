@@ -11,16 +11,18 @@
             <table width="100%">
                 <tr>
                     <td class="col-md-2" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
-                        <img class="avatar" src="@Model.Sender.Avatar" alt="avatar" /><br />
-                        <div style="text-align: center;">@Html.DisplayFor(model => model.Sender.UserName)</div>
-                        @Html.Action("Privillege", "Posts", new { rank = Model.Sender.Rank, userId = Model.SenderId })
+                        <img class="avatar" src="@Model.Sender.Avatar" alt="avatar" />
+                        <div style="text-align: center;">@Html.DisplayFor(modelItem => Model.Sender.UserName)</div>
+                        <img src="@Html.Action("Privillege", "Posts", new {userId = Model.SenderId})" alt="rank" />
+                        <div style="text-align: center; font-size: 12px;">@GlobalRes.Joined: @($"{Model.Sender.RegistrationDate:dd/MM/yyyy}")</div>
+                        <div style="text-align: center; font-size: 12px;">@GlobalRes.NrOfPosts: @Html.Action("PostCount", "Posts", new { id = Model.SenderId })</div>
                     </td>
                     <td class="col-md-10" style="vertical-align: top;">
                         <div style="font-size: 22px; padding-bottom: 3px; color: lightblue">
-                            <b>@Html.DisplayFor(model => model.Message.Title)</b> 
+                            <b>@Html.DisplayFor(model => model.Message.Title)</b>
                         </div>
                         <div style="font-size: 12px; padding-bottom: 10px;">
-                            <b>Wysłano: </b>@Html.DisplayFor(model => model.Message.Date)
+                            <b>@GlobalRes.Sent: </b>@Html.DisplayFor(model => model.Message.Date)
                         </div>
                         <div>
                             @Html.Raw(Model.Message.Text)
@@ -33,4 +35,4 @@
 </div>
 
 @Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
-@Ajax.ActionLink(GlobalRes.Respond, "Reply", "Messages", new {id = Model.MessageId, user=Model.SenderId} , new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+@Ajax.ActionLink(GlobalRes.Respond, "Reply", "Messages", new { id = Model.MessageId, user = Model.SenderId }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })

@@ -95,8 +95,6 @@ namespace ASPForum.Controllers
             ViewBag.ThreadId = post.ThreadId;
             ViewBag.Date = post.Date;
             ViewBag.UserId = post.UserId;
-            if (post == null)
-                return HttpNotFound();
             return View(post);
         }
 
@@ -148,25 +146,42 @@ namespace ASPForum.Controllers
             base.Dispose(disposing);
         }
 
-        public string Privillege(string userId)
+        public ActionResult Privillege(string userId)
         {
             var user = db.Users.Find(userId);
             var im = new IdentityManager();
             if (im.isUserInRole(user.Id, "Admin"))
-                return "<div style=\"color: red; text-align: center;\">Administrator</div>";
+                return Content("/Content/Images/Ranks/admin.png");
             if (user.Privileges == "Moderator")
-                return "<div style=\"color: green; text-align: center;\">Moderator</div>";
+                return Content("/Content/Images/Ranks/moderator.png");
             var rank = user.Rank;
-            if (rank >= 0 && rank <= 20)
-                return "<span style: \"color=white;\">Nowy użytkownik</span>";
-            if (rank > 20 && rank <= 50)
-                return "Bywalec";
-            if (rank > 50 && rank <= 100)
-                return "Forumowicz";
-
-            return "Nałogowicz";
+            if (rank >= 0 && rank <= 25)
+                return Content("/Content/Images/Ranks/level1.png");
+            if (rank > 25 && rank <= 75)
+                return Content("/Content/Images/Ranks/level2.png");
+            if (rank > 75 && rank <= 150)
+                return Content("/Content/Images/Ranks/level3.png");
+            if (rank > 150 && rank <= 250)
+                return Content("/Content/Images/Ranks/level4.png");
+            if (rank > 250 && rank <= 500)
+                return Content("/Content/Images/Ranks/level5.png");
+            if (rank > 500 && rank <= 750)
+                return Content("/Content/Images/Ranks/level6.png");
+            if (rank > 750 && rank <= 1000)
+                return Content("/Content/Images/Ranks/level7.png");
+            if (rank > 1000 && rank <= 1500)
+                return Content("/Content/Images/Ranks/level8.png");
+            if (rank > 1500 && rank <= 2000)
+                return Content("/Content/Images/Ranks/level9.png");
+            //else
+            return Content("/Content/Images/Ranks/level10.png");
         }
 
+        public ActionResult PostCount(string id)
+        {
+            var count = db.Posts.Count(x => x.UserId == id);
+            return Content(count.ToString());
+        }
 
         public ActionResult ReportPost(int id)
         {

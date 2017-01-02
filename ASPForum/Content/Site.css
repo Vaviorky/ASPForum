@@ -165,3 +165,7 @@ pre {
 }
 
 /* Carousel Header Styles */
+a.msg:link { color:#FFF; }
+a.msg:visited { color: #FFF; }
+a.msg:hover { color: darkslategrey; }
+a.msg:active { color: #FFF; }

@@ -439,6 +439,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to add him to your friends list.
+        /// </summary>
+        public static string DoYouWantToAddHimToFriends {
+            get {
+                return ResourceManager.GetString("DoYouWantToAddHimToFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete category named.
         /// </summary>
         public static string DoYouWanttoDeleteCategory {
@@ -714,6 +723,15 @@ namespace ASPForum.Resources {
         public static string IncorrectImageResolution {
             get {
                 return ResourceManager.GetString("IncorrectImageResolution", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Joined.
+        /// </summary>
+        public static string Joined {
+            get {
+                return ResourceManager.GetString("Joined", resourceCulture);
             }
         }
         
@@ -1065,6 +1083,15 @@ namespace ASPForum.Resources {
         public static string SendReplyTo {
             get {
                 return ResourceManager.GetString("SendReplyTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sent.
+        /// </summary>
+        public static string Sent {
+            get {
+                return ResourceManager.GetString("Sent", resourceCulture);
             }
         }
         

@@ -7,46 +7,46 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            <li>
+<ul class="nav navbar-nav navbar-right">
+    <li>
 
 
-                @*  @Html.ActionLink("Wiadomości", "Index", "Messages", routeValues: null, htmlAttributes: new {id = "registerLink"})*@
-                @{
-                    if (User.Identity.IsAuthenticated)
-                    {
-                        var ile = MessagesController.Unread2(User.Identity.GetUserId());
-                        if (ile == 0)
-                        {
-                            <p id="registerLink" style="display: block; padding-top: 19.5px; position: relative;">
-                                @GlobalRes.Messages <span id="sumOfNewMessages" class="badge">(0)</span>
-                            </p>
-                        }
-                        else
-                        {
-                            <p id="registerLink" style="display: block; padding-top: 19.5px; position: relative;">
-                                @GlobalRes.Messages <span id="sumOfNewMessages" class="badge">@ile</span>
-                            </p>
-                        }
-                    }
+        @*  @Html.ActionLink("Wiadomości", "Index", "Messages", routeValues: null, htmlAttributes: new {id = "registerLink"})*@
+        @{
+        if (User.Identity.IsAuthenticated)
+        {
+        var ile = MessagesController.Unread2(User.Identity.GetUserId());
+        if (ile == 0)
+        {
+        <p id="registerLink" style="display: block; padding-top: 19.5px; position: relative;">
+            @Html.ActionLink(@GlobalRes.Messages, "Index", "Manage", new { link = "inbox" }, new {@class= "msg" }) <span id="sumOfNewMessages" class="badge">(0)</span>
+        </p>
+        }
+        else
+        {
+        <p id="registerLink" style="display: block; padding-top: 19.5px; position: relative;">
+           @Html.ActionLink(@GlobalRes.Messages, "Index", "Manage", new { link = "inbox" }, new { @class = "msg" }) <span id="sumOfNewMessages" class="badge">@ile</span>
+        </p>
+        }
+        }
 
-                }
-            </li>
-            <li>
-                @Html.ActionLink(GlobalRes.Hello + ", " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new {title = "Manage"})
-            </li>
-            <li>
-                <a href="javascript:document.getElementById('logoutForm').submit()">
-                    <span class="glyphicon glyphicon-off"></span>
-                </a>
-            </li>
-        </ul>
+        }
+    </li>
+    <li>
+        @Html.ActionLink(GlobalRes.Hello + ", " + User.Identity.GetUserName() + "!", "Index", "Manage", null, new {title = "Manage"})
+    </li>
+    <li>
+        <a href="javascript:document.getElementById('logoutForm').submit()">
+            <span class="glyphicon glyphicon-off"></span>
+        </a>
+    </li>
+</ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account", null, new {id = "registerLink"})</li>
-        <li>@Html.ActionLink(GlobalRes.Login, "Login", "Account", null, new {id = "loginLink"})</li>
-    </ul>
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink(GlobalRes.Register, "Register", "Account", null, new {id = "registerLink"})</li>
+    <li>@Html.ActionLink(GlobalRes.Login, "Login", "Account", null, new {id = "loginLink"})</li>
+</ul>
 }

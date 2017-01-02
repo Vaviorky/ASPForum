@@ -88,5 +88,9 @@
 
     </div>
     <div id="moj_div" class="col-md-9">
+        @if (Request.Params["link"] == "inbox")
+        {
+            @Html.Action("Inbox")
+        }
     </div>
 </div>

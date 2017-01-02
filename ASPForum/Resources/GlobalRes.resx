@@ -531,4 +531,13 @@
   <data name="Rank" xml:space="preserve">
     <value>Rank</value>
   </data>
+  <data name="Joined" xml:space="preserve">
+    <value>Joined</value>
+  </data>
+  <data name="Sent" xml:space="preserve">
+    <value>Sent</value>
+  </data>
+  <data name="DoYouWantToAddHimToFriends" xml:space="preserve">
+    <value>Do you want to add him to your friends list</value>
+  </data>
 </root>

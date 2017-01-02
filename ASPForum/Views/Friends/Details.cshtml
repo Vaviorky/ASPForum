@@ -1,16 +1,19 @@
 ﻿@using ASPForum.Resources
 @model ASPForum.Models.ApplicationUser
 
-<h4>@Model.UserName</h4>
+<h3>@GlobalRes.DoYouWantToAddHimToFriends?</h3>
 <div>
-   <div class="row">
-       @GlobalRes.Rank: @Html.Action("Privillege", "Posts", new { userId = Model.Id })
-   </div>
-    <div class="row">
-        @GlobalRes.RegistrationDate: @Model.RegistrationDate
+    <div class="col-md-3">
+        <img class="avatar" src="@Model.Avatar" alt="avatar" />
+        <div style="text-align: center;">@Html.DisplayFor(modelItem => Model.UserName)</div>
+        <img src="@Html.Action("Privillege", "Posts", new {userId = Model.Id})" alt="rank" />
+        <div style="font-size: 12px; text-align: center;">@GlobalRes.Joined: @($"{Model.RegistrationDate:dd/MM/yyyy}")</div>
+        <div style="font-size: 12px; text-align: center;">@GlobalRes.NrOfPosts: @Html.Action("PostCount", "Posts", new { id = Model.Id })</div>
     </div>
-
-    @Ajax.ActionLink(GlobalRes.AddFriend, "AddFriend", "Friends", new {id = Model.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
-    
-    @Ajax.ActionLink(GlobalRes.BackToList, "FriendsAdd", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+    <div class="col-md-12"></div>
+    <div class="col-md-6">
+        @Ajax.ActionLink(GlobalRes.AddFriend, "AddFriend", "Friends", new { id = Model.Id }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-success btn-md" })
+        @Ajax.ActionLink(GlobalRes.BackToList, "FriendsAdd", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+    </div>
+   
 </div>
