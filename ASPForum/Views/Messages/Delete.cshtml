@@ -13,7 +13,7 @@
                         <td class="col-md-2" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
                             <img class="avatar" src="@Model.Sender.Avatar" alt="avatar" /><br />
                             <div style="text-align: center;">@Html.DisplayFor(model => model.Sender.UserName)</div>
-                            @Html.Action("Privillege", "Posts", new { rank = Model.Sender.Rank, userId = Model.SenderId })
+                            <img src="@Html.Action("Privillege", "Posts", new { rank = Model.Sender.Rank, userId = Model.SenderId })" alt="rank"/>
                         </td>
                         <td class="col-md-10" style="vertical-align: top;">
                             <div style="font-size: 22px; padding-bottom: 3px; color: lightblue">

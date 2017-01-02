@@ -30,7 +30,7 @@
 </script>
 <script type="text/javascript">
     function spellchecktinymce() {
-        $.get('/Content/forbiddenwords.txt',
+        $.get('/Content/forbiddenwords.txt' + (+new Date()),
             function (result) {
                 var splitfile = result.split(/\r\n/);
                 if (tinymce.editors.length > 0) {

@@ -197,7 +197,7 @@ namespace ASPForum.Controllers
             var idUser = User.Identity.GetUserId();
             var message = db.Messeges.Find(id);
 
-            if (db.MessageUser.FirstOrDefault(mu => mu.MessageId == id).ReceiverId == idUser)
+            if (db.MessageUser.FirstOrDefault(mu => mu.MessageId == id && mu.ReceiverId==idUser).ReceiverId == idUser)
             {
                 message.IsRead = true;
                 db.Entry(message).State = EntityState.Modified;

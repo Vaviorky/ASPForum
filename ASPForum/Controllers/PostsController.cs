@@ -234,7 +234,7 @@ namespace ASPForum.Controllers
             {
                 Date = DateTime.Now,
                 Title = "Zgłoszenie postu",
-                Text = "Użytkwonik " + User.Identity.GetUserName() + " zgłosił post do moderacji. </br> <a href=\"/Posts/PostThread/" + post.ThreadId + "#" + id + "\">Sprawdź szczegóły postu</a>"
+                Text = "Użytkwonik " + User.Identity.GetUserName() + " zgłosił post do moderacji. </br> <a href=\"/Posts/PostThread/" + post.ThreadId + "#" + id + "?page=" +page+  "\">Sprawdź szczegóły postu</a>"
             };
             db.Messeges.Add(message);
             db.SaveChanges();

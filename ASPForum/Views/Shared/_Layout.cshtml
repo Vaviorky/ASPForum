@@ -14,7 +14,10 @@
     <!-- Script to wire up your TinyMCE editor -->
     <script type="text/javascript">
         function spellchecktinymce() {
-            $.get('/Content/forbiddenwords.txt',
+            
+            $.get('/Content/forbiddenwords.txt', {
+                now: jQuery.now()
+            },
                 function (result) {
                     var splitfile = result.split(/\r\n/);
                     if (tinymce.editors.length > 0) {
@@ -42,6 +45,7 @@
                         var splitfile = result.split(/\r\n/);
                         for (var i = 0; i < split.length; i++) {
                             for (var j = 0; j < splitfile.length - 1; j++) {
+                                console.log(splitfile[j]);
                                 if (split[i].toLowerCase() === splitfile[j].toLowerCase()) {
                                     console.log("TITLE");
 
@@ -95,6 +99,7 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
+            $.ajaxSetup({ cache: false });
             spellcheck();
 
         });
