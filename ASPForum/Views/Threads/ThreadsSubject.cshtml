@@ -1,4 +1,5 @@
-﻿@using ASPForum.Resources
+﻿@using ASPForum.Controllers
+@using ASPForum.Resources
 @model ASPForum.Models.ThreadsWithPinnedViewModel
 
 @{
@@ -167,7 +168,7 @@
                                     @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                 </td>
                                 <td class="col-xs-2">
-                                    @Html.Action("LastPost", "Threads", new {id = thread.Id})
+                                    @Html.Action("LastPost", "Threads", new {id = thread.Id, page = ThreadsController.Pages(thread.Id) })
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {
                                         @Html.ActionLink(GlobalRes.Edit, "Edit", "Threads", new {id = thread.Id}, new {@class = "btn btn-warning btn-sm"})

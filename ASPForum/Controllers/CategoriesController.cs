@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
-
+using PagedList;
 namespace ASPForum.Controllers
 {
     public class CategoriesController : Controller
@@ -133,6 +133,9 @@ namespace ASPForum.Controllers
         public ActionResult NewPost(int id)
         {
             var post = _db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
+            var test = _db.Posts.Where(t => t.Thread.SubjectId == id).ToList();
+            var paged = test.ToPagedList(1, 10);
+            ViewBag.Page = paged.PageCount;
             if (post != null)
                 return PartialView("LastPost", post);
             return HttpNotFound("Brak postów");

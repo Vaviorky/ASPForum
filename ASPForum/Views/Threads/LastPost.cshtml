@@ -1,6 +1,6 @@
 ﻿@using ASPForum.Resources
 @model ASPForum.Models.Post
 <div>
-   @GlobalRes.By: <a href="@Url.Action("PostThread", "Posts", new {id = Model.ThreadId})#@Model.Id">@Model.User.UserName</a>
+   @GlobalRes.By: <a href="@Url.Action("PostThread", "Posts", new {id = Model.ThreadId, page = ViewBag.Post})#@Model.Id">@Model.User.UserName</a>
 </div>
 <div style="font-size: 12px"> @($"{Model.Date:dd/MM/yyyy, hh:mm}") </div>

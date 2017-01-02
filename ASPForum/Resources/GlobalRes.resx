@@ -555,4 +555,19 @@
   <data name="Moderator" xml:space="preserve">
     <value>Moderator</value>
   </data>
+  <data name="Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="NrOfPostsOnPage" xml:space="preserve">
+    <value>Number of posts on page</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
 </root>

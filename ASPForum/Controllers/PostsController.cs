@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ASPForum.Controllers
 {
@@ -13,7 +15,7 @@ namespace ASPForum.Controllers
     {
         private readonly ApplicationDbContext db = new ApplicationDbContext();
         // GET: Posts
-        public ActionResult PostThread(int? id)
+        public ActionResult PostThread(int? id, int? page)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -24,13 +26,25 @@ namespace ASPForum.Controllers
             db.Entry(thread).State = EntityState.Modified;
             db.SaveChanges();
 
-
             var posts = db.Posts.Where(t => t.Thread.Id == id).ToList();
             ViewBag.ThreadTitle = thread.Title;
             ViewBag.Title = thread.Title;
             ViewBag.CategoryTitle = thread.Subject.Category.Title;
             ViewBag.SubjectTitle = thread.Subject.Title;
-            return View(posts);
+            var pageSize = 10;
+            try
+            {
+                var userid = User.Identity.GetUserId();
+                var user = db.Users.Find(userid);
+                if (user.PostsOnPage != 0)
+                    pageSize = user.PostsOnPage;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+            }
+            var pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber, pageSize));
         }
 
         public ActionResult Index()
@@ -82,7 +96,9 @@ namespace ASPForum.Controllers
                 db.Entry(user).State = EntityState.Modified;
             }
             db.SaveChanges();
-            return RedirectToAction("PostThread", new {id = post.ThreadId});
+            var test = db.Posts.Where(t => t.ThreadId == post.ThreadId).ToList();
+            var paged = test.ToPagedList(1, user.PostsOnPage);
+            return RedirectToAction("PostThread", new { id = post.ThreadId, page = paged.PageCount });
         }
 
         [Authorize]
@@ -110,8 +126,10 @@ namespace ASPForum.Controllers
 
             db.Entry(post).State = EntityState.Modified;
             db.SaveChanges();
-
-            return RedirectToAction("PostThread", new {id = post.ThreadId});
+            var user = db.Users.Find(post.UserId);
+            var test = db.Posts.Where(t => t.ThreadId == post.ThreadId).ToList();
+            var paged = test.ToPagedList(1, user.PostsOnPage);
+            return RedirectToAction("PostThread", new { id = post.ThreadId, page = paged.PageCount });
         }
 
         [Authorize]
@@ -136,7 +154,7 @@ namespace ASPForum.Controllers
             var post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
-            return RedirectToAction("PostThread", "Posts", new {id = post.ThreadId});
+            return RedirectToAction("PostThread", "Posts", new { id = post.ThreadId });
         }
 
         protected override void Dispose(bool disposing)
@@ -183,7 +201,7 @@ namespace ASPForum.Controllers
             return Content(count.ToString());
         }
 
-        public ActionResult ReportPost(int id)
+        public ActionResult ReportPost(int id, int page)
         {
             var list = new LinkedList<ApplicationUser>();
             var post = db.Posts.Find(id);
@@ -210,13 +228,13 @@ namespace ASPForum.Controllers
                 return HttpNotFound();
             }
 
-            
+
 
             var message = new Message
             {
                 Date = DateTime.Now,
                 Title = "Zgłoszenie postu",
-                Text = "Użytkwonik " + User.Identity.GetUserName()+ " zgłosił post do moderacji. </br> <a href=\"/Posts/PostThread/" + post.ThreadId + "#" + id +"\">Sprawdź szczegóły postu</a>"
+                Text = "Użytkwonik " + User.Identity.GetUserName() + " zgłosił post do moderacji. </br> <a href=\"/Posts/PostThread/" + post.ThreadId + "#" + id + "\">Sprawdź szczegóły postu</a>"
             };
             db.Messeges.Add(message);
             db.SaveChanges();
@@ -231,7 +249,8 @@ namespace ASPForum.Controllers
                 db.MessageUser.Add(mu);
                 db.SaveChanges();
             }
-            return RedirectToAction("PostThread", new {id = post.ThreadId});
+
+            return RedirectToAction("PostThread", new { id = post.ThreadId, page });
         }
 
         public static bool IsUserAdminInThread(string userId, int subjectId)

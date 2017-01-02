@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Mvc;
 using ASPForum.Models;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ASPForum.Controllers
 {
@@ -154,10 +155,21 @@ namespace ASPForum.Controllers
         public ActionResult LastPost(int id)
         {
             var post = db.Posts.Where(t => t.ThreadId == id).OrderByDescending(t => t.Date).FirstOrDefault();
+            var test = db.Posts.Where(t => t.ThreadId == id).ToList();
+            var paged = test.ToPagedList(1, 10);
+            ViewBag.Post = paged.PageCount;
             if (post != null)
                 return PartialView("LastPost", post);
             ViewBag.NoPost = "Brak postów";
             return HttpNotFound("");
+        }
+
+        public static int Pages(int id)
+        {
+            var dbcontext = new ApplicationDbContext();
+            var posts = dbcontext.Posts.Where(x => x.ThreadId == id).ToList();
+            var test = posts.ToPagedList(1, 10);
+            return test.PageCount;
         }
     }
 }

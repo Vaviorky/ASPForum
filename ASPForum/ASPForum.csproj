@@ -77,6 +77,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -233,6 +241,10 @@
     <Compile Include="Migrations\201612291515393_RemoveSourceMessage.Designer.cs">
       <DependentUpon>201612291515393_RemoveSourceMessage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701021953460_PostsOnPage.cs" />
+    <Compile Include="Migrations\201701021953460_PostsOnPage.Designer.cs">
+      <DependentUpon>201701021953460_PostsOnPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -293,6 +305,7 @@
     <Content Include="Content\Images\Ranks\level9.png" />
     <Content Include="Content\Images\Ranks\moderator.png" />
     <Content Include="Content\Images\spanishflag.png" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\tinymce_conf.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -605,6 +618,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612291515393_RemoveSourceMessage.resx">
       <DependentUpon>201612291515393_RemoveSourceMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701021953460_PostsOnPage.resx">
+      <DependentUpon>201701021953460_PostsOnPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\GlobalRes.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

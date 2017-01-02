@@ -376,7 +376,7 @@ namespace ASPForum.Controllers
             return formats.Any(item => file.FileName.EndsWith(item, StringComparison.OrdinalIgnoreCase));
         }
 
-        public static Bitmap ResizeImage(Image image, int width, int height)
+        private static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
@@ -428,11 +428,13 @@ namespace ASPForum.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ChangeDetails(ApplicationUser user)
         {
             var thatuser = db.Users.FirstOrDefault(x => x.Id == user.Id);
             thatuser.UserName = user.UserName;
             thatuser.Email = user.Email;
+            thatuser.PostsOnPage = user.PostsOnPage;
             try
             {
                 db.Entry(thatuser).State = EntityState.Modified;

@@ -124,6 +124,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string All {
+            get {
+                return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
@@ -898,6 +907,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Number of posts on page.
+        /// </summary>
+        public static string NrOfPostsOnPage {
+            get {
+                return ResourceManager.GetString("NrOfPostsOnPage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number of threads.
         /// </summary>
         public static string NrOfThreads {
@@ -912,6 +930,15 @@ namespace ASPForum.Resources {
         public static string NrOfUsers {
             get {
                 return ResourceManager.GetString("NrOfUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string Of {
+            get {
+                return ResourceManager.GetString("Of", resourceCulture);
             }
         }
         
@@ -939,6 +966,15 @@ namespace ASPForum.Resources {
         public static string Options {
             get {
                 return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page.
+        /// </summary>
+        public static string Page {
+            get {
+                return ResourceManager.GetString("Page", resourceCulture);
             }
         }
         
@@ -1101,6 +1137,15 @@ namespace ASPForum.Resources {
         public static string Searching {
             get {
                 return ResourceManager.GetString("Searching", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select.
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

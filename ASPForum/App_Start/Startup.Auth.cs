@@ -29,8 +29,6 @@ namespace ASPForum
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 //after a what period of time of unactive state user will be automatically logout
-                ExpireTimeSpan = TimeSpan.FromMinutes(30),
-                SlidingExpiration = true,
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {

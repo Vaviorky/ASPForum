@@ -25,6 +25,7 @@ namespace ASPForum.Models
         public DateTime RegistrationDate { get; set; }
         public string Privileges { get; set; }
         public bool IfAdminChangedRank { get; set; }
+        public int PostsOnPage { get; set; }
         public virtual ICollection<Moderator> Moderators { get; set; }
         public virtual ICollection<MessageUser> Messages { get; set; }
         public virtual ICollection<Thread> Posts { get; set; }
