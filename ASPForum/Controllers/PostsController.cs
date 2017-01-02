@@ -171,7 +171,13 @@ namespace ASPForum.Controllers
         public ActionResult ReportPost(int id)
         {
             var list = new LinkedList<ApplicationUser>();
-
+            var post = db.Posts.Find(id);
+            var subjectid = post.Thread.SubjectId;
+            var moderators = db.Moderators.Where(x => x.SubjectId == subjectid).ToList();
+            foreach (var moderator in moderators)
+            {
+                list.AddFirst(moderator.User);
+            }
             try
             {
                 var admins = db.Users.ToList();
@@ -189,7 +195,7 @@ namespace ASPForum.Controllers
                 return HttpNotFound();
             }
 
-            var post = db.Posts.Find(id);
+            
 
             var message = new Message
             {

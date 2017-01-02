@@ -20,6 +20,7 @@ namespace ASPForum.Controllers
         public ActionResult Create(string newword)
         {
             var words = ReadTxtFile();
+            if(words.Contains(newword)) return RedirectToAction("Index");
             words.Add(newword);
             ArrayList.Adapter(words).Sort();
             System.IO.File.WriteAllLines(FilePath(), words.Cast<string>());
@@ -35,6 +36,7 @@ namespace ASPForum.Controllers
         public ActionResult Edit(string oldword, string newword)
         {
             var words = ReadTxtFile();
+            if (words.Contains(newword)) return RedirectToAction("Index");
             words.Remove(oldword);
             words.Add(newword);
             ArrayList.Adapter(words).Sort();
