@@ -568,6 +568,7 @@
     <Content Include="Views\Messages\Reply.cshtml" />
     <Content Include="Views\HTMLEditor\Index.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
+    <Content Include="Views\Messages\Sent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

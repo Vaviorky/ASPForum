@@ -50,13 +50,13 @@ namespace ASPForum.Controllers
         public ActionResult UserList()
         {
             var name = Request["FriendName"];
-            var UserList = db.Users.ToList();
+            var userList = db.Users.ToList();
             var searchResult = new List<ApplicationUser>();
 
             if (name != null)
             {
-                UserList.Remove(db.Users.Find(User.Identity.GetUserId()));
-                foreach (var iter in UserList)
+                userList.Remove(db.Users.Find(User.Identity.GetUserId()));
+                foreach (var iter in userList)
                 {
                     if (iter.UserName.ToLower().Contains(name.ToLower()))
                     {
@@ -64,7 +64,6 @@ namespace ASPForum.Controllers
                     }
                 }
             }
-            var ss = UserList.ToString();
             return PartialView("UserList", searchResult);
         }
 
@@ -120,24 +119,26 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Friends friends = db.Friends.Find(id);
+            var friends = db.Friends.Find(id);
             db.Friends.Remove(friends);
             db.SaveChanges();
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("Inbox", "Manage");
         }
         public ActionResult AddFriend(string id)
         {
             var idd = User.Identity.GetUserId();
-            Friends friend = new Friends();
-            friend.User = db.Users.Find(idd);
-            friend.Friend = db.Users.Find(id);
+            var friend = new Friends
+            {
+                User = db.Users.Find(idd),
+                Friend = db.Users.Find(id)
+            };
             if(db.Friends.FirstOrDefault(f=>f.Friend.UserName==friend.Friend.UserName && f.User.UserName == friend.User.UserName) != null)
             {
-                return RedirectToAction("Index", "Manage");
+                return RedirectToAction("Inbox", "Manage");
             }
             db.Friends.Add(friend);
             db.SaveChanges();
-            return RedirectToAction("Index", "Manage");
+            return RedirectToAction("Inbox", "Manage");
         }
         protected override void Dispose(bool disposing)
         {

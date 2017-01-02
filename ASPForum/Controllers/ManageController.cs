@@ -535,23 +535,14 @@ namespace ASPForum.Controllers
         {
             var id = User.Identity.GetUserId();
             var messages = db.MessageUser.Where(mu => mu.SenderId == id).ToList();
-
             var messagessorted = messages.OrderByDescending(m => m.Message.Date);
-            return PartialView("~/Views/Messages/Index.cshtml", messagessorted);
+            return PartialView("~/Views/Messages/Sent.cshtml", messagessorted);
         }
         [Authorize]
         public ActionResult FriendMessages(string id)
         {
-
             var idd = User.Identity.GetUserId();
-            var messageUsers = db.MessageUser.Where(mu => mu.ReceiverId == idd || mu.SenderId == id || mu.ReceiverId == id || mu.SenderId == idd).ToList();
-            var list = new LinkedList<Message>();
-            foreach (var item in messageUsers)
-            {
-                list.AddFirst(db.Messeges.FirstOrDefault(m => m.Id == item.MessageId));
-            }
-            var newlist = list.OrderByDescending(m => m.Date);
-
+            var messageUsers = db.MessageUser.Where(m=>(m.SenderId==idd && m.ReceiverId==id) || (m.SenderId==id && m.ReceiverId==idd)).ToList();
             return PartialView("~/Views/Messages/Index.cshtml", messageUsers);
         }
 

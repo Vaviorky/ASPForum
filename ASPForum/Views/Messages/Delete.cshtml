@@ -1,42 +1,48 @@
 ﻿@using ASPForum.Resources
-@model ASPForum.Models.Message
+@model ASPForum.Models.MessageUser
 
 <h3>@GlobalRes.DoYouWantToDeleteThisMessage</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+    <div class="panel-group title-bar-position" id="accordion">
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        <div class="panel panel-default" style="padding-bottom: 0px;">
+            <div class="panel-body" style="padding-bottom: 0px; padding-top: 0px;">
+                <table width="100%">
+                    <tr>
+                        <td class="col-md-2" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
+                            <img class="avatar" src="@Model.Sender.Avatar" alt="avatar" /><br />
+                            <div style="text-align: center;">@Html.DisplayFor(model => model.Sender.UserName)</div>
+                            @Html.Action("Privillege", "Posts", new { rank = Model.Sender.Rank, userId = Model.SenderId })
+                        </td>
+                        <td class="col-md-10" style="vertical-align: top;">
+                            <div style="font-size: 22px; padding-bottom: 3px; color: lightblue">
+                                <b>@Html.DisplayFor(model => model.Message.Title)</b>
+                            </div>
+                            <div style="font-size: 12px; padding-bottom: 10px;">
+                                <b>Wysłano: </b>@Html.DisplayFor(model => model.Message.Date)
+                            </div>
+                            <div>
+                                @Html.Raw(Model.Message.Text)
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm())
+    @using (Ajax.BeginForm("Delete", "Messages", new AjaxOptions
+    {
+        HttpMethod = "POST",
+        UpdateTargetId = "moj_div",
+        InsertionMode = InsertionMode.Replace
+    }))
     {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="@GlobalRes.Delete" class="btn btn-default" /> |
+            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" />
             @Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
         </div>
     }

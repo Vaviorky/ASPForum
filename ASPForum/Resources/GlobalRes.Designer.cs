@@ -925,6 +925,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rank.
+        /// </summary>
+        public static string Rank {
+            get {
+                return ResourceManager.GetString("Rank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rank points.
         /// </summary>
         public static string RankPoints {

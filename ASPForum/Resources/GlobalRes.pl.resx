@@ -525,4 +525,7 @@
   <data name="DoYouWantToDeleteThisMessage" xml:space="preserve">
     <value>Czy na pewno chcesz usunąć tę wiadomość?</value>
   </data>
+  <data name="Rank" xml:space="preserve">
+    <value>Ranga</value>
+  </data>
 </root>

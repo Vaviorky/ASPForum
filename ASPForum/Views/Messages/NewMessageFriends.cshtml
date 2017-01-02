@@ -3,27 +3,23 @@
 
 
 <script language="JavaScript" type="text/javascript">
-    $(document).ready(function () {
-        $("#dropdown").click(function () {
-            var text = $("#valName").text();
-            var edit = $("#toName").val();
-            console.debug(edit);
-                if (edit === "") {
+        $(document).ready(function() {
+            $(".dropdown-menu").on('click',
+            'li',
+            function() {
+                var selected = $(this).text();
+                console.log(selected);
+                var edit = $("#toName").val();
+                $("#toName").val(selected);
 
-                    $("#toName").val(text);
-
-
-                } else {
-                    $("#toName").val(edit + "," + text);
-                }
-        });
+            });
     });
 
 </script>
 <div class="form-group">
-    @Html.Label(GlobalRes.To, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.Label(GlobalRes.To, new {@class = "control-label col-md-2"})
     <div class="col-md-10">
-        @Html.Editor("toName", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.Editor("toName", new {htmlAttributes = new {@class = "form-control"}})
     </div>
 
     <div class="dropdown col-md-offset-2 col-md-2">
@@ -34,11 +30,8 @@
         <ul class="dropdown-menu">
             @foreach (var item in Model)
             {
-                <li id="dropdown"><p id="valName" style="text-align:center;"> @item.Friend.UserName</p></li>
+                <li id="dropdown"><a href="#">@item.Friend.UserName</a></li>
             }
-
-
         </ul>
     </div>
 </div>
-

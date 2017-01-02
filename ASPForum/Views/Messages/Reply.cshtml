@@ -31,7 +31,7 @@
 <script type="text/javascript">
     function spellchecktinymce() {
         $.get('/Content/forbiddenwords.txt',
-            function(result) {
+            function (result) {
                 var splitfile = result.split(/\r\n/);
                 if (tinymce.editors.length > 0) {
                     var content = tinyMCE.activeEditor.getContent({ format: 'raw' });
@@ -59,15 +59,15 @@
     <div class="form-horizontal">
         <h4>@GlobalRes.SendReplyTo @Model.User.UserName</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.User)
-        @Html.HiddenFor(model => model.User)
+        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.HiddenFor(model => model.User.Id)
+        @Html.HiddenFor(model => model.Message.Title)
 
         <div class="form-group">
 
             <div class="col-md-12">
-                @Html.TextAreaFor(model => model.Message.Text, new { @id = "txtid", @onload = "textareload();" })
-                @Html.ValidationMessageFor(model => model.Message.Text, "", new { @class = "text-danger" })
+                @Html.TextAreaFor(model => model.Message.Text, new {id = "txtid", onload = "textareload();"})
+                @Html.ValidationMessageFor(model => model.Message.Text, "", new {@class = "text-danger"})
             </div>
         </div>
         <h4 id="error" style="color: red"></h4>

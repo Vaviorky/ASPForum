@@ -8,7 +8,7 @@
             <table>
                 <tr>
                     <td>
-                        @GlobalRes.Messages
+                        @GlobalRes.SentMessages
                     </td>
                 </tr>
             </table>
@@ -23,21 +23,22 @@
                     {
                         if (item.Message.IsRead == false)
                         {
-                            <tr id="detailsMessage" class="subject-content" onclick="markAsRead(@item.Message.Id)" style="background-color: darkblue">
+                            <tr id="detailsMessage" class="subject-content" style="background-color: darkblue">
                                 <td class="col-xs-1" )>
                                     <span class="glyphicon glyphicon-envelope"></span>
                                 </td>
                                 <td class="col-xs-9" )>
                                     <div style="color: yellow">
-                                        @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new { id = item.MessageId }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { style = "color: LightGreen; font-weight: bold;" })
+                                        @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {style = "color: LightGreen; font-weight: bold;"})
                                     </div>
                                     <div style="color: yellow">
-                                        @GlobalRes.By: @item.Sender.UserName
+                                        <div style="font-size: 13px;">@GlobalRes.To: @Html.Action("ToWhichUser", "Messages", new { id = item.ReceiverId })</div>
+                                        
                                         <div style="font-size: 12px;">@($"{item.Message.Date:dd/MM/yyyy, hh:mm}")</div>
                                     </div>
                                 </td>
                                 <td class="col-xs-2" )>
-                                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Messages", new { id = item.MessageId }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
+                                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
 
                                 </td>
                             </tr>
@@ -51,15 +52,15 @@
                                 </td>
                                 <td class="col-xs-9" )>
                                     <div>
-                                        @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new { id = item.MessageId }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
+                                        @Ajax.ActionLink(item.Message.Title, "Details", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
                                     </div>
                                     <div>
-                                        <div style="font-size: 13px;">@GlobalRes.By: @item.Sender.UserName</div>
+                                        <div style="font-size: 13px;">@GlobalRes.To: @Html.Action("ToWhichUser", "Messages", new { id = item.ReceiverId })</div>
                                         <div style="font-size: 12px;">@($"{item.Message.Date:dd/MM/yyyy, hh:mm}")</div>
                                     </div>
                                 </td>
                                 <td class="col-xs-2" )>
-                                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Messages", new { id = item.MessageId }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "" })
+                                    @Ajax.ActionLink(GlobalRes.Delete, "Delete", "Messages", new {id = item.MessageId}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET"}, new {@class = ""})
 
                                 </td>
                             </tr>

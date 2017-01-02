@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -36,7 +38,6 @@ namespace ASPForum.Controllers
                 return HttpNotFound();
             return PartialView("Details", messageusers);
         }
-
         // GET: Messages/Create
         public ActionResult Create()
         {
@@ -82,14 +83,19 @@ namespace ASPForum.Controllers
             return PartialView("Create", message);
         }
 
-
         public ActionResult Reply(int id, string user)
         {
             var message = db.Messeges.Find(id);
-            var reply = new Message()
+
+            var reply = new Message();
+            if (message.Title.StartsWith("Re:"))
             {
-                Title = "Re: " + message.Title
-            };
+                reply.Title = message.Title;
+            }
+            else
+            {
+                reply.Title = "Re: " + message.Title;
+            }
             
             var receiver = db.Users.First(x => x.Id == user);
             var msg = new MessageViewModel
@@ -99,13 +105,56 @@ namespace ASPForum.Controllers
             };
             return PartialView("Reply", msg);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ActionName("Reply")]
+        public ActionResult ReplyConfirmed(MessageViewModel msg)
+        {
+            var userId = msg.User.Id;
+            var user = db.Users.Find(userId);
+            msg.User = user;
+            msg.Message.Date = DateTime.Now;
+            db.Messeges.Add(msg.Message);
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Debug.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Debug.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+                            ve.PropertyName,
+                            eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+                            ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
+            db.SaveChanges();
+            var mu = new MessageUser()
+            {
+                MessageId = msg.Message.Id,
+                SenderId = User.Identity.GetUserId(),
+                ReceiverId = msg.User.Id
+            };
+            db.MessageUser.Add(mu);
+            db.SaveChanges();
+
+            return RedirectToAction("SendMessages", "Manage");
+        }
 
         // GET: Messages/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var message = db.Messeges.Find(id);
+            var message = db.MessageUser.FirstOrDefault(x=>x.MessageId==id);
             if (message == null)
                 return HttpNotFound();
             return PartialView(message);
@@ -117,10 +166,10 @@ namespace ASPForum.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var message = db.Messeges.Find(id);
-            db.Messeges.Remove(message);
+            var message = db.MessageUser.FirstOrDefault(x => x.MessageId == id);
+            db.Messeges.Remove(message.Message);
             db.SaveChanges();
-            return PartialView("~/Views/Manage/Inbox.cshtml");
+            return RedirectToAction("Inbox", "Manage");
         }
 
         protected override void Dispose(bool disposing)
@@ -135,6 +184,12 @@ namespace ASPForum.Controllers
             var id = User.Identity.GetUserId();
             var q = db.Friends.Where(f => f.User.Id == id).ToList();
             return PartialView("NewMessageFriends", q);
+        }
+
+        public ActionResult ToWhichUser(string id)
+        {
+            var user = db.Users.Find(id);
+            return Content(user.UserName);
         }
 
         public void IfViewd(int? id)
@@ -183,12 +238,10 @@ namespace ASPForum.Controllers
         public void MarkAsRead(int id)
         {
             var m = db.Messeges.FirstOrDefault(x => x.Id == id);
-            if (m.IsRead == false)
-            {
-                m.IsRead = true;
-                db.Entry(m).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+            if (m.IsRead) return;
+            m.IsRead = true;
+            db.Entry(m).State = EntityState.Modified;
+            db.SaveChanges();
         }
     }
 }

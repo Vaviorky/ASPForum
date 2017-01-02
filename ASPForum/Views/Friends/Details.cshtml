@@ -4,14 +4,13 @@
 <h4>@Model.UserName</h4>
 <div>
    <div class="row">
-       Rank: @Model.Rank
+       @GlobalRes.Rank: @Html.Action("Privillege", "Posts", new { userId = Model.Id })
    </div>
     <div class="row">
-        Zarejestrowany dnia: @Model.RegistrationDate
+        @GlobalRes.RegistrationDate: @Model.RegistrationDate
     </div>
 
-       
-    @Html.ActionLink("Dodaj znajomego","AddFriend","Friends",new {id=Model.Id },new {@class = "btn btn-primary btn-md"  })
-
+    @Ajax.ActionLink(GlobalRes.AddFriend, "AddFriend", "Friends", new {id = Model.Id}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+    
     @Ajax.ActionLink(GlobalRes.BackToList, "FriendsAdd", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
 </div>

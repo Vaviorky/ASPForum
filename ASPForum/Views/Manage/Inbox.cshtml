@@ -11,7 +11,7 @@
         @Ajax.ActionLink(GlobalRes.SentMessages, "SendMessages", "Manage", null, new AjaxOptions { UpdateTargetId = "messages_", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
         @Ajax.ActionLink(GlobalRes.Messages, "PMessage", "Manage", null, new AjaxOptions { UpdateTargetId = "messages_", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
         @Ajax.ActionLink(GlobalRes.AddFriend, "FriendsAdd", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "list-group-item list-group-item-text" })
-        @GlobalRes.Friends
+        <div style="text-align: center">@GlobalRes.Friends</div>
         @Html.Action("PFriends", "Manage")
     </div>
 

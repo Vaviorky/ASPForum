@@ -1,17 +1,17 @@
 ﻿@using ASPForum.Resources
 @model ASPForum.Models.Friends
 
-<h3>@GlobalRes.DoYouWantToRemoveFriend? </h3>
-<h4> @Model.Friend.UserName</h4>
+<h3>@GlobalRes.DoYouWantToRemoveFriend @Model.Friend.UserName?</h3>
 <div>
     <hr />
 
-    @using (Html.BeginForm()) {
+    @using (Ajax.BeginForm("Delete", "Friends", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace }))
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> 
-            @Ajax.ActionLink(GlobalRes.BackToList, "Inbox","Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
+            <input type="submit" value="@GlobalRes.Delete" class="btn btn-danger" />
+            @Ajax.ActionLink(GlobalRes.BackToList, "Inbox", "Manage", null, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-primary btn-md" })
         </div>
     }
 </div>
