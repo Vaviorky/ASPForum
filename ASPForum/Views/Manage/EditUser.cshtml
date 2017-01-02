@@ -34,6 +34,22 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            <span class="control-label col-md-2">@GlobalRes.Legend: </span>
+            <div class="col-md-offset-2 col-md-10">
+                <img src="/Content/Images/Ranks/level1.png"/> 0-25 <br />
+                <img src="/Content/Images/Ranks/level2.png"/> 26-75 <br />
+                <img src="/Content/Images/Ranks/level3.png"/> 76-150 <br />
+                <img src="/Content/Images/Ranks/level4.png"/> 151-250 <br />
+                <img src="/Content/Images/Ranks/level5.png"/> 251-500 <br />
+                <img src="/Content/Images/Ranks/level6.png"/> 501-750 <br />
+                <img src="/Content/Images/Ranks/level7.png"/> 751-1000 <br />
+                <img src="/Content/Images/Ranks/level8.png"/> 1001-1500 <br />
+                <img src="/Content/Images/Ranks/level9.png"/> 1501-2000 <br />
+                <img src="/Content/Images/Ranks/level10.png"/> >2000 <br />
+            </div>
+        </div>
 
         <div class="form-group">
             <span class="control-label col-md-2">@GlobalRes.RankPoints: </span>
@@ -43,11 +59,21 @@
                 @Html.ValidationMessageFor(model => model.Rank, "", new { @class = "text-danger" })
             </div>
         </div>
+        
+        <div class="form-group">
+            <span class="control-label col-md-2">@GlobalRes.DoYouWantToBlockCountPoints? </span>
+            <div class="col-md-10">
+                @GlobalRes.Yes @Html.RadioButtonFor(m => m.IfAdminChangedRank, true, new { @class = "radio-inline" })
+                @GlobalRes.No @Html.RadioButtonFor(m => m.IfAdminChangedRank, false, new { @class = "radio-inline" })
+                @Html.ValidationMessageFor(model => model.IfAdminChangedRank, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="@GlobalRes.Save" class="btn btn-default" />
+                <input type="submit" value="@GlobalRes.Save" class="btn btn-success" />
             </div>
         </div>
+
     </div>
 }

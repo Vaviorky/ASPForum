@@ -537,4 +537,19 @@
   <data name="DoYouWantToAddHimToFriends" xml:space="preserve">
     <value>¿Quieres añadirlo a su lista de amigos</value>
   </data>
+  <data name="Legend" xml:space="preserve">
+    <value>Leyenda</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="BetPosts" xml:space="preserve">
+    <value>mesanjes</value>
+  </data>
+  <data name="DoYouWantToBlockCountPoints" xml:space="preserve">
+    <value>¿Quieres bloquear puntos de recuento</value>
+  </data>
+  <data name="Moderator" xml:space="preserve">
+    <value>Moderador</value>
+  </data>
 </root>

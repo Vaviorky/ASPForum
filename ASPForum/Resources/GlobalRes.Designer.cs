@@ -115,6 +115,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author.
         /// </summary>
         public static string Author {
@@ -174,6 +183,15 @@ namespace ASPForum.Resources {
         public static string Ban {
             get {
                 return ResourceManager.GetString("Ban", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to posts.
+        /// </summary>
+        public static string BetPosts {
+            get {
+                return ResourceManager.GetString("BetPosts", resourceCulture);
             }
         }
         
@@ -444,6 +462,15 @@ namespace ASPForum.Resources {
         public static string DoYouWantToAddHimToFriends {
             get {
                 return ResourceManager.GetString("DoYouWantToAddHimToFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to block counting points.
+        /// </summary>
+        public static string DoYouWantToBlockCountPoints {
+            get {
+                return ResourceManager.GetString("DoYouWantToBlockCountPoints", resourceCulture);
             }
         }
         
@@ -745,6 +772,15 @@ namespace ASPForum.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Legend.
+        /// </summary>
+        public static string Legend {
+            get {
+                return ResourceManager.GetString("Legend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The list of subjects managed by.
         /// </summary>
         public static string ListOfSubjectsManagedByUser {
@@ -786,6 +822,15 @@ namespace ASPForum.Resources {
         public static string Messages {
             get {
                 return ResourceManager.GetString("Messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Moderator.
+        /// </summary>
+        public static string Moderator {
+            get {
+                return ResourceManager.GetString("Moderator", resourceCulture);
             }
         }
         

@@ -507,7 +507,7 @@ namespace ASPForum.Controllers
                 return PartialView("Error");
             }
 
-            return PartialView("UserManagement", db.Users.ToList());
+            return RedirectToAction("ManageUsers");
         }
 
         [Authorize(Roles = "Admin")]

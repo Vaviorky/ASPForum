@@ -14,28 +14,28 @@
         </div>
     </div>
 </div>
-<br />
+<br/>
 <h3>@ViewBag.ThreadTitle</h3>
 <div class="col-md-7">
-    @Html.ActionLink(GlobalRes.CreateNewPost, "Create", "Posts", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary" })
+    @Html.ActionLink(GlobalRes.CreateNewPost, "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary"})
 </div>
 <div class="col-md-5">
     @using (Html.BeginForm("SearchInThread", "Search", FormMethod.Get))
     {
         <div class="col-md-9">
             <div class="form-group" align="right">
-                @Html.Editor("query", new { htmlAttributes = new { @class = "form-control" } })
+                @Html.Editor("query", new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
         @Html.Hidden("threadId", Url.RequestContext.RouteData.Values["id"])
         <div class="col-md-3" align="right">
             <div class="form-group">
-                <input type="submit" class="btn btn-success" value="@GlobalRes.Search" />
+                <input type="submit" class="btn btn-success" value="@GlobalRes.Search"/>
             </div>
         </div>
     }
 </div>
-<br /><br />
+<br/><br/>
 
 @foreach (var item in Model)
 {
@@ -46,16 +46,15 @@
                 <table>
                     @{ ViewBag.Title = GlobalRes.CheckThread + ": " + item.Thread.Title; }
                     <tr>
-                        <td class="col-md-1" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
-                            <img class="avatar" src="@item.User.Avatar" alt="avatar" />
+                        <td class="col-md-1 col-sm-2 col-xs-2" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
+                            <img class="avatar" src="@item.User.Avatar" alt="avatar"/>
                             <div style="text-align: center;">@Html.DisplayFor(modelItem => item.User.UserName)</div>
-                            <img src="@Html.Action("Privillege", "Posts", new {userId = item.UserId})" alt="rank" />
+                            <img src="@Html.Action("Privillege", "Posts", new {userId = item.UserId})" alt="rank"/>
                             <div style="font-size: 12px; text-align: center;">@GlobalRes.Joined: @($"{item.User.RegistrationDate:dd/MM/yyyy}")</div>
-                            <div style="font-size: 12px; text-align: center;">@GlobalRes.NrOfPosts: @Html.Action("PostCount", "Posts", new { id = item.UserId })</div>
-
+                            <div style="font-size: 12px; text-align: center;">@GlobalRes.NrOfPosts: @Html.Action("PostCount", "Posts", new {id = item.UserId})</div>
 
                         </td>
-                        <td class="col-md-11" style="vertical-align: top;">
+                        <td class="col-md-11 col-sm-10 col-xs-10" style="vertical-align: top;">
                             <table width="100%">
                                 <tr>
                                     <td>
@@ -64,13 +63,13 @@
                                     <td>
                                         @if (User.IsInRole("Admin") || PostsController.IsUserAdminInThread(User.Identity.GetUserId(), item.Thread.SubjectId))
                                         {
-                                            <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" }) @Html.ActionLink(GlobalRes.DeletePost, "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm" })</div>
+                                            <div align="right">@Html.ActionLink(GlobalRes.EditPost, "Edit", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"}) @Html.ActionLink(GlobalRes.DeletePost, "Delete", new {id = item.Id}, new {@class = "btn btn-danger btn-sm"})</div>
                                         }
                                         else if (User.Identity.IsAuthenticated)
                                         {
                                             <div align="right">
                                                 <span class="glyphicon glyphicon-warning-sign" style="padding-right: 5px;"></span>
-                                                @Html.ActionLink(GlobalRes.ReportPost, "ReportPost", "Posts", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                                                @Html.ActionLink(GlobalRes.ReportPost, "ReportPost", "Posts", new {id = item.Id}, new {@class = "btn btn-primary btn-sm"})
                                             </div>
                                         }
                                     </td>
@@ -83,6 +82,6 @@
             </div>
         </div>
     </div>
-                        }
-<br />
-@Html.ActionLink(GlobalRes.CreateNewPost, "Create", "Posts", new { id = Url.RequestContext.RouteData.Values["id"] }, new { @class = "btn btn-primary" })
+}
+<br/>
+@Html.ActionLink(GlobalRes.CreateNewPost, "Create", "Posts", new {id = Url.RequestContext.RouteData.Values["id"]}, new {@class = "btn btn-primary"})
