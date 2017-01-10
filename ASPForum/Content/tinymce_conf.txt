@@ -1,2 +1,2 @@
-toolbar1: '| | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist outdent | link image ',
+toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist outdent | link image ',
 toolbar2: 'print | forecolor backcolor emoticons | codesample ',

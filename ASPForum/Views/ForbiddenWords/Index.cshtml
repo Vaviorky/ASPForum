@@ -1,16 +1,18 @@
 ﻿@using ASPForum.Resources
+@using PagedList.Mvc
+@model PagedList.IPagedList<string>
 @if (User.IsInRole("Admin") && Request.IsAuthenticated)
 {
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#addword").click(function() {
+        $(document).ready(function () {
+            $("#addword").click(function () {
                 var word = $('#word').val();
                 if (word !== "") {
                     $.post("ForbiddenWords/Create", { newword: word }, function (data) {
                         $('#moj_div').html(data);
                     });
-                    
-                } 
+
+                }
             });
         })
     </script>
@@ -29,19 +31,30 @@
         <table class="table table-bordered">
             <th class="col-md-5">@GlobalRes.Word</th>
             <th class="col-md-2">@GlobalRes.Action</th>
-            @foreach (var word in ViewBag.Words)
+            @foreach (var word in Model)
             {
                 <tr>
                     <td>
                         @word
                     </td>
                     <td>
-                        @Ajax.ActionLink(GlobalRes.Edit, "Edit", "ForbiddenWords", new { wordstring = word }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
-                        @Ajax.ActionLink(GlobalRes.Delete, "Delete", "ForbiddenWords", new {wordstring = word}, new AjaxOptions {UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "POST"}, new {@class = "btn btn-danger btn-sm"})
+                        @Ajax.ActionLink(GlobalRes.Edit, "Edit", "ForbiddenWords", new { wordstring = word, page = Model.PageNumber}, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "GET" }, new { @class = "btn btn-info btn-sm" })
+                        @Ajax.ActionLink(GlobalRes.Delete, "Delete", "ForbiddenWords", new { wordstring = word, Model.PageNumber }, new AjaxOptions { UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace, HttpMethod = "POST" }, new { @class = "btn btn-danger btn-sm" })
                     </td>
 
                 </tr>
             }
         </table>
+        <div class="col-md-12">
+            @GlobalRes.Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) @GlobalRes.Of @Model.PageCount
+        </div>
+
+        <div class="col-md-12" style="margin-left: -30px">
+            <div class="col-md-4">
+                @Html.PagedListPager(Model, page => Url.Action("Index",
+            new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions{ HttpMethod = "GET", UpdateTargetId = "moj_div", InsertionMode = InsertionMode.Replace }))
+            </div>
+
+        </div>
     </div>
 }

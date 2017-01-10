@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -134,7 +136,20 @@ namespace ASPForum.Controllers
         {
             var post = _db.Posts.Where(t => t.Thread.SubjectId == id).OrderByDescending(t => t.Date).FirstOrDefault();
             var test = _db.Posts.Where(t => t.Thread.SubjectId == id).ToList();
-            var paged = test.ToPagedList(1, 10);
+            var pageSize = 10;
+            try
+            {
+                var userid = User.Identity.GetUserId();
+                var user = _db.Users.Find(userid);
+                if (user.PostsOnPage != 0)
+                    pageSize = user.PostsOnPage;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+           
+            var paged = test.ToPagedList(1, pageSize);
             ViewBag.Page = paged.PageCount;
             if (post != null)
                 return PartialView("LastPost", post);

@@ -27,9 +27,11 @@
                     @{ ViewBag.Title = GlobalRes.CheckThread + ": " + item.Thread.Title; }
                     <tr>
                         <td class="col-md-1" style="border-right: solid 1px black; min-width: 150px; padding-top: 10px; vertical-align: top;">
-                            <img class="avatar" src="@item.User.Avatar"/><br/>
+                            <img class="avatar" src="@item.User.Avatar" alt="avatar" />
                             <div style="text-align: center;">@Html.DisplayFor(modelItem => item.User.UserName)</div>
-                            @Html.Action("Privillege", "Posts", new {userId = item.UserId})
+                            <img src="@Html.Action("Privillege", "Posts", new {userId = item.UserId})" alt="rank" />
+                            <div style="font-size: 12px; text-align: center;">@GlobalRes.Joined: @($"{item.User.RegistrationDate:dd/MM/yyyy}")</div>
+                            <div style="font-size: 12px; text-align: center;">@GlobalRes.NrOfPosts: @Html.Action("PostCount", "Posts", new { id = item.UserId })</div>
 
                         </td>
                         <td class="col-md-11" style="vertical-align: top;">

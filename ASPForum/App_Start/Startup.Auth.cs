@@ -30,6 +30,8 @@ namespace ASPForum
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
                 //after a what period of time of unactive state user will be automatically logout
                 LoginPath = new PathString("/Account/Login"),
+                ExpireTimeSpan = TimeSpan.FromSeconds(59),
+                SlidingExpiration = true,
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.

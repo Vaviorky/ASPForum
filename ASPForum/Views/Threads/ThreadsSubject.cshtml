@@ -52,17 +52,17 @@
             <div class="panel-heading title-bar">
                 <table width="100%">
                     <tr>
-                        <td class="col-md-8">
+                        <td class="col-xs-4 col-sm-4 col-md-8" >
                             @GlobalRes.PinnedThreads
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-xs-2 col-sm-2 col-md-1">
                             @GlobalRes.Replies
 
                         </td>
-                        <td class="col-md-1">
+                        <td class="col-xs-2 col-sm-2 col-md-1">
                             @GlobalRes.Views
                         </td>
-                        <td class="col-md-2">
+                        <td class="col-xs-4 col-sm-4 col-md-2">
                             @GlobalRes.LastPost
                         </td>
                     </tr>
@@ -77,7 +77,7 @@
                         <div class="col-md-12 subject-content">
                             <table width="100%">
                                 <tr>
-                                    <td class="col-xs-8" style="border-right: 1px">
+                                    <td class="col-xs-4 col-sm-4 col-md-8" style="border-right: 1px">
                                         <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                         @if (thread.UserId != null)
                                         {
@@ -86,13 +86,13 @@
                                         }
 
                                     </td>
-                                    <td class="col-xs-1">
+                                    <td class="col-xs-2 col-sm-2 col-md-1">
                                         @Html.Action("PostCount", "Threads", new {id = thread.Id})
                                     </td>
-                                    <td class="col-xs-1">
+                                    <td class="col-xs-2 col-sm-2 col-md-1">
                                         @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                     </td>
-                                    <td class="col-xs-2">
+                                    <td class="col-xs-4 col-sm-4 col-md-2">
                                         @Html.Action("LastPost", "Threads", new {id = thread.Id})
                                         @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                         {
@@ -127,16 +127,16 @@
         <div class="panel-heading title-bar">
             <table width="100%">
                 <tr>
-                    <td class="col-xs-8">
+                    <td class="col-xs-4 col-sm-4 col-md-8">
                         @GlobalRes.Threads
                     </td>
-                    <td class="col-xs-1">
+                    <td class="col-xs-2 col-sm-2 col-md-1">
                         @GlobalRes.Replies
                     </td>
-                    <td class="col-xs-1">
+                    <td class="col-xs-2 col-sm-2 col-md-1">
                         @GlobalRes.Views
                     </td>
-                    <td class="col-xs-2">
+                    <td class="col-xs-4 col-sm-4 col-md-2">
                         @GlobalRes.LastPost
                     </td>
 
@@ -152,7 +152,7 @@
                     <div class="col-md-12 subject-content">
                         <table width="100%">
                             <tr>
-                                <td class="col-xs-8" style="border-right: 1px">
+                                <td class="col-xs-4 col-sm-4 col-md-8" style="border-right: 1px">
                                     <b style="font-size: 19px">@Html.ActionLink(thread.Title, "PostThread", "Posts", new {id = thread.Id}, null)</b><br/>
                                     @if (thread.UserId != null)
                                     {
@@ -161,13 +161,13 @@
                                     }
 
                                 </td>
-                                <td class="col-xs-1">
+                                <td class="col-xs-2 col-sm-2 col-md-1">
                                     @Html.Action("PostCount", "Threads", new {id = thread.Id})
                                 </td>
-                                <td class="col-xs-1">
+                                <td class="col-xs-2 col-sm-2 col-md-1">
                                     @Html.Action("ViewCount", "Threads", new {id = thread.Id})
                                 </td>
-                                <td class="col-xs-2">
+                                <td class="col-xs-4 col-sm-4 col-md-2">
                                     @Html.Action("LastPost", "Threads", new {id = thread.Id, page = ThreadsController.Pages(thread.Id) })
                                     @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
                                     {

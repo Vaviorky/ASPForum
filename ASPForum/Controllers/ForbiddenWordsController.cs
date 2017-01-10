@@ -1,20 +1,40 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
+using ASPForum.Models;
+using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace ASPForum.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ForbiddenWordsController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: ForbiddenWords
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             ViewBag.Words = ReadTxtFile();
-            return PartialView();
+            var pageSize = 10;
+            try
+            {
+                var userid = User.Identity.GetUserId();
+                var user = db.Users.Find(userid);
+                if (user.PostsOnPage != 0)
+                    pageSize = user.PostsOnPage;
+            }
+            catch (Exception)
+            {
+                //
+            }
+            var pageNumber = (page ?? 1);
+            var list = ReadTxtFile().Cast<string>().ToList();
+            var pagedlist = list.ToPagedList(pageNumber, pageSize);
+            return PartialView(pagedlist);
         }
         [HttpPost]
         public ActionResult Create(string newword)
@@ -27,13 +47,14 @@ namespace ASPForum.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Edit(string wordstring)
+        public ActionResult Edit(string wordstring, int? page)
         {
             ViewBag.wordEdit = wordstring;
+            ViewBag.Page = page;
             return PartialView();
         }
         [HttpPost]
-        public ActionResult Edit(string oldword, string newword)
+        public ActionResult Edit(string oldword, string newword, int? page)
         {
             var words = ReadTxtFile();
             if (words.Contains(newword)) return RedirectToAction("Index");
@@ -41,7 +62,7 @@ namespace ASPForum.Controllers
             words.Add(newword);
             ArrayList.Adapter(words).Sort();
             System.IO.File.WriteAllLines(FilePath(), words.Cast<string>());
-            return RedirectToAction("Index");
+            return RedirectToAction("Index",new {page});
         }
 
         [HttpPost]

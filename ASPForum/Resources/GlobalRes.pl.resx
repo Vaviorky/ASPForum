@@ -196,7 +196,7 @@
     <value>Nieprawidłowe rozszerzenie pliku</value>
   </data>
   <data name="IncorrectImageResolution" xml:space="preserve">
-    <value>Nieprawidłowa rozdzielczość obrazka</value>
+    <value>Nieprawidłowa rozdzielczość obrazka. Poprawna rozdzielczość: do 150px na 150px</value>
   </data>
   <data name="LastPost" xml:space="preserve">
     <value>Ostatni post</value>

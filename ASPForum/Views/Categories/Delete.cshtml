@@ -28,7 +28,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            @Ajax.ActionLink(GlobalRes.DeleteCategory, "Delete", "Categories", new {id = Model.Id},
+            @Ajax.ActionLink(GlobalRes.DeleteCategory, "Delete", "Categories", new {id = Model.Id, page=Request.Params["page"]},
                 new AjaxOptions
                 {
                     HttpMethod = "POST",

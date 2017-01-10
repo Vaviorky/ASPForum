@@ -103,7 +103,7 @@ namespace ASPForum.Controllers
 
         [Authorize]
         // GET: Posts/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int?page)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -111,6 +111,7 @@ namespace ASPForum.Controllers
             ViewBag.ThreadId = post.ThreadId;
             ViewBag.Date = post.Date;
             ViewBag.UserId = post.UserId;
+            ViewBag.Page = page;
             return View(post);
         }
 
